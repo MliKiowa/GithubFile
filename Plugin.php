@@ -1,11 +1,11 @@
 <?
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 /**
-* Git图床上新
+* 远去的究竟是什么呢
 *
 * @package GitStatic
 * @author 乔千
-* @version 1.2.0
+* @version 2.0.0
 * @link https://blog.mumuli.cn
 */
 require(__DIR__ . DIRECTORY_SEPARATOR . 'GitHelper.php');
