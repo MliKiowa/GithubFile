@@ -59,12 +59,13 @@ function method_default()
       imagewebp($temp_img,'img/'.$file_name["filename"].".webp");
       imagedestroy($temp_img);
       $file_data=file_get_contents('img/'.$file_name["filename"].".webp");
-     // if(file_exists('img/'.$file_name["filename"].".webp")) //@unlink('img/'.$file_name["filename"].".webp");
-      //if(file_exists( 'img/'.$file_name["basename"])) @unlink( 'img/'.$file_name["basename"]);
+      if(file_exists('img/'.$file_name["filename"].".webp")) @unlink('img/'.$file_name["filename"].".webp");
+      if(file_exists( 'img/'.$file_name["basename"])) @unlink( 'img/'.$file_name["basename"]);
     }else
     {
       $Cache_json=array("webp"=>false);
-      $_path=$GLOBALS["path_url"];     $file_data=file_get_contents($GLOBALS["_config"]["site"].$GLOBALS["_config"]["path"].$GLOBALS["path_url"]);
+      $_path=$GLOBALS["path_url"];   
+        $file_data=file_get_contents($GLOBALS["_config"]["site"].$GLOBALS["_config"]["path"].$GLOBALS["path_url"]);
     }  $result=files_upload($GLOBALS["_config"]["username"],$GLOBALS["_config"]["token"],$GLOBALS["_config"]["repos"],$_path,base64_encode($file_data));
     var_dump($result);
     if(!$result)$result=files_updata($GLOBALS["_config"]["username"],$GLOBALS["_config"]["token"],$GLOBALS["_config"]["repos"],$_path, base64_encode($file_data),get_sha($GLOBALS["_config"]["username"],$GLOBALS["_config"]["repos"],$_path));
