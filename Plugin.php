@@ -1,221 +1,220 @@
-<?
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+<?php
+if ( !defined( '__TYPECHO_ROOT_DIR__' ) ) exit;
 /**
-* 远去的究竟是什么呢
+* 利用Github一键式启用图层插件-感谢@你是年少的欢喜的Debug测试
 *
-* @package GitStatic
+* @package GithubStatic
 * @author 乔千
-* @version 2.0.0
-* @link https://blog.mumuli.cn
+* @version 6.0.0
+* @link https://www.yundreams.cn
 */
-require(__DIR__ . DIRECTORY_SEPARATOR . 'GitHelper.php');
 
-class GitStatic_Plugin implements Typecho_Plugin_Interface
-{
-  const UPLOAD_DIR = '/usr/uploads' ;
-  public static function activate()
-    {
-      Typecho_Plugin::factory('Widget_Upload')->uploadHandle = array('GitStatic_Plugin', 'uploadHandle');
-      Typecho_Plugin::factory('Widget_Upload')->modifyHandle = array('GitStatic_Plugin', 'modifyHandle');
-      Typecho_Plugin::factory('Widget_Upload')->deleteHandle = array('GitStatic_Plugin', 'deleteHandle');
-      Typecho_Plugin::factory('Widget_Upload')->attachmentHandle = array('GitStatic_Plugin', 'attachmentHandle');
-      //Typecho_Plugin::factory('Widget_Upload')->attachmentDataHandle = array('GitStatic_Plugin', 'attachmentDataHandle');
-      //目前开放四个接口
-      return _t("启用成功啦！快先设置下吧。");
+require   dirname( __FILE__ ).'/Helper.php';
+//引入辅助资源
+
+class GithubStatic_Plugin implements Typecho_Plugin_Interface
+ {
+    public static $action = 'GitStatic';
+    public static $auth_server = 'http://dev.yundreams.cn';//此处修改Auth服务器
+    public static function activate()
+ {
+        /**
+        * 判断是否可用HTTP库
+        * 此处说明，并非使用Typecho_Http_Client，由于并未提供PUT等操作弃用 使用Helper.php中辅助函数提供API。
+        */
+        if ( false == Typecho_Http_Client::get() ) {
+            throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持curl!' ) );
+        }
+        Helper::addAction( self::$action, 'GithubStatic_Action' );
+        if ( !file_exists( dirname( __FILE__ ) . '/cache/' ) ) {
+            mkdir( dirname( __FILE__ ) . '/cache/' );
+        }
+        //创建缓存目录，频繁访问可引起github的限制
+        Typecho_Plugin::factory( 'Widget_Upload' )->uploadHandle = array( 'GithubStatic_Plugin', 'uploadHandle' );
+        //修改
+        Typecho_Plugin::factory( 'Widget_Upload' )->modifyHandle = array( 'GithubStatic_Plugin', 'modifyHandle' );
+        //删除
+        Typecho_Plugin::factory( 'Widget_Upload' )->deleteHandle = array( 'GithubStatic_Plugin', 'deleteHandle' );
+        //路径参数处理
+        Typecho_Plugin::factory( 'Widget_Upload' )->attachmentHandle = array( 'GithubStatic_Plugin', 'attachmentHandle' );
+        //文件内容数据
+        Typecho_Plugin::factory( 'Widget_Upload' )->attachmentDataHandle = array( 'GithubStatic_Plugin', 'attachmentDataHandle' );
+        return _t( '可以使用啦~' );
     }
+
     public static function deactivate()
-      {
-        return _t("关闭啦，不能享受加速了唉");
-      }
-      public static function config(Typecho_Widget_Helper_Form $form)
-        {
-          $desc = new Typecho_Widget_Helper_Form_Element_Text('desc', NULL, '', _t('插件使用说明：'),
-          _t('<ol>
- <li>插件可以验证配置的正确性，请确认配置信息正确，否则不能正常使用。<br></li>
-          </ol>'));
- $form->addInput($desc);
+ {
+        return _t( '已经停止啦~' );
+    }
+    public static function personalConfig( Typecho_Widget_Helper_Form $form )
+ {
+    }
+    public static function uploadHandle( $file )
+ {
+        if ( empty( $file['name'] ) ) return false;
+        //获取扩展名
+        $ext = self::getSafeName( $file['name'] );
+        //判定是否是允许的文件类型
+        if ( !Widget_Upload::checkFileType( $ext ) ) return false;
 
-          $token = new Typecho_Widget_Helper_Form_Element_Text('token',
-          null, null,
-          _t('Git仓库token'),
-          _t('请登录Github获取'));
-          $form->addInput($token->addRule('required', _t('token不能为空！')));
+        //获取文件名 如果需要可修改规则
+        //注意流
+        $filePath = date( 'Y' ) . '/' . date( 'm' ) . '/' . date( 'd' ) . '/';
+        $fileName = time() . '.' . $ext;
 
-          $username = new Typecho_Widget_Helper_Form_Element_Text('username',
-          NULL, Null,
-          _t('用户名：'),
-          _t('例如MQiaoqian'));
-          $form->addInput($username->addRule('required', _t('用户名不能为空！')));
+        //上传文件的路径+名称
+        $newPath = $filePath.$fileName;
+        //获取插件参数
+        $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' );
+        //如果没有临时文件，则使用流上传
+        if ( isset( $file['tmp_name'] ) ) {
+            $srcPath = $file['tmp_name'];
+            $handle = fopen( $srcPath, 'r' );
+            $contents = fread( $handle, $file['size'] );
+        } else if ( isset( $file['bytes'] ) ) {
+            $contents = $file['bytes'] ;
+        } else if ( isset( $file['bits'] ) ) {
+            $contents = $file['bits'] ;
+        } else {
+            return false;
+        }
 
-          $repos = new Typecho_Widget_Helper_Form_Element_Text('repos',
-          NULL, Null,
-          _t('仓库名：'),
-          _t('例如MCDN'));
-          $form->addInput($repos->addRule('required', _t('储存桶不能为空！')));
-          echo '<script>
- window.onload = function() 
-            {
-              document.getElementsByName("desc")[0].type = "hidden";
+        if ( !isset( $file['size'] ) ) {
+            $file['size'] = filesize( $file['tmp_name'] );
+            //规避问题
+        }
+
+        //$contents 获取二进制数据流
+        if ( !Github_files_upload( $options->username, $options->token, $options->repo, $options->path.$newPath, $contents ) ) {
+            Github_files_updata( $options->username, $options->token, $options->repo, $options->path.$newPath, $contents, Github_get_sha( $options->username, $options->repo,  substr($options->path,1).$newPath, $options->token ) );
+        }
+        //使用newPath并不连接$options->path URL连接时拼接
+        return array(
+            'name' => $file['name'],
+            'path' => $newPath,
+            'size' => $file['size'],
+            'type' => $ext,
+            'mime' => isset( $file['mime'] ) ? $file['mime'] : Typecho_Common::mimeContentType( $newPath ),
+        );
+    }
+    public static function config( Typecho_Widget_Helper_Form $form )
+ {
+        echo '<a href="'.self::$auth_server.'/auth.php?ver=2&url=';
+        Helper::options()->siteUrl();
+        echo '" >点击获取Token  </a>';
+        //输出Token获取链接
+        echo '<a href="/action/GitStatic?recache=1" >   点击获取刷新缓存</a>';
+
+        $t = new Typecho_Widget_Helper_Form_Element_Text( 'token',
+        null, null,
+        _t( 'Token' ),
+        _t( '请登录Github获取' ) );
+        $form->addInput( $t->addRule( 'required', _t( 'token不能为空哦~' ) ) );
+
+        $t = new Typecho_Widget_Helper_Form_Element_Text( 'username',
+        null, null,
+        _t( '用户名' ),
+        _t( '' ) );
+        $form->addInput( $t->addRule( 'required', _t( '不能为空哦~' ) ) );
+
+        $repos = array();
+        $new_repos = array();
+        //目录存在不一定代表缓存刷新
+        if ( @file_exists( dirname( __FILE__ ).'/cache/repos.json' ) ) {
+            $temp_file = fopen( dirname( __FILE__ ).'/cache/repos.json', 'r' );
+            $repos_json = ( array )json_decode( fread( $temp_file, filesize( dirname( __FILE__ ).'/cache/repos.json' ) ) );
+            fclose( $temp_file );
+            foreach ( $repos_json as $key => $value ) {
+                $new_repos = array_merge( $new_repos, array( $value->name =>$value->name ) );
             }
-            </script>';
- }
-          public static function uploadHandle($file) 
-            { 
-              if (empty($file['name'])) return false;
+        }
 
-              $ext = self::getSafeName($file['name']);
-              //判定是否是允许的文件类型
-              if (!Widget_Upload::checkFileType($ext)) return false;
-              $options = Typecho_Widget::widget('Widget_Options')->plugin('GitStatic');
-              //设置
-              //获取文件名
-              $date = new Typecho_Date($options->gmtTime);
-              $fileDir = self::getUploadDir() . '/' . $date->year . '/' . $date->month;
-              $fileName = sprintf('%u', crc32(uniqid())) . '.' . $ext;
-              $path = $fileDir . '/' . $fileName;
-              //获得上传文件
-              $uploadfile = self::getUploadFile($file);
-              //如果没有临时文件，则退出
-              if (!isset($uploadfile)) {
-                return false;
-              }
-              /* 上传 */
-              //初始化
+        $t = new Typecho_Widget_Helper_Form_Element_Radio(
+            'repo',
+            $new_repos,
+            'blog',
+            _t( '仓库名' ),
+            _t( '' )
+        );
+        $form->addInput( $t );
 
-              try {
-                if (isset($file['tmp_name'])) { 
-                  $result=files_upload($options->username,$options->token,$options->repos,"/".substr($path,1), file_get_contents($uploadfile));
-                }else{
-                  $result=files_upload($options->username,$options->token,$options->repos,"/".substr($path,1),$uploadfile);
-                } 
-                if(!$result)
-                { 
-                  $result=files_updata($options->username,$options->token,$options->repos,"/".substr($path,1), file_get_contents($uploadfile),get_sha($options->username,$options->repos,"/".substr($path,1)));
-                  //尝试更新文件 
-                  if(!$result) {self::checkset();return false;}
-                }
-                // $result = $ossClient->uploadFile($options->bucket, substr($path,1), file_get_contents($uploadfile));
-              } catch (Exception $e) {
-                // print_r($e);
-                return false;
-              }
+        $t = new Typecho_Widget_Helper_Form_Element_Text( 'path',
+        null, '/Githubstatic/',
+        _t( '储存路径' ),
+        _t( '需要以/结束 否则触发NotFound' ) );
+        $form->addInput( $t->addRule( 'required', _t( '不能为空哦~' ) ) );
 
-              if (!isset($file['size'])){
-                //未考虑 $file['size'] = $fileInfo['size_upload'];
-              }
+    }
+    private static function getSafeName( &$name )
+ {
+        $name = str_replace( array( '"', '<', '>' ), '', $name );
+        $name = str_replace( '\\', '/', $name );
+        $name = false === strpos( $name, '/' ) ? ( 'a' . $name ) : str_replace( '/', '/a', $name );
+        $info = pathinfo( $name );
+        $name = substr( $info['basename'], 1 );
+        return isset( $info['extension'] ) ? strtolower( $info['extension'] ) : '';
+    }
 
-              //返回相对存储路径
-              return array(
-              'name' => $file['name'],
-              'path' => $path,
-              'size' => $file['size'],
-              'type' => $ext,
-              'mime' => (isset($file['tmp_name']) ? Typecho_Common::mimeContentType($file['tmp_name']) : $file['mime'])
-              );
-            }
-            private static function getUploadFile($file) {
-                // return isset($file['tmp_name']) ? $file['tmp_name'] : (isset($file['bytes']) ? $file['bytes'] : (isset($file['bits']) ? $file['bits'] : ''));
-                return isset($file['tmp_name']) ? $file['tmp_name'] : (isset($file['bytes']) ? base64_decode($file['bytes']) : (isset($file['bits']) ? $file['bits'] : ''));
-              }
-              public static function personalConfig(Typecho_Widget_Helper_Form $form)
-                {
-                }
+    public static function attachmentDataHandle($content)
+    {
+        //获取设置参数
+        $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' );
+        return   file_get_contents(Typecho_Common::url($content['attachment']->path, 'https://cdn.jsdelivr.net/gh/'. $options->username.'/'.$options->repo.$options->path ));   
+    }
 
-                private static function getSafeName(&$name) {
-                    $name = str_replace(array('"', '<', '>'), '', $name);
-                    $name = str_replace('\\', '/', $name);
-                    $name = false === strpos($name, '/') ? ('a' . $name) : str_replace('/', '/a', $name);
-                    $info = pathinfo($name);
-                    $name = substr($info['basename'], 1);
-                    return isset($info['extension']) ? strtolower($info['extension']) : '';
-                  }
-                  private static function getUploadDir() {
-                      if(defined('__TYPECHO_UPLOAD_DIR__'))
-                      {
-                        return __TYPECHO_UPLOAD_DIR__;
-                      }
-                    else{
-                        return self::UPLOAD_DIR;
-                      }
-                    }
-                    public static function attachmentHandle(array $content) {
+    public static function deleteHandle(array $content)
+    {
+        $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' );
+        $ret = Github_files_del( $options->username, $options->token, $options->repo, $options->path.$content['attachment']->path, Github_get_sha( $options->username, $options->repo, $options->path.$content['attachment']->path, $options->token ) );
+        return $ret;
+    }
+    public static function attachmentHandle( array $content )
+ {
+        $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' );
+        return Typecho_Common::url(  $content['attachment']->path, 'https://cdn.jsdelivr.net/gh/'. $options->username.'/'.$options->repo.$options->path);
+    }
+    public static function modifyHandle( $content, $file )
+ {
+        if ( empty( $file['name'] ) ) return false;
+        //获取扩展名
+        $ext = self::getSafeName( $file['name'] );
+        //判定是否是允许的文件类型
+        if ( !Widget_Upload::checkFileType( $ext ) ) return false;
+        //获取设置参数
+        $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' );
+        //获取文件路径
+        $path = $content['attachment']->path;
+        //获得上传文件
 
-                        //$options = Typecho_Widget::widget('Widget_Options')->plugin('GitStatic');
-                        return Typecho_Common::url($content['attachment']->path, self::getDomain());
-                      }
-                      private static function getDomain() {
-                          $options = Typecho_Widget::widget('Widget_Options')->plugin('GitStatic');
-                          // $domain = 'https://' . $options->bucket . '.' . $options->region . '.aliyuncs.com';
-                          $domain= "https://cdn.jsdelivr.net/gh/".$options->username."/".$options->repos;
-                          return $domain;
-                        }
-                        public static function checkset()
-                          {
-                            //配置可能存在错误
-                            $lockfile = fopen("debug.lock", "w");
-                            fclose($lockfile);
-                          }
-                          public static function deleteHandle(array $content) {
-                              //获取设置参数
-                              $options = Typecho_Widget::widget('Widget_Options')->plugin('GitStatic');
-                              //初始化
-                              try {
-                                $result=files_del($options->username,$options->token,$options->repos,$content['attachment']->path,get_sha($options->username,$options->repos,$content['attachment']->path)); 
-                                if(!$result)return false;
-                              } catch (Exception $e) {
-                                return false;
-                              }
-                              return true;
-                            }
-                            public static function modifyHandle($content, $file) {
-                                if (empty($file['name'])) {
-                                  return false;
-                                }
+        if ( isset( $file['tmp_name'] ) ) {
+            $srcPath = $file['tmp_name'];
+            $handle = fopen( $srcPath, 'r' );
+            $contents = fread( $handle, $file['size'] );
+        } else if ( isset( $file['bytes'] ) ) {
+            $contents = $file['bytes'] ;
+        } else if ( isset( $file['bits'] ) ) {
+            $contents = $file['bits'] ;
+        } else {
+            return false;
+        }
 
-                                //获取扩展名
-                                $ext = self::getSafeName($file['name']);
-                                //判定是否是允许的文件类型
-                                if (!Widget_Upload::checkFileType($ext)) return false;
-                                //获取设置参数
-                                $options = Typecho_Widget::widget('Widget_Options')->plugin('GitStatic');
-                                //获取文件路径
-                                $path = $content['attachment']->path;
-                                //获得上传文件
-                                $uploadfile = self::getUploadFile($file);
-                                //如果没有临时文件，则退出
-                                if (!isset($uploadfile)) {
-                                  return false;
-                                }
+        if ( !isset( $file['size'] ) ) {
+            $file['size'] = filesize( $file['tmp_name'] );
+            //规避问题
+        }
 
-                                /* 上传到 */
-                                //初始化
+        //$contents 获取二进制数据流
+        if ( !Github_files_upload( $options->username, $options->token, $options->repo, ($options->Path).$Path, $contents ) ) {
+            Github_files_updata( $options->username, $options->token, $options->repo, ($options->path).$Path, $contents, Github_get_sha( $options->username, $options->repo, ($options->path).$Path, $options->token ) );
+        }
+        //使用newPath并不连接$options->path URL连接时拼接
+        return array(
+            'name' => $file['name'],
+            'path' => $Path,
+            'size' => $file['size'],
+            'type' => $ext,
+            'mime' => isset( $file['mime'] ) ? $file['mime'] : Typecho_Common::mimeContentType( $Path ),
+        );
 
-                                try {
-                                  if (isset($file['tmp_name'])) {
-                                    $result=files_updata($options->username,$options->token,$options->repos,"/".substr($path,1), file_get_contents($uploadfile),get_sha($options->username,$options->repos,"/".substr($path,1)));
-                                  }else{
-                                    $result=files_updata($options->username,$options->token,$options->repos,"/".substr($path,1), $uploadfile,get_sha($options->username,$options->repos,"/".substr($path,1)));
-
-                                  }
-                                  //尝试更新文件 
-                                  if(!$result) {self::checkset();return false;}
-                                  //$result = $ossClient->uploadFile($options->bucket, substr($path,1), $uploadfile);
-                                } catch (Exception $e) {
-                                  return false;
-                                }
-
-                                if (!isset($file['size'])){
-                                  //$fileInfo = $result['info'];
-                                  //$file['size'] = $fileInfo['size_upload'];未考虑
-                                }
-
-                                //返回相对存储路径
-                                return array(
-                                'name' => $content['attachment']->name,
-                                'path' => $content['attachment']->path,
-                                'size' => $file['size'],
-                                'type' => $content['attachment']->type,
-                                'mime' => (isset($file['tmp_name']) ? Typecho_Common::mimeContentType($file['tmp_name']) : $file['mime'])
-                                );
-                              }
-                            }
+    }
+}
