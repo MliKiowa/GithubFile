@@ -86,7 +86,7 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
 
         //$contents 获取二进制数据流
         if ( !Github_files_upload( $options->username, $options->token, $options->repo, $options->path.$newPath, $contents ) ) {
-            Github_files_updata( $options->username, $options->token, $options->repo, $options->path.$newPath, $contents, Github_get_sha( $options->username, $options->repo,  substr($options->path,1).$newPath, $options->token ) );
+            Github_files_updata( $options->username, $options->token, $options->repo, $options->path.$newPath, $contents, Github_get_sha( $options->username, $options->repo, $options->path.$newPath, $options->token ) );
         }
         //使用newPath并不连接$options->path URL连接时拼接
         return array(
