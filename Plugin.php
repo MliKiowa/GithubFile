@@ -45,8 +45,8 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
 
     public static function deactivate()
  {
-        return _t( '已经停止啦~' );
         Helper::removePanel(1, 'GithubStatic/Debug.php');
+        return _t( '已经停止啦~' );
     }
     public static function personalConfig( Typecho_Widget_Helper_Form $form )
  {
