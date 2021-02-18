@@ -24,7 +24,6 @@ class GithubStatic_Action extends Typecho_Widget implements Widget_Interface_Do
          if(empty($username)){
            //为空为token失效
         }
-        $username=Github_user_login($this->request->from('token')["token"])->login;
         $_options=array("token"=>$this->request->from('token')["token"],"username"=>$username);
 
         $this->_options->username=$username;
