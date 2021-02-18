@@ -22,6 +22,18 @@ function request_api($url, $data=null,$token="",  $method='GET', $header = array
     $header=array_merge($header,$token_array);//合并请求header
     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
     $result = curl_exec($ch);
+    //调试部分 插件所有标准API请求都会通过于此
+    if(file_exists(dirname( __FILE__ )."/cache/debug.lock")){
+      $lockfile = fopen(dirname( __FILE__ )."/cache/debug.lock", "r") or die("Unable to open file!");
+      $locknum=fread($lockfile,filesize(dirname( __FILE__ )."/cache/debug.lock"));
+      fclose($lockfile);
+
+      $debugfile = fopen(dirname( __FILE__ )."/cache/".$locknum.".debug", "a+") or die("Unable to open file!");
+      fwrite($debugfile, "\n--------------------------------------------\n"."url：".$url."\n");
+      fwrite($debugfile, "result".$result."\n--------------------------------------------\n");  
+      fclose($debugfile);
+  }
+    
     curl_close($ch);
     return $result;
     }
@@ -55,8 +67,4 @@ function Github_get_sha($username,$repos,$path,$token){
                     $json=(array)Github_repos_path($username,$repos,$path,$token);
                     return $json["sha"];
                   }
-                  //var_dump(Github_user_login(" f2bf384b91302c4ea6eed5d8ee2ed14543d6e40c"));
-//var_dump(Github_get_sha("YueZhiNai","yun","bash.sh","09bbeb19b801720da0fa4b5507f33cdd6a81c8a0"));         
-//Github_files_del("YueZhiNai","09bbeb19b801720da0fa4b5507f33cdd6a81c8a0","yun","/bash.sh",
-//Github_get_sha("YueZhiNai","yun","/bash.sh","09bbeb19b801720da0fa4b5507f33cdd6a81c8a0"));
  

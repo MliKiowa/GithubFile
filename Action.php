@@ -3,7 +3,6 @@ require dirname(__FILE__)."/Helper.php";
 //引入辅助资源
 class GithubStatic_Action extends Typecho_Widget implements Widget_Interface_Do
 {
-  private $_db;
   private $_options;
   public function action()
     { 
@@ -20,25 +19,25 @@ class GithubStatic_Action extends Typecho_Widget implements Widget_Interface_Do
       fclose($temp_file);
      }
       public function GithubAuth(){
-         $this->init();
-         $result = $this->_db->fetchAll($this->_db->select('value')->from('table.options')->where('name = ?', "plugin:GithubStatic"));        
-         if(!isset($result[0]["value"])) $this->widget('Widget_Notice')->set("数据库错误", 'fail' );
-         $array_options=unserialize($result[0]["value"]);
-         $array_options["token"]=$this->request->from('token')["token"];
+        $this->init();
          $username=Github_user_login($this->request->from('token')["token"])->login;
-         $array_options["username"]= $username;
-         $this->_options->username=$username;
-         $this->_options->token= $array_options["token"];
-         $this->_db->query($this->_db->update('table.options')->rows(array('value'=>serialize($array_options)))->where('name = ?',"plugin:GithubStatic"));
-         $this->widget('Widget_Notice')->set("授权成功啦~", 'sucess' );  //此处暂时存在问题
-         $this->Recache();//主动刷新缓存
-         header('HTTP/1.1 301 Moved Permanently');    //发出301头部
-         header('Location: /admin/options-plugin.php?config=GithubStatic');    //跳转到你希望的地址格式
+         if(empty($username)){
+           //为空为token失效
+        }
+        $username=Github_user_login($this->request->from('token')["token"])->login;
+        $_options=array("token"=>$this->request->from('token')["token"],"username"=>$username);
+
+        $this->_options->username=$username;
+        $this->_options->token=$this->request->from('token')["token"];
+        Helper::configPlugin('GithubStatic', $_options);
+        $this->Recache();//主动刷新缓存
+        header('HTTP/1.1 301 Moved Permanently');    //发出301头部
+        header('Location: /admin/options-plugin.php?config=GithubStatic');    //跳转到你希望的地址格式
          exit;
         }
-      public function init()
+        public function init()
         {
-          $this->_db = Typecho_Db::get();
-         $this->_options = Helper::options()->plugin('GithubStatic');
+          if(!isset($this->_options))$this->_options = Helper::options()->plugin('GithubStatic');
         }
+    
     }

@@ -1,7 +1,7 @@
 <?php
 if ( !defined( '__TYPECHO_ROOT_DIR__' ) ) exit;
 /**
-* 利用Github一键式启用图层插件-感谢@你是年少的欢喜的Debug测试
+* 利用Github一键式启用图床插件-感谢@你是年少的欢喜的Debug测试
 *
 * @package GithubStatic
 * @author 乔千
@@ -25,6 +25,7 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         if ( false == Typecho_Http_Client::get() ) {
             throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持curl!' ) );
         }
+        Helper::addPanel(1, 'GithubStatic/Debug.php', _t("诊断GITHUB"), _t('诊断GITHUB'),'administrator');
         Helper::addAction( self::$action, 'GithubStatic_Action' );
         if ( !file_exists( dirname( __FILE__ ) . '/cache/' ) ) {
             mkdir( dirname( __FILE__ ) . '/cache/' );
@@ -45,6 +46,7 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
     public static function deactivate()
  {
         return _t( '已经停止啦~' );
+        Helper::removePanel(1, 'GithubStatic/Debug.php');
     }
     public static function personalConfig( Typecho_Widget_Helper_Form $form )
  {
@@ -86,7 +88,7 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
 
         //$contents 获取二进制数据流
         if ( !Github_files_upload( $options->username, $options->token, $options->repo, $options->path.$newPath, $contents ) ) {
-            Github_files_updata( $options->username, $options->token, $options->repo, $options->path.$newPath, $contents, Github_get_sha( $options->username, $options->repo, $options->path.$newPath, $options->token ) );
+            Github_files_updata( $options->username, $options->token, $options->repo, $options->path.$newPath, $contents, Github_get_sha( $options->username, $options->repo,  $options->path.$newPath, $options->token ) );
         }
         //使用newPath并不连接$options->path URL连接时拼接
         return array(
@@ -143,6 +145,12 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         _t( '储存路径' ),
         _t( '需要以/结束 否则触发NotFound' ) );
         $form->addInput( $t->addRule( 'required', _t( '不能为空哦~' ) ) );
+
+        $t = new Typecho_Widget_Helper_Form_Element_Radio( 'debug',
+        array(true=>"启用",false=>"关闭"),false,
+        _t( 'Debng Mode' ),
+        _t( '开启后将会启用调试模式' ) );
+        $form->addInput( $t );
 
     }
     private static function getSafeName( &$name )
