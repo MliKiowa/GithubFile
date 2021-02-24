@@ -1,4 +1,4 @@
-# GitStatic
+# GithubStatic
 1.下载插件
 
 2.文件目录更名GithubStatic
