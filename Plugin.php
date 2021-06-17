@@ -1,11 +1,11 @@
 <?php
 if ( !defined( '__TYPECHO_ROOT_DIR__' ) ) exit;
 /**
-* 利用Github一键式启用图床插件-感谢@你是年少的欢喜的Debug测试
+* 利用Github一键式启用附件插件
 *
 * @package GithubStatic
 * @author 乔千
-* @version 6.0.0
+* @version 6.0.2
 * @link https://www.yundreams.cn
 */
 
@@ -14,7 +14,7 @@ require   dirname( __FILE__ ).'/Helper.php';
 
 class GithubStatic_Plugin implements Typecho_Plugin_Interface
  {
-    public static $action = 'GitStatic';
+    public static $action = 'GithubStatic';
     public static $auth_server = 'http://dev.yundreams.cn';//此处修改Auth服务器
     public static function activate()
  {
@@ -25,8 +25,8 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         if ( false == Typecho_Http_Client::get() ) {
             throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持curl!' ) );
         }
-        Helper::addPanel(1, 'GithubStatic/Debug.php', _t("诊断GITHUB"), _t('诊断GITHUB'),'administrator');
-        Helper::addAction( self::$action, 'GithubStatic_Action' );
+        Helper::addPanel(1, 'GithubStatic/Debug.php', _t("Github诊断面板"), _t('Github诊断面板'),'administrator');
+        Helper::addAction(self::$action, 'GithubStatic_Action' );
         if ( !file_exists( dirname( __FILE__ ) . '/cache/' ) ) {
             mkdir( dirname( __FILE__ ) . '/cache/' );
         }
@@ -46,7 +46,7 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
     public static function deactivate()
  {
         Helper::removePanel(1, 'GithubStatic/Debug.php');
-        return _t( '已经停止啦~' );
+        return _t( '已经关闭啦~' );
     }
     public static function personalConfig( Typecho_Widget_Helper_Form $form )
  {
@@ -101,7 +101,7 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
     }
     public static function config( Typecho_Widget_Helper_Form $form )
  {
-        echo '<a href="'.self::$auth_server.'/auth.php?ver=2&url=';
+        echo '<a href="'.self::$auth_server.'/Auth.php?ver=2&url=';
         Helper::options()->siteUrl();
         echo '" >点击获取Token  </a>';
         //输出Token获取链接
@@ -143,7 +143,7 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         $t = new Typecho_Widget_Helper_Form_Element_Text( 'path',
         null, '/Githubstatic/',
         _t( '储存路径' ),
-        _t( '需要以/结束 否则触发NotFound' ) );
+        _t( '需要以/结束 否则触发错误' ) );
         $form->addInput( $t->addRule( 'required', _t( '不能为空哦~' ) ) );
 
         $t = new Typecho_Widget_Helper_Form_Element_Radio( 'debug',
@@ -179,7 +179,7 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
     public static function attachmentHandle( array $content )
  {
         $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' );
-        return Typecho_Common::url(  $content['attachment']->path, 'https://cdn.jsdelivr.net/gh/'. $options->username.'/'.$options->repo.$options->path);
+        return Typecho_Common::url($content['attachment']->path, 'https://cdn.jsdelivr.net/gh/'. $options->username.'/'.$options->repo.$options->path);
     }
     public static function modifyHandle( $content, $file )
  {

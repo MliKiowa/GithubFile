@@ -23,6 +23,7 @@ class GithubStatic_Action extends Typecho_Widget implements Widget_Interface_Do
          $username=Github_user_login($this->request->from('token')["token"])->login;
          if(empty($username)){
            //为空为token失效
+           //应该中断授权
         }
         $_options=array("token"=>$this->request->from('token')["token"],"username"=>$username);
 
@@ -32,7 +33,7 @@ class GithubStatic_Action extends Typecho_Widget implements Widget_Interface_Do
         $this->Recache();//主动刷新缓存
         header('HTTP/1.1 301 Moved Permanently');    //发出301头部
         header('Location: /admin/options-plugin.php?config=GithubStatic');    //跳转到你希望的地址格式
-         exit;
+        exit;
         }
         public function init()
         {
