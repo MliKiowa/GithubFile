@@ -1,4 +1,4 @@
-#GithubStatic
+# GithubStatic
 一款基于github仓库实现附件储存的typecho插件
 
 ![Static’s github stats](https://github-readme-stats.vercel.app/api?username=chaizia&show_icons=true&theme=merko)
