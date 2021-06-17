@@ -29,6 +29,7 @@ function request_curl($url,$data='')
         curl_close($ch);        
         return $html;
 }
+$code=$_GET["code"];
 if($code=="" )
        {
       
