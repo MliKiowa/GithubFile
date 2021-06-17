@@ -1,20 +1,24 @@
 <?
-require dirname(__FILE__)."/Helper.php";
-//引入辅助资源
+/**
+* Action
+*
+* @author : Mlikiowa
+* @time : 2021.6.17
+* @version : 6.0.2
+*/
+require dirname(__FILE__) . "/Helper.php";
 class GithubStatic_Action extends Typecho_Widget implements Widget_Interface_Do
 {
   private $_options;
   public function action()
     { 
-    
-    $this->on($this->request->is('recache=1'))->Recache();        
+      $this->on($this->request->is('do=Recache'))->Recache();        
       $this->on($this->request->is('do=GithubAuth'))->GithubAuth(); 
     }
     public function  Recache(){
-    //刷新缓存
       $this->init();
-      if(file_exists(dirname(__FILE__)."/cache/repos.json"))unlink(dirname(__FILE__)."/cache/repos.json");
-      $temp_file=fopen(dirname(__FILE__)."/cache/repos.json","w+");
+      if(file_exists(dirname(__FILE__) . "/cache/repos.json")) unlink(dirname(__FILE__)."/cache/repos.json");
+      $temp_file = fopen(dirname(__FILE__) . "/cache/repos.json","w+");
       fwrite($temp_file, Github_repos_all($this->_options->username,$this->_options->token));
       fclose($temp_file);
      }

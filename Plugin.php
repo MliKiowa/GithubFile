@@ -1,5 +1,5 @@
 <?php
-if ( !defined( '__TYPECHO_ROOT_DIR__' ) ) exit;
+if(!defined( '__TYPECHO_ROOT_DIR__' )) exit;
 /**
 * 利用Github一键式启用附件插件
 *
@@ -9,9 +9,7 @@ if ( !defined( '__TYPECHO_ROOT_DIR__' ) ) exit;
 * @link https://www.yundreams.cn
 */
 
-require   dirname( __FILE__ ).'/Helper.php';
-//引入辅助资源
-
+require   dirname( __FILE__ ) . '/Helper.php';
 class GithubStatic_Plugin implements Typecho_Plugin_Interface
  {
     public static $action = 'GithubStatic';
@@ -23,14 +21,14 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         * 此处说明，并非使用Typecho_Http_Client，由于并未提供PUT等操作弃用 使用Helper.php中辅助函数提供API。
         */
         if ( false == Typecho_Http_Client::get() ) {
-            throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持curl!' ) );
+            throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持Curl!' ) );
         }
         Helper::addPanel(1, 'GithubStatic/Debug.php', _t("Github诊断面板"), _t('Github诊断面板'),'administrator');
         Helper::addAction(self::$action, 'GithubStatic_Action' );
         if ( !file_exists( dirname( __FILE__ ) . '/cache/' ) ) {
             mkdir( dirname( __FILE__ ) . '/cache/' );
         }
-        //创建缓存目录，频繁访问可引起github的限制
+        //创建缓存
         Typecho_Plugin::factory( 'Widget_Upload' )->uploadHandle = array( 'GithubStatic_Plugin', 'uploadHandle' );
         //修改
         Typecho_Plugin::factory( 'Widget_Upload' )->modifyHandle = array( 'GithubStatic_Plugin', 'modifyHandle' );
@@ -82,8 +80,7 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         }
 
         if ( !isset( $file['size'] ) ) {
-            $file['size'] = filesize( $file['tmp_name'] );
-            //规避问题
+            $file['size'] = filesize( $file['tmp_name'] );           
         }
 
         //$contents 获取二进制数据流
@@ -101,11 +98,10 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
     }
     public static function config( Typecho_Widget_Helper_Form $form )
  {
-        echo '<a href="'.self::$auth_server.'/Auth.php?ver=2&url=';
+        echo '<a href="'.self::$auth_server.'/Auth.php?source_site=';
         Helper::options()->siteUrl();
-        echo '" >点击获取Token  </a>';
-        //输出Token获取链接
-        echo '<a href="/action/GitStatic?recache=1" >   点击获取刷新缓存</a>';
+        echo '" >点击获取Token  </a>';     
+        echo '<a href="/action/GitStatic?do=Recache" >   点击获取刷新缓存</a>';
 
         $t = new Typecho_Widget_Helper_Form_Element_Text( 'token',
         null, null,
@@ -207,8 +203,7 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         }
 
         if ( !isset( $file['size'] ) ) {
-            $file['size'] = filesize( $file['tmp_name'] );
-            //规避问题
+            $file['size'] = filesize( $file['tmp_name'] );           
         }
 
         //$contents 获取二进制数据流
