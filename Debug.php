@@ -46,8 +46,8 @@ function handle_open_close()
     generate_html(false);
 }
 
-function handle_found_exist(){
+function handle_found_exists(){
     generate_html(false);
     generate_html_basic("","admin/extending.php?panel=GithubStatic%2FDebug.php&do=config_inspect","点击寻找配置错误");   
 }
-if(function_exist("handle_" . $_GET["do"])){("handle_" . $_GET["do"])();}else{ handle_found_exist();}
+if(function_exists("handle_" . $_GET["do"]){("handle_" . $_GET["do"])();}else{ handle_found_exists();}
