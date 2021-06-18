@@ -32,6 +32,17 @@ PHP需要扩展：Curl（后期将兼容不支持Curl）
 
 4.关闭相应设置将得到错误信息
 
+#如何搭建授权服务器?
+1.下载Auth.php
+
+2.放置到网站主目录
+
+3.申请github oauth 获取client_id client_secret
+
+4.打开Auth.php修改相应参数 (https_open 在https可开启)
+
+5.到插件设置修改插件的授权服务器
+
 # 反馈
 
 By Mail:946735494@qq.com
