@@ -97,7 +97,7 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
     }
     public static function config( Typecho_Widget_Helper_Form $form )
  {
-        $auth_server = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' )->auth_server
+        $auth_server = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' )->auth_server;
         $auth_server = (isset($auth_server) or !empty($auth_server)) ? $auth_server : "http://dev.yundreams.cn";
         echo '<a href="'.$auth_server.'/Auth.php?source_site=';
         Helper::options()->siteUrl();
