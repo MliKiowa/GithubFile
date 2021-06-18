@@ -1,4 +1,23 @@
 <?
+/**
+* 使用该文件可以调用github api
+*
+* @author : Mlikiowa
+* @time : 2021.6.17
+* @version : 4.0
+*/
+function do_debug($url,$result)
+{
+    if(file_exists(dirname( __FILE__ ) . "/cache/debug.lock")){
+      $file_debug_lock= fopen(dirname( __FILE__ ) . "/cache/debug.lock", "r");
+      $file_lock_num=fread($file_debug_ock,filesize(dirname( __FILE__ )."/cache/debug.lock"));
+      $file_debug_data = fopen(dirname( __FILE__ )."/cache/".$file_lock_num.".debug", "a+");
+      fwrite($file_debug_data, "\n--------------------------------------------\n"."url：".$url."\n");
+      fwrite($file_debug_data, "result".$result."\n--------------------------------------------\n");  
+      fclose($file_debug_data);
+      fclose($file_debug_lock);
+  }
+}
 function request_api($url, $data=null,$token="",  $method='GET', $header = array(""), $https=true, $timeout = 5){
     $method = strtoupper($method);
     $ch = curl_init();
@@ -22,18 +41,8 @@ function request_api($url, $data=null,$token="",  $method='GET', $header = array
     $header=array_merge($header,$token_array);//合并请求header
     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
     $result = curl_exec($ch);
-    //调试部分 插件所有标准API请求都会通过于此
-    if(file_exists(dirname( __FILE__ )."/cache/debug.lock")){
-      $lockfile = fopen(dirname( __FILE__ )."/cache/debug.lock", "r") or die("Unable to open file!");
-      $locknum=fread($lockfile,filesize(dirname( __FILE__ )."/cache/debug.lock"));
-      fclose($lockfile);
-
-      $debugfile = fopen(dirname( __FILE__ )."/cache/".$locknum.".debug", "a+") or die("Unable to open file!");
-      fwrite($debugfile, "\n--------------------------------------------\n"."url：".$url."\n");
-      fwrite($debugfile, "result".$result."\n--------------------------------------------\n");  
-      fclose($debugfile);
-  }
-    
+    //调试部分 插件所有标准API请求都会通过
+    do_debug($url,$result);   
     curl_close($ch);
     return $result;
     }
@@ -67,4 +76,3 @@ function Github_get_sha($username,$repos,$path,$token){
                     $json=(array)Github_repos_path($username,$repos,$path,$token);
                     return $json["sha"];
                   }
- 
