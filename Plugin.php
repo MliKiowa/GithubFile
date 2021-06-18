@@ -18,10 +18,7 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         /**
         * 判断是否可用HTTP库
         * 此处说明，并非使用Typecho_Http_Client，由于并未提供PUT等操作弃用 使用Helper.php中辅助函数提供API。
-        */
-        if ( false == Typecho_Http_Client::get() ) {
-            throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持Curl!' ) );
-        }
+        */      
         Helper::addPanel(1, 'GithubStatic/Debug.php', _t("Github诊断面板"), _t('Github诊断面板'),'administrator');
         Helper::addAction(self::$action, 'GithubStatic_Action' );
         if ( !file_exists( dirname( __FILE__ ) . '/cache/' ) ) {
@@ -97,8 +94,8 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
     }
     public static function config( Typecho_Widget_Helper_Form $form )
  {
-        $auth_server = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' )->auth_server;
-        $auth_server = (isset($auth_server) or !empty($auth_server)) ? $auth_server : "http://dev.yundreams.cn";
+        $_option = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' ); 
+        $auth_server = isset($_option['auth_server'])? $_option['auth_server']:'http://dev.yundreams.cn/';   
         echo '<a href="'.$auth_server.'/Auth.php?source_site=';
         Helper::options()->siteUrl();
         echo '" >点击获取Token  </a>';     
