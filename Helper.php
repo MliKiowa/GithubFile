@@ -47,7 +47,6 @@ function request_api($url, $data=null,$token="",  $method='GET', $header = array
     curl_close($ch);
     return $result;
     }
- function
 function Github_user_info($username,$token) {
   return json_decode(request_api($_api . "/users/".$username,array(),$token)); }
 function Github_user_login($token) {
