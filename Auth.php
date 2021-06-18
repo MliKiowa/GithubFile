@@ -14,13 +14,13 @@ $config = array(
 function request_url($url) 
 {       
         if(function_exists('curl_version'))
-        {
+        {        
         $ch = curl_init(); 
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);   
         $html = curl_exec($ch);
-        curl_close($ch);        
-        return $html;
+        curl_close($ch);               
+        if($html !==false)return $html;
         }
         //暂时通过以下方案解决
         return file_get_contents($url);      
@@ -29,13 +29,18 @@ function generate_html($html_tittle,$redirect_url){return  "<html><head><meta ch
 $github_code = isset($_GET["code"]) ? $_GET["code"] : "";
 if($github_code == "")
 {      
-        $auth_host = isset($_GET["source_site"]) ? parse_url(urldecode($_GET["url"]))["host"] : parse_url($_SERVER['HTTP_REFERER'])["host"];
+        $auth_host = isset($_GET["source_site"]) ? parse_url(urldecode($_GET["source_site"]))["host"] : parse_url($_SERVER['HTTP_REFERER'])["host"];
         setcookie("auth_site", $auth_host, time() + 180);
-        $github_url = "https://github.com/login/oauth/authorize?client_id=". $config -> client_id . "&scope=user%20repo";
+        $github_url = "https://github.com/login/oauth/authorize?client_id=". $config["client_id"]. "&scope=user%20repo";
         echo generate_html("请不要关闭窗口", $github_url);
         exit;
 }   
-$github_url = "https://github.com/login/oauth/access_token?client_id=" . $config -> client_id . "&client_secret=" . $config -> client_secret . "&code=".$github_code;      
-parse_str(parse_url(request_url($github_url))['query'],$auth_result);
-$github_url =  ( $config -> https_open : "https://" ? "http://" ) . $_COOKIE["auth_site"] . "/action/GithubStatic?do=GithubAuth&token=" . $auth_result)["access_token"];
+setcookie("auth_site", "",time()-1);
+$github_url = "https://github.com/login/oauth/access_token?client_id=" . $config["client_id"] . "&client_secret=" . $config["client_secret"] . "&code=".$github_code;      
+parse_str(request_url($github_url),$auth_result);
+$github_url =  ( $config -> https_open ? "https://" : "http://" ) . $_COOKIE["auth_site"] . "/action/GithubStatic?do=GithubAuth&token=" . $auth_result["access_token"];
+if(empty($_COOKIE["auth_site"])){
+echo "<h1>授权成功啦</h2><br>Github Token:<h2>".$auth_result["access_token"]."</h2>";
+}else{
 echo generate_html("授权成功，请不要关闭窗口", $github_url);
+}
