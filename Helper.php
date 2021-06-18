@@ -27,7 +27,7 @@ function request_api($url, $data=null,$token="",  $method='GET', $header = array
         'heade' => 'Authorization: token  '.$token,
         'content' =>$data
          ));
-    $contextstream_context_create($opts);
+    $context=stream_context_create($opts);
     $ret = file_get_contents($url,false,$context);
     return $ret;
       }
