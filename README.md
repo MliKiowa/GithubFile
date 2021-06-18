@@ -1,7 +1,7 @@
 # GithubStatic
 一款基于github仓库实现附件储存的typecho插件
 
-[![](https://img.shields.io/github/license/MliKiowa/MliKiowa)](https://github.com/MliKiowa/MliKiowa/blob/master/LICENSE)
+[![](https://img.shields.io/github/license/MliKiowa/GithubStatic)](https://github.com/MliKiowa/GithubStatic/blob/master/LICENSE)
 # 运行环境
 PHP推荐版本：7.0及其以上
 
