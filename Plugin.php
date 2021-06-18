@@ -146,8 +146,8 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         _t( '开启后将会启用调试模式' ) );
         $form->addInput( $t );
 
-        $t = new Typecho_Widget_Helper_Form_Element_Text( 'auth_sever',
-        null, "http://dev.yundreams.cn"，
+        $t = new Typecho_Widget_Helper_Form_Element_Text( 'auth_server',
+        null, "http://dev.yundreams.cn",
         _t( 'Server' ),
         _t( '填写授权服务器如授权服务器宕机请切换' ) );
         $form->addInput( $t->addRule( 'required', _t( '不能为空哦~' ) ) );
