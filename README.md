@@ -44,7 +44,7 @@ PHP需要扩展：Curl（后期将兼容不支持Curl）
 5.到插件设置修改插件的授权服务器
 
 # 反馈
-By Telegram : [Mlikiowa](t.me/Mlikiowa)
+By Telegram : [Mlikiowa](https://t.me/Mlikiowa)
 
 By Mail : 946735494@qq.com
 
