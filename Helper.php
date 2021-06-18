@@ -41,7 +41,7 @@ function request_api($url, $data=null,$token="",  $method='GET', $header = array
     $header=array_merge($header,$token_array);//合并请求header
     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
     $result = curl_exec($ch);
-    //调试部分 插件所有标准API请求都会通过于此
+    //调试部分 插件所有标准API请求都会通过
     do_debug($url,$result);   
     curl_close($ch);
     return $result;
@@ -76,4 +76,3 @@ function Github_get_sha($username,$repos,$path,$token){
                     $json=(array)Github_repos_path($username,$repos,$path,$token);
                     return $json["sha"];
                   }
- 

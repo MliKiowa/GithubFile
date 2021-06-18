@@ -205,8 +205,6 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         if ( !isset( $file['size'] ) ) {
             $file['size'] = filesize( $file['tmp_name'] );           
         }
-
-        //$contents 获取二进制数据流
         if ( !Github_files_upload( $options->username, $options->token, $options->repo, ($options->Path).$Path, $contents ) ) {
             Github_files_updata( $options->username, $options->token, $options->repo, ($options->path).$Path, $contents, Github_get_sha( $options->username, $options->repo, ($options->path).$Path, $options->token ) );
         }

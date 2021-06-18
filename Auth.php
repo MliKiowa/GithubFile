@@ -37,5 +37,5 @@ if($github_code == "")
 }   
 $github_url = "https://github.com/login/oauth/access_token?client_id=" . $config -> client_id . "&client_secret=" . $config -> client_secret . "&code=".$github_code;      
 parse_str(parse_url(request_url($github_url))['query'],$auth_result);
-$github_url =  ( $config -> https_open : "https://" ? "http://" ) . $_COOKIE["auth_site"] . "/action/GithubStatic?do=GithubAuth&token=" . $result["access_token"];
+$github_url =  ( $config -> https_open : "https://" ? "http://" ) . $_COOKIE["auth_site"] . "/action/GithubStatic?do=GithubAuth&token=" . $auth_result)["access_token"];
 echo generate_html("授权成功，请不要关闭窗口", $github_url);
