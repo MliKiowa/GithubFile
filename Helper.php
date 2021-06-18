@@ -6,7 +6,8 @@
 * @time : 2021.6.17
 * @version : 4.0
 */
-$_api = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' )->api_mirror;
+if (array_key_exists('GithubStatic', Typecho_Plugin::export()['activated'])) 
+{$_api = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' )->api_mirror;}else{$_api = "https://api.github.com";}
 function do_debug($url,$result)
 {
     if(file_exists(dirname( __FILE__ ) . "/cache/debug.lock")){
