@@ -17,7 +17,7 @@ class GithubStatic_Action extends Typecho_Widget implements Widget_Interface_Do
   public function  Recache(){
       $_options = Helper::options()->plugin('GithubStatic');
       $temp_repos = dirname(__FILE__) . "/cache/repos.json";
-      if(file_exists($temp_repos){unlink($temp_repos);}
+      if(file_exists($temp_repos)){unlink($temp_repos);}
       $temp_file = fopen($temp_repos,"w+");
       fwrite($temp_file, Github_repos_all($_options->username,$_options->token));
       fclose($temp_file);
