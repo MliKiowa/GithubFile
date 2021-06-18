@@ -6,6 +6,7 @@
 * @time : 2021.6.17
 * @version : 4.0
 */
+$_api = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' )->api_mirror;
 function do_debug($url,$result)
 {
     if(file_exists(dirname( __FILE__ ) . "/cache/debug.lock")){
@@ -46,31 +47,32 @@ function request_api($url, $data=null,$token="",  $method='GET', $header = array
     curl_close($ch);
     return $result;
     }
+ function
 function Github_user_info($username,$token) {
-  return json_decode(request_api("https://api.github.com/users/".$username,array(),$token)); }
+  return json_decode(request_api($_api . "/users/".$username,array(),$token)); }
 function Github_user_login($token) {
-  return json_decode(request_api("https://api.github.com/user", array(),$token)); }
+  return json_decode(request_api($_api . "/user", array(),$token)); }
 function Github_repos_all($username,$token) {
-  return request_api("https://api.github.com/users/".$username."/repos",array(),$token,"GET"); }
+  return request_api($_api . "/users/".$username."/repos",array(),$token,"GET"); }
 function Github_repos_info($username,$reposname,$token) {
-  return json_decode(request_api("https://api.github.com/repos/".$username."/".$reposname,array(),$token)); }
+  return json_decode(request_api($_api . "/repos/".$username."/".$reposname,array(),$token)); }
 function Github_repos_path($username,$reposname,$path,$token) {
-  return json_decode(request_api("https://api.github.com/repos/".$username."/".$reposname."/contents".$path,array(),$token)); }
+  return json_decode(request_api($_api . "/repos/".$username."/".$reposname."/contents".$path,array(),$token)); }
 function Github_files_upload($username,$token,$repos,$path,$files)
             {
               $data=array("message"=>"upload by GithubStatic","content"=>base64_encode($files));
-              $json=(array)json_decode(request_api("https://api.github.com/repos/".$username."/".$repos."/contents".$path,json_encode($data),$token,"PUT"));
+              $json=(array)json_decode(request_api($_api . "/repos/".$username."/".$repos."/contents".$path,json_encode($data),$token,"PUT"));
               return !isset($json["message"]);
             } 
 function Github_files_updata($username,$token,$repos,$path,$files,$sha)
               {
                 $data=array("message"=>"updata by GithubStatic","content"=>base64_encode($files),"sha"=>$sha);
-                $json=(array)json_decode(request_api("https://api.github.com/repos/".$username."/".$repos."/contents".$path,json_encode($data),$token,"PUT"));
+                $json=(array)json_decode(request_api($_api . "/repos/".$username."/".$repos."/contents".$path,json_encode($data),$token,"PUT"));
                 return !isset($json["message"]);
               }
 function Github_files_del($username,$token,$repos,$path,$sha){
                   $data=array("message"=>"del by GithubStatic","sha"=>$sha);
-                  $json=(array)json_decode(request_api("https://api.github.com/repos/".$username."/".$repos."/contents".$path,json_encode($data),$token,"DELETE"));
+                  $json=(array)json_decode(request_api($_api . "/repos/".$username."/".$repos."/contents".$path,json_encode($data),$token,"DELETE"));
                   return !isset($json["message"]);}
 function Github_get_sha($username,$repos,$path,$token){
                     $json=(array)Github_repos_path($username,$repos,$path,$token);
