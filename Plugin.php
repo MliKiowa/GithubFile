@@ -13,7 +13,6 @@ require   dirname( __FILE__ ) . '/Helper.php';
 class GithubStatic_Plugin implements Typecho_Plugin_Interface
  {
     public static $action = 'GithubStatic';
-    public static $auth_server = 'http://dev.yundreams.cn';//此处修改Auth服务器
     public static function activate()
  {
         /**
@@ -98,10 +97,13 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
     }
     public static function config( Typecho_Widget_Helper_Form $form )
  {
-        echo '<a href="'.self::$auth_server.'/Auth.php?source_site=';
+        $auth_server = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubStatic' )->auth_server
+        $auth_server = (isset($auth_server) or !empty($auth_server)) ? $auth_server : "http://dev.yundreams.cn";
+        echo '<a href="'.$auth_server.'/Auth.php?source_site=';
         Helper::options()->siteUrl();
         echo '" >点击获取Token  </a>';     
         echo '<a href="/action/GitStatic?do=Recache" >   点击获取刷新缓存</a>';
+             
 
         $t = new Typecho_Widget_Helper_Form_Element_Text( 'token',
         null, null,
@@ -147,6 +149,19 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         _t( 'Debng Mode' ),
         _t( '开启后将会启用调试模式' ) );
         $form->addInput( $t );
+
+        $t = new Typecho_Widget_Helper_Form_Element_Text( 'auth_sever',
+        null, "http://dev.yundreams.cn"，
+        _t( 'Server' ),
+        _t( '填写授权服务器如授权服务器宕机请切换' ) );
+        $form->addInput( $t->addRule( 'required', _t( '不能为空哦~' ) ) );
+
+       $t = new Typecho_Widget_Helper_Form_Element_Text( 'api_mirror',
+        null, "https://api.github.com",
+        _t( 'API_Mirror' ),
+        _t( '可加速API操作如请默认' ) );
+        $form->addInput( $t->addRule( 'required', _t( '不能为空哦~' ) ) );
+
 
     }
     private static function getSafeName( &$name )
