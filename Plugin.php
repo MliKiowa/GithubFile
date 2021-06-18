@@ -16,9 +16,9 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
     public static function activate()
  {
         /**
-        * 判断是否可用HTTP库
+        * 判断是否可用HTTP库 Curl库
         * 此处说明，并非使用Typecho_Http_Client，由于并未提供PUT等操作弃用 使用Helper.php中辅助函数提供API。
-        */        
+        */       
         Helper::addPanel(1, 'GithubStatic/Debug.php', _t("Github诊断面板"), _t('Github诊断面板'),'administrator');
         Helper::addAction(self::$action, 'GithubStatic_Action' );
         if ( !file_exists( dirname( __FILE__ ) . '/cache/' ) ) {
@@ -52,7 +52,6 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         $ext = self::getSafeName( $file['name'] );
         //判定是否是允许的文件类型
         if ( !Widget_Upload::checkFileType( $ext ) ) return false;
-
         //获取文件名 如果需要可修改规则
         //注意流
         $filePath = date( 'Y' ) . '/' . date( 'm' ) . '/' . date( 'd' ) . '/';
