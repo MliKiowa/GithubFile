@@ -51,4 +51,4 @@ function handle_found_exists(){
     generate_html_basic("","admin/extending.php?panel=GithubStatic%2FDebug.php&do=config_inspect","点击寻找配置错误");   
 }
 $do_fun = "handle_" . $_GET["do"];
-if(function_exists($do_fun){$do_fun();}else{ handle_found_exists();}
+if(function_exists($do_fun)){$do_fun();}else{ handle_found_exists();}
