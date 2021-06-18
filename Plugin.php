@@ -18,7 +18,7 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         /**
         * 判断是否可用HTTP库
         * 此处说明，并非使用Typecho_Http_Client，由于并未提供PUT等操作弃用 使用Helper.php中辅助函数提供API。
-        */
+        */        
         Helper::addPanel(1, 'GithubStatic/Debug.php', _t("Github诊断面板"), _t('Github诊断面板'),'administrator');
         Helper::addAction(self::$action, 'GithubStatic_Action' );
         if ( !file_exists( dirname( __FILE__ ) . '/cache/' ) ) {
@@ -93,14 +93,12 @@ class GithubStatic_Plugin implements Typecho_Plugin_Interface
         );
     }
     public static function config( Typecho_Widget_Helper_Form $form )
- {
-     echo  "<script>var link=document.getElementById(\"auth_to\");link.href=document.getElementById(\"element\").value";
-echo '+"/Auth.php?source_site=';
-Helper::options()->siteUrl();
-echo "\";</script> ";   
-        echo '<a id="auth_to" href="';
-        echo '#" >点击获取Token  </a>';     
-        echo '<a id href="/action/GitStatic?do=Recache" >   点击获取刷新缓存</a>';
+ {      
+        $auth_server = "http://dev.yundreams.cn";
+        echo '<a href="'.$auth_server.'/Auth.php?source_site=';
+        Helper::options()->siteUrl();
+        echo '" >点击获取Token  </a>';     
+        echo '<a href="/action/GitStatic?do=Recache" >   点击获取刷新缓存</a>';
              
 
         $t = new Typecho_Widget_Helper_Form_Element_Text( 'token',
@@ -149,7 +147,7 @@ echo "\";</script> ";
         $form->addInput( $t );
 
         $t = new Typecho_Widget_Helper_Form_Element_Text( 'auth_sever',
-        null, "http://dev.yundreams.cn",
+        null, "http://dev.yundreams.cn"，
         _t( 'Server' ),
         _t( '填写授权服务器如授权服务器宕机请切换' ) );
         $form->addInput( $t->addRule( 'required', _t( '不能为空哦~' ) ) );
@@ -162,7 +160,7 @@ echo "\";</script> ";
 
 
     }
-    public static function getSafeName( &$name )
+    private static function getSafeName( &$name )
  {
         $name = str_replace( array( '"', '<', '>' ), '', $name );
         $name = str_replace( '\\', '/', $name );
