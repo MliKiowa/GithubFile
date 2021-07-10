@@ -1,3 +1,4 @@
+<?php
 class GithubApi{
 private $_token;
 public function set_token($token)
