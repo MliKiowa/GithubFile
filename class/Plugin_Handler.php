@@ -1,5 +1,5 @@
 <?php
-require_once "class/GithubApi.php";	 
+require_once "GithubApi.php";	 
 require_once "../func/Helper.php";	 
 $api = new GithubApi();	
 $result = $api->set_api(_Get_config("mirror","https://api.github.com"));
