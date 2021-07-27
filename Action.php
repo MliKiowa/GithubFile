@@ -9,7 +9,7 @@
 //一处严重逻辑漏洞 未判断权限
 defined("_TMP_PATH") or define("_TMP_PATH",dirname( __FILE__ ) . '/tmp');
 defined("_Cache_PATH") or define("_Cache_PATH",dirname( __FILE__ ) . '/cache');
-
+require_once "class/GithubApi.php";	 
 require_once dirname(__FILE__) . "/Helper.php";
 class GithubStatic_Action extends Typecho_Widget implements Widget_Interface_Do
 {
@@ -24,8 +24,12 @@ class GithubStatic_Action extends Typecho_Widget implements Widget_Interface_Do
      $_options=empty($login_config)?Helper::options()->plugin('GithubFile"):$login_config;     
       $file_repos = _TMP_PATH . "/repos.json";
       if(file_exists($file_repos)){unlink($file_repos);}
-      $file_repos = fopen($file_repos,"w+");
-      fwrite($file_repos, Github_repos_all($_options->username,$_options->token));
+      $file_repos = fopen($file_repos,"w+");      
+      $api = new GithubApi();	
+      $result = $api->set_api(_Get_config("mirror","https://api.github.com"));
+      $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubFile' );
+      $api->set_token($options->token);  
+      fwrite($file_repos, $api->repos_all($_options->username));
       fclose($file_repos);
       header('HTTP/1.1 301 Moved Permanently'); 
       header('Location: /admin/options-plugin.php?config=GithubFile');  
