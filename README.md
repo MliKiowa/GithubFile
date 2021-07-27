@@ -1,6 +1,8 @@
 # GithubStatic
 一款基于github仓库实现附件储存的typecho插件
+
 各位这个插件估计还得改几次才能正常使用
+
 服务器我一个人维护太困难了 如果能够提供支持不甚感谢
 
 [![](https://img.shields.io/github/license/MliKiowa/GithubFile)](https://github.com/MliKiowa/GithubFile/blob/master/LICENSE)
