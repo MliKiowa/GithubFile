@@ -26,9 +26,8 @@ class GithubStatic_Action extends Typecho_Widget implements Widget_Interface_Do
       if(file_exists($file_repos)){unlink($file_repos);}
       $file_repos = fopen($file_repos,"w+");      
       $api = new GithubApi();	
-      $result = $api->set_api(_Get_config("mirror","https://api.github.com"));
-      $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubFile' );
-      $api->set_token($options->token);  
+      $api->set_api(_Get_config("mirror","https://api.github.com"));
+      $api->set_token($_options->token);  
       fwrite($file_repos, $api->repos_all($_options->username));
       fclose($file_repos);
       header('HTTP/1.1 301 Moved Permanently'); 
