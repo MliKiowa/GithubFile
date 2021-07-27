@@ -30,7 +30,7 @@ class GithubStatic_Action extends Typecho_Widget implements Widget_Interface_Do
       $api->set_token($_options->token);  
       fwrite($file_repos, $api->repos_all($_options->username));
       fclose($file_repos);
-      header('HTTP/1.1 301 Moved Permanently'); 
+      header("HTTP/1.1 301 Moved Permanently");
       header('Location: /admin/options-plugin.php?config=GithubFile');  
       exit;
      }
