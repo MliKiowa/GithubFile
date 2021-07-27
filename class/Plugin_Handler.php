@@ -1,13 +1,13 @@
 <?php
 require_once "GithubApi.php";	 
-require_once "../func/Helper.php";	 
+require_once dirname(dirname(__FILE__))."/func/Helper.php";	 
 $api = new GithubApi();	
 $result = $api->set_api(_Get_config("mirror","https://api.github.com"));
-$options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubFile' );
-$api->set_token($options->token);  
+$api->set_token(_Get_config("token",""));  
 class _Plugin_Handler{
 public static function uploadHandle( $file )
  {
+       $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubFile' );
         if ( empty( $file['name'] ) ) return false;
         //获取扩展名
         $ext = self::getSafeName( $file['name'] );
@@ -63,21 +63,25 @@ public static function uploadHandle( $file )
 
     public static function attachmentDataHandle($content)
     {
+    $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubFile' );
         //获取设置参数
         return   Typecho_Common::url($content['attachment']->path, _Get_config("cdn","https://cdn.jsdelivr.net/gh/"). $options->username.'/'.$options->repo.$options->path );   
     }
 
     public static function deleteHandle(array $content)
     {
+    $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubFile' );
               $ret =  $api->files_del( $options->username, $options->token, $options->repo, $options->path.$content['attachment']->path,  $api->get_sha( $options->username, $options->repo, $options->path.$content['attachment']->path ) );
         return $ret;
     }
     public static function attachmentHandle( array $content )
  {
+ $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubFile' );
            return Typecho_Common::url($content['attachment']->path, _Get_config("cdn","https://cdn.jsdelivr.net/gh/"). $options->username.'/'.$options->repo.$options->path);
     }
     public static function modifyHandle( $content, $file )
  {
+ $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubFile' );
         if ( empty( $file['name'] ) ) return false;
         //获取扩展名
         $ext = self::getSafeName( $file['name'] );
