@@ -1,7 +1,7 @@
 <?php
 function _Get_config($name,$default){
          $_db = Typecho_Db::get();
-         $result = $_db->fetchAll($this->_db->select('value')->from('table.options')->where('name = ?', "plugin:GithubFile"));        
+         $result = $_db->fetchAll($_db->select('value')->from('table.options')->where('name = ?', "plugin:GithubFile"));        
          if(!isset($result[0]["value"])){return "";}
          $_options=unserialize($result[0]["value"]);
          return (isset($_options[$name])?$_options[$name]:$default);        
