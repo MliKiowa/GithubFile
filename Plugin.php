@@ -59,7 +59,7 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface
     
     public static function config( Typecho_Widget_Helper_Form $form )
  {      
-        $_Server = _Get_config("server","http://dev.yundreams.cn");
+        $_Server = _Get_config("server","http://gitauth.moennar.cn");
         echo '<a href="'.$_Server.'/auth.php?source_site=';
         Helper::options()->siteUrl();
         echo '" >点击获取Token  </a>';     
@@ -100,7 +100,7 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface
         $form->addInput( $t );
          */
         $t = new Typecho_Widget_Helper_Form_Element_Text( 'server',
-        null, "http://dev.yundreams.cn",
+        null, "http://gitauth.moennar.cn",
         _t( 'Server' ),
         _t( '填写授权服务器 如授权失败请及时到Github获取' ) );
         $form->addInput( $t->addRule( 'required', _t( '不能哦~' ) ) );
