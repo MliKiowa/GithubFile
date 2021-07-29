@@ -1,9 +1,6 @@
 <?php
-require_once "GithubApi.php";	 
-require_once dirname(dirname(__FILE__))."/func/Helper.php";	 
-$api = new GithubApi();	
-$result = $api->set_api(_Get_config("mirror","https://api.github.com"));
-$api->set_token(_Get_config("token",""));  
+require_once dirname(dirname(__FILE__))."/func/Helper.php";	
+require_once "GithubApi.php";	
 class _Plugin_Handler{
 public static function uploadHandle( $file )
  {
@@ -37,7 +34,9 @@ public static function uploadHandle( $file )
         if ( !isset( $file['size'] ) ) {
             $file['size'] = filesize( $file['tmp_name'] );           
         }
-
+       $api = new GithubApi();
+       $result = $api->set_api(_Get_config("mirror","https://api.github.com"));
+       $api->set_token(_Get_config("token",""));  
         //$contents 获取二进制数据流
         if ( !$api->files_upload( $options->username, $options->repo, $options->path.$newPath, $contents ) ) {
             $api->files_updata( $options->username, $options->repo, $options->path.$newPath, $contents,  $api->get_sha( $options->username, $options->repo,  $options->path.$newPath) );
@@ -71,7 +70,10 @@ public static function uploadHandle( $file )
     public static function deleteHandle(array $content)
     {
     $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubFile' );
-              $ret =  $api->files_del( $options->username, $options->token, $options->repo, $options->path.$content['attachment']->path,  $api->get_sha( $options->username, $options->repo, $options->path.$content['attachment']->path ) );
+    $api = new GithubApi();
+    $result = $api->set_api(_Get_config("mirror","https://api.github.com"));
+    $api->set_token(_Get_config("token",""));  
+    $ret =  $api->files_del( $options->username, $options->token, $options->repo, $options->path.$content['attachment']->path,  $api->get_sha( $options->username, $options->repo, $options->path.$content['attachment']->path ) );
         return $ret;
     }
     public static function attachmentHandle( array $content )
@@ -109,6 +111,9 @@ public static function uploadHandle( $file )
             $file['size'] = filesize( $file['tmp_name'] );           
         }
         //$contents 获取二进制数据流
+        $api = new GithubApi();
+        $result = $api->set_api(_Get_config("mirror","https://api.github.com"));
+        $api->set_token(_Get_config("token",""));  
         if ( !$api->files_upload( $options->username, $options->repo, $options->path.$newPath, $contents ) ) {
             $api->files_updata( $options->username, $options->repo, $options->path.$newPath, $contents,  $api->get_sha( $options->username, $options->repo,  $options->path.$newPath) );
         }
