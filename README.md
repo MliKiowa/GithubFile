@@ -10,7 +10,7 @@
 # 运行环境
 PHP推荐版本：7.0及其以上
 
-PHP需要扩展：Curl（后期将兼容不支持Curl）
+PHP需要扩展：Curl or Socket
 
 操作系统:Linux
 
@@ -39,9 +39,12 @@ PHP需要扩展：Curl（后期将兼容不支持Curl）
 4.打开Auth.php修改相应参数 (https_open 在https可开启)
 
 5.到插件设置修改插件的授权服务器
-
+# 例图
+![](https://ftp.bmp.ovh/imgs/2021/07/60dcee304550cc59.jpg)
 # 反馈
 推荐开issue 这样比较能让我舒适
+
+QGroup 加入群聊[【雪风的茶楼】](https://jq.qq.com/?_wv=1027&k=rua8g2lN)
 
 By Telegram : [Mlikiowa](https://t.me/Mlikiowa)
 
