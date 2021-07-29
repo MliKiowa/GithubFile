@@ -24,7 +24,7 @@ if($_code == "")
         exit;
 }   
 setcookie("auth_site", "",time()-1);
-$github_url = "https://github.com/login/oauth/access_token?client_id=" . $config["client_id"] . "&client_secret=" . $config["client_secret"] . "&code=".$github_code;      
+$github_url = "https://github.com/login/oauth/access_token?client_id=" . $config["client_id"] . "&client_secret=" . $config["client_secret"] . "&code=".$_code;      
 $http=_Http_Client::get();
 $http->setMethod("GET");   
 parse_str( $http->send($github_url),$auth_result);

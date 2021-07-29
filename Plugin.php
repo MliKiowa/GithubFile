@@ -14,7 +14,6 @@ require_once "func/Helper.php";
 require_once "class/Plugin_Handler.php";
 class GithubFile_Plugin implements Typecho_Plugin_Interface
  {
- public static $action = 'GithubFile';
     public static function activate()
  {
         /**
@@ -22,10 +21,10 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface
         * 此处说明，并非使用Typecho_Http_Client，由于并未提供PUT等操作弃用 使用从Typecho抽离修改的库提供支持
         */ 
         if ( false == Typecho_Http_Client::get() ) {
-         throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持curl!' ) );
+        //感觉此处检测有误
+        // throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持curl!' ) );
         }
-        Helper::addAction(self::$action, 'GithubFile_Action' );
-     
+        Helper::addAction('GithubFile', 'GithubFile_Action');  
         if ( !file_exists( dirname( __FILE__ ) . '/tmp/' ) ) {
             mkdir( dirname( __FILE__ ) . '/tmp/' );
         }       
@@ -50,7 +49,7 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface
 
     public static function deactivate()
  {
-        Helper::removeRoute(self::$action);
+        Helper::removeAction("HiGithub");
         return _t( '已经关闭啦~' );
     }
     public static function personalConfig( Typecho_Widget_Helper_Form $form )
@@ -58,12 +57,12 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface
     }
     
     public static function config( Typecho_Widget_Helper_Form $form )
- {      
+ {     
         $_Server = _Get_config("server","http://gitauth.moennar.cn");
         echo '<a href="'.$_Server.'/auth.php?source_site=';
         Helper::options()->siteUrl();
         echo '" >点击获取Token  </a>';     
-        echo '<a href="/action/GithubFile?do=recache" >   点击获取刷新缓存</a>';
+        echo '<a href="/action/GithubFile?do=Recache" >   点击获取刷新缓存</a>';
              
 
         $t = new Typecho_Widget_Helper_Form_Element_Text( 'token',
