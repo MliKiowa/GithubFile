@@ -1,5 +1,5 @@
 <?php
-require_once "Http/Client.php";
+require_once dirname(__FILE__)."/HTTP/Client.php";
 class GithubApi{
 private $_token;
 private $_api;
