@@ -1,7 +1,7 @@
 # GithubStatic
 一款基于github仓库实现附件储存的typecho插件
 
-各位这个插件估计还得改几次才能正常使用
+最近更新:从8.0.0更新到了1.0.2 船新版本
 
 服务器我一个人维护太困难了 如果能够提供支持不甚感谢
 
@@ -42,8 +42,7 @@ PHP需要扩展：Curl or Socket
 # 例图
 ![](https://ftp.bmp.ovh/imgs/2021/07/60dcee304550cc59.jpg)
 # 反馈
-推荐开issue 这样比较能让我舒适
-
+快进来玩
 QGroup 加入群聊[【雪风的茶楼】](https://jq.qq.com/?_wv=1027&k=rua8g2lN)
 
 By Telegram : [Mlikiowa](https://t.me/Mlikiowa)
