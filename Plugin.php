@@ -8,9 +8,9 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  * @version 1.0.2
  * @link https://hub.fastgit.org/MliKiowa/GithubFile
  */
-defined("_TMP_PATH") or define("_TMP_PATH", dirname(__FILE__) . '/tmp');
-defined("_Cache_PATH") or define("_Cache_PATH", dirname(__FILE__) . '/cache');
-require_once "func/Helper.php";
+defined('_TMP_PATH') or define('_TMP_PATH', dirname(__FILE__) . '/tmp');
+defined('_Cache_PATH') or define('_Cache_PATH', dirname(__FILE__) . '/cache');
+require_once 'func/Helper.php';
 require_once 'class/Plugin_Handler.php';
 class GithubFile_Plugin implements Typecho_Plugin_Interface {
     public static function _handler() {
@@ -18,7 +18,7 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface {
         unset($array[0]);
         $func = $array[2]['function'];
         $arg = func_get_args();
-        if ($func == "modifyHandle") {
+        if ($func == 'modifyHandle') {
             return Plugin_Handler::$func($arg[0], $arg[1]);
         } else {
             return Plugin_Handler::$func($arg[0]);
@@ -60,13 +60,13 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface {
         return _t('可以使用啦~');
     }
     public static function deactivate() {
-        Helper::removeAction("GithubFile");
+        Helper::removeAction('GithubFile');
         return _t('已经关闭啦~');
     }
     public static function personalConfig(Typecho_Widget_Helper_Form $form) {
     }
     public static function config(Typecho_Widget_Helper_Form $form) {
-        $_Server = _Get_config("server", "http://gitauth.moennar.cn");
+        $_Server = _Get_config('server', 'http://gitauth.moennar.cn');
         echo '<a href="' . $_Server . '/auth.php?source_site=';
         Helper::options()->siteUrl();
         echo '" >点击获取Token  </a>';
@@ -80,16 +80,16 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface {
         $t = new Typecho_Widget_Helper_Form_Element_Text('path', null, '/GithubFile/', _t('储存路径'), _t('需要以/结束 否则触发错误'));
         $form->addInput($t->addRule('required', _t('不能哦~')));
         /*$t = new Typecho_Widget_Helper_Form_Element_Radio( 'debug',
-        array(true=>"启用",false=>"关闭"),false,
+        array(true=>'启用',false=>'关闭'),false,
         _t( 'Debng Mode' ),
         _t( '开启后将会启用调试模式' ) );
         $form->addInput( $t );
         */
-        $t = new Typecho_Widget_Helper_Form_Element_Text('server', null, "http://gitauth.moennar.cn", _t('Server'), _t('填写授权服务器 如授权失败请及时到Github获取'));
+        $t = new Typecho_Widget_Helper_Form_Element_Text('server', null, 'http://gitauth.moennar.cn', _t('Server'), _t('填写授权服务器 如授权失败请及时到Github获取'));
         $form->addInput($t->addRule('required', _t('不能哦~')));
-        $t = new Typecho_Widget_Helper_Form_Element_Text('mirror', null, "https://api.github.com", _t('API_Mirror'), _t('加速API提供Mirror'));
+        $t = new Typecho_Widget_Helper_Form_Element_Text('mirror', null, 'https://api.github.com', _t('API_Mirror'), _t('加速API提供Mirror'));
         $form->addInput($t->addRule('required', _t('不能哦~')));
-        $t = new Typecho_Widget_Helper_Form_Element_Text('cdn', null, "https://cdn.jsdelivr.net/gh/", _t('File_Mirror'), _t('加速提供文件'));
+        $t = new Typecho_Widget_Helper_Form_Element_Text('cdn', null, 'https://cdn.jsdelivr.net/gh/', _t('File_Mirror'), _t('加速提供文件'));
         $form->addInput($t->addRule('required', _t('不能哦~')));
     }
 }
