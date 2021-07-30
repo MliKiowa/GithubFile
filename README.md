@@ -50,3 +50,8 @@ By Telegram : [Mlikiowa](https://t.me/Mlikiowa)
 By Mail : 946735494@qq.com
 
 By QQ : 946735494
+
+# 提示
+本插件通过第三方Oauth如果你对此方法介意 
+1. 可以获取官方personsal key填入token
+2. 搭建自己的授权服务器
