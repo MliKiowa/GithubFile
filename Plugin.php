@@ -5,21 +5,35 @@ if(!defined( '__TYPECHO_ROOT_DIR__' )) exit;
 *
 * @package GithubFile
 * @author 无绘
-* @version 8.0.0
+* @version 1.0.2
 * @link https://hub.fastgit.org/MliKiowa/GithubFile
 */
 defined("_TMP_PATH") or define("_TMP_PATH",dirname( __FILE__ ) . '/tmp');
 defined("_Cache_PATH") or define("_Cache_PATH",dirname( __FILE__ ) . '/cache');
 require_once "func/Helper.php";
-require_once "class/Plugin_Handler.php";
+require_once 'class/Plugin_Handler.php';
 class GithubFile_Plugin implements Typecho_Plugin_Interface
+ {  public static function _handler()
  {
+   $array = debug_backtrace();
+   unset($array[0]);
+   $func = $array[2]['function']; 
+   $arg = func_get_args();
+   if($func == "modifyHandle"){
+   return Plugin_Handler::$func($arg[0],$arg[1]);
+   }else{
+   return Plugin_Handler::$func($arg[0]);
+   }
+        }
     public static function activate()
  {
         /**
         * 判断是否可用HTTP库 CURL库
         * 此处说明，并非使用Typecho_Http_Client，由于并未提供PUT等操作弃用 使用从Typecho抽离修改的库提供支持
         */ 
+        if (basename(dirname(__FILE__)) !== 'GithubFile') {
+            throw new Typecho_Plugin_Exception(_t('插件目录名必须为 GithubFile'));
+        }
         if ( false == Typecho_Http_Client::get() ) {
         //感觉此处检测有误
         // throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持curl!' ) );
@@ -32,24 +46,24 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface
         if ( !file_exists( dirname( __FILE__ ) . '/cache/' ) ) {
             mkdir( dirname( __FILE__ ) . '/cache/' );
         }
-        //其它数据
-        
+        //其它数据 不合适已放弃以下方案
+        //Typecho_Plugin::factory('index.php')->begin = ['GithubFile_Plugin', 'handler_begin'];
         //创建缓存
-        Typecho_Plugin::factory( 'Widget_Upload' )->uploadHandle = array( '_Plugin_Handler', 'uploadHandle' );
+        Typecho_Plugin::factory( 'Widget_Upload' )->uploadHandle = [ 'GithubFile_Plugin', '_handler' ];
         //修改
-        Typecho_Plugin::factory( 'Widget_Upload' )->modifyHandle = array( '_Plugin_Handler', 'modifyHandle' );
+        Typecho_Plugin::factory( 'Widget_Upload' )->modifyHandle = [ 'GithubFile_Plugin', '_handler' ];
         //删除
-        Typecho_Plugin::factory( 'Widget_Upload' )->deleteHandle = array( '_Plugin_Handler', 'deleteHandle' );
+        Typecho_Plugin::factory( 'Widget_Upload' )->deleteHandle = [ 'GithubFile_Plugin', '_handler' ];
         //路径参数处理
-        Typecho_Plugin::factory( 'Widget_Upload' )->attachmentHandle = array( '_Plugin_Handler', 'attachmentHandle' );
+        Typecho_Plugin::factory( 'Widget_Upload' )->attachmentHandle = [ 'GithubFile_Plugin', '_handler' ];
         //文件内容数据
-        Typecho_Plugin::factory( 'Widget_Upload' )->attachmentDataHandle = array( '_Plugin_Handler', 'attachmentDataHandle' );
+        Typecho_Plugin::factory( 'Widget_Upload' )->attachmentDataHandle = [ 'GithubFile_Plugin', '_handler' ];
         return _t( '可以使用啦~' );
     }
 
     public static function deactivate()
  {
-        Helper::removeAction("HiGithub");
+        Helper::removeAction("GithubFile");
         return _t( '已经关闭啦~' );
     }
     public static function personalConfig( Typecho_Widget_Helper_Form $form )
