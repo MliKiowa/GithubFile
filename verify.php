@@ -7,5 +7,5 @@
 * @version : 4.0
 */
 //请抽取本文件 class目录 auth.php 文件到Server
-require "class/GithubApi.php";
+require 'class/GithubApi.php';
 //二次验证待开发
