@@ -32,9 +32,8 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface {
         if (basename(dirname(__FILE__)) !== 'GithubFile') {
             throw new Typecho_Plugin_Exception(_t('插件目录名必须为 GithubFile'));
         }
-        if (false == Typecho_Http_Client::get()) {
-            //感觉此处检测有误
-            // throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持curl!' ) );
+        if (false === Typecho_Http_Client::get()) {          
+            throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持curl!' ) );
             
         }
         Helper::addAction('GithubFile', 'GithubFile_Action');
