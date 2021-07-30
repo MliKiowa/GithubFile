@@ -1,4 +1,4 @@
-# GithubStatic
+# GithubFile
 一款基于github仓库实现附件储存的typecho插件
 
 最近更新:从8.0.0更新到了1.0.2 船新版本
