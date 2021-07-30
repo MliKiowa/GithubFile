@@ -1,7 +1,8 @@
 <?php
 require_once dirname(dirname(__FILE__))."/func/Helper.php";	
-require_once "GithubApi.php";	
-class _Plugin_Handler{
+require_once "GithubApi.php";
+class Plugin_Handler extends Typecho_Widget
+{
 public static function uploadHandle( $file )
  {
        $options = Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubFile' );
@@ -73,7 +74,7 @@ public static function uploadHandle( $file )
     $api = new GithubApi();
     $result = $api->set_api(_Get_config("mirror","https://api.github.com"));
     $api->set_token(_Get_config("token",""));  
-    $ret =  $api->files_del( $options->username, $options->token, $options->repo, $options->path.$content['attachment']->path,  $api->get_sha( $options->username, $options->repo, $options->path.$content['attachment']->path ) );
+    $ret =  $api->files_del( $options->username, $options->repo, $options->path.$content['attachment']->path,  $api->get_sha( $options->username, $options->repo, $options->path.$content['attachment']->path ) );
         return $ret;
     }
     public static function attachmentHandle( array $content )

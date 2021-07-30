@@ -40,7 +40,7 @@ public function files_updata($username,$repos,$path,$files,$sha)
 
 public function files_del($username,$repos,$path,$sha){
                   $data=array("message"=>"del by GithubStatic","sha"=>$sha);
-                  $json=(array)json_decode(self::request_api(  "/repos/".$username."/".$repos."/contents".$path,json_encode($data),"DELETE"));
+                  $json=(array)json_decode(self::request_api(  "/repos/".$username."/".$repos."/contents".$path,json_encode($data),"DELETE"));                 
                   return !isset($json["message"]);}
 
 public function get_sha($username,$repos,$path){
