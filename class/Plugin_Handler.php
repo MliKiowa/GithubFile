@@ -42,8 +42,8 @@ class Plugin_Handler extends Typecho_Widget {
         return array('name' => $file['name'], 'path' => $newPath, 'size' => $file['size'], 'type' => $ext, 'mime' => isset($file['mime']) ? $file['mime'] : Typecho_Common::mimeContentType($newPath),);
     }
     private static function getSafeName(&$name) {
-        $name = str_replace(array(''', '<', '>'), '', $name);
-        $name = str_replace('\\', '/', $name);
+        $name = str_replace( array( '"', '<', '>' ), '', $name );
+        $name = str_replace( '\\', '/', $name );
         $name = false === strpos($name, '/') ? ('a' . $name) : str_replace('/', '/a', $name);
         $info = pathinfo($name);
         $name = substr($info['basename'], 1);
