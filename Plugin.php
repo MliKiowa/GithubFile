@@ -6,7 +6,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  * @package GithubFile
  * @author 无绘
  * @version 1.0.2
- * @link https://hub.fastgit.org/MliKiowa/GithubFile
+ * @link https://github.com/MliKiowa/GithubFile
  */
 defined('_TMP_PATH') or define('_TMP_PATH', dirname(__FILE__) . '/tmp');
 defined('_Cache_PATH') or define('_Cache_PATH', dirname(__FILE__) . '/cache');
