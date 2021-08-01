@@ -7,12 +7,12 @@
 
 [![](https://img.shields.io/github/license/MliKiowa/GithubFile)](https://github.com/MliKiowa/GithubFile/blob/master/LICENSE)
 [![Test](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml/badge.svg)](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml)
-# 运行环境
-PHP Version：7.2
+# 推荐运行环境
+PHP Version：7.4
 
 PHP Http Support：Curl or Socket
 
-操作系统:Linux
+System: Linux
 
 # 如何使用？
 
