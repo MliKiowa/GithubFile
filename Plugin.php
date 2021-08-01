@@ -6,7 +6,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  * @package GithubFile
  * @author 无绘
  * @version 1.0.2
- * @link https://github.com/MliKiowa/GithubFile
+ * @link https://hub.fastgit.org/MliKiowa/GithubFile
  */
 defined('_TMP_PATH') or define('_TMP_PATH', dirname(__FILE__) . '/tmp');
 defined('_Cache_PATH') or define('_Cache_PATH', dirname(__FILE__) . '/cache');
@@ -33,8 +33,7 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface {
             throw new Typecho_Plugin_Exception(_t('插件目录名必须为 GithubFile'));
         }
         if (false === Typecho_Http_Client::get()) {          
-            throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持curl!' ) );
-            
+            throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持curl!' ) );         
         }
         Helper::addAction('GithubFile', 'GithubFile_Action');
         if (!file_exists(dirname(__FILE__) . '/tmp/')) {
