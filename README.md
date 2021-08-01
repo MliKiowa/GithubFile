@@ -8,9 +8,9 @@
 [![](https://img.shields.io/github/license/MliKiowa/GithubFile)](https://github.com/MliKiowa/GithubFile/blob/master/LICENSE)
 [![Test](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml/badge.svg)](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml)
 # 运行环境
-PHP推荐版本：7.0及其以上
+PHP Version：7.2
 
-PHP需要扩展：Curl or Socket
+PHP Http Support：Curl or Socket
 
 操作系统:Linux
 
@@ -53,8 +53,6 @@ PHP需要扩展：Curl or Socket
 # 反馈
 快进来玩
 QGroup 加入群聊[【雪风的茶楼】](https://jq.qq.com/?_wv=1027&k=rua8g2lN)
-
-By Telegram : [Mlikiowa](https://t.me/Mlikiowa)
 
 By Mail : 946735494@qq.com
 
