@@ -33,8 +33,7 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface {
             throw new Typecho_Plugin_Exception(_t('插件目录名必须为 GithubFile'));
         }
         if (false === Typecho_Http_Client::get()) {          
-           // throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持curl!' ) );
-            
+           // throw new Typecho_Plugin_Exception( _t( '哇噗, 你的服务器貌似并不支持curl!' ) );            
         }
         Helper::addAction('GithubFile', 'GithubFile_Action');
         if (!file_exists(dirname(__FILE__) . '/tmp/')) {
@@ -78,6 +77,12 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface {
         $form->addInput($t);
         $t = new Typecho_Widget_Helper_Form_Element_Text('path', null, '/GithubFile/', _t('储存路径'), _t('需要以/结束 否则触发错误'));
         $form->addInput($t->addRule('required', _t('不能哦~')));
+        /*$t = new Typecho_Widget_Helper_Form_Element_Radio( 'debug',
+        array(true=>'启用',false=>'关闭'),false,
+        _t( 'Debng Mode' ),
+        _t( '开启后将会启用调试模式' ) );
+        $form->addInput( $t );
+        */
         $t = new Typecho_Widget_Helper_Form_Element_Radio('debug_log', array(true => '开启',false => '关闭'), false, _t('调试设置'), _t('启用后记录调试日志'));
         $form->addInput($t->addRule('required', _t('不能哦~')));
         $t = new Typecho_Widget_Helper_Form_Element_Text('server', null, 'http://gitauth.moennar.cn', _t('Server'), _t('填写授权服务器 如授权失败请及时到Github获取'));
