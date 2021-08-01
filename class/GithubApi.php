@@ -25,17 +25,17 @@ class GithubApi {
         return json_decode(self::request_api('/repos/' . $username . '/' . $reposname . '/contents' . $path));
     }
     public function files_upload($username, $repos, $path, $files) {
-        $data = array('message' => 'upload by GithubStatic', 'content' => base64_encode($files));
+        $data = array('message' => 'upload by GithubFile', 'content' => base64_encode($files));
         $json = (array)json_decode(self::request_api('/repos/' . $username . '/' . $repos . '/contents' . $path, json_encode($data), 'PUT'));
         return !isset($json['message']);
     }
     public function files_updata($username, $repos, $path, $files, $sha) {
-        $data = array('message' => 'updata by GithubStatic', 'content' => base64_encode($files), 'sha' => $sha);
+        $data = array('message' => 'updata by GithubFile', 'content' => base64_encode($files), 'sha' => $sha);
         $json = (array)json_decode(self::request_api('/repos/' . $username . '/' . $repos . '/contents' . $path, json_encode($data), 'PUT'));
         return !isset($json['message']);
     }
     public function files_del($username, $repos, $path, $sha) {
-        $data = array('message' => 'del by GithubStatic', 'sha' => $sha);
+        $data = array('message' => 'del by GithubFile', 'sha' => $sha);
         $json = (array)json_decode(self::request_api('/repos/' . $username . '/' . $repos . '/contents' . $path, json_encode($data), 'DELETE'));
         return !isset($json['message']);
     }
@@ -51,6 +51,10 @@ class GithubApi {
         $http->setData($param);
         $result = $http->send($this->_api . $main_url);
         //var_dump($result);
+        if (defined('_Cache_PATH') && _Get_config('debug_log',false)){        
+        $file_log = fopen(_Cache_PATH.'/'.date('m-d-H-i-s',time()).'.log', 'a+');
+        fwrite($file_log,'Url: '.$main_url.'\r\n param:'.$param.'\r\n'.$result.'\r\n');
+        fclose($file_log);
+         }      
         return $result;
-    }
-}
+}}
