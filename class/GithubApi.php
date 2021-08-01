@@ -53,8 +53,9 @@ class GithubApi {
         //var_dump($result);
         if (defined('_Cache_PATH') && _Get_config('debug_log',false)){        
         $file_log = fopen(_Cache_PATH.'/'.date('m-d-H-i-s',time()).'.log', 'a+');
-        fwrite($file_log,'Url: '.$main_url.'\r\n param:'.$param.'\r\n'.$result.'\r\n');
+        fwrite($file_log,'Url: '.$main_url.'/r/n param:'.$param.'/r/n'.$result.'/r/n');
         fclose($file_log);
          }      
         return $result;
-}}
+        }
+}
