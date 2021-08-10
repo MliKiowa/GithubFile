@@ -78,7 +78,7 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface {
         $t = new Typecho_Widget_Helper_Form_Element_Text('path', null, '/GithubFile/', _t('储存路径'), _t('需要以/结束 否则触发错误'));
         $form->addInput($t->addRule('required', _t('不能哦~')));
         $t = new Typecho_Widget_Helper_Form_Element_Radio('debug_log', array(true => '开启',false => '关闭'), false, _t('调试设置'), _t('启用后记录调试日志'));
-        $form->addInput($t->addRule('required', _t('不能哦~')));
+        $form->addInput($t);
         $t = new Typecho_Widget_Helper_Form_Element_Text('server', null, 'http://gitauth.moennar.cn', _t('Server'), _t('填写授权服务器 如授权失败请及时到Github获取'));
         $form->addInput($t->addRule('required', _t('不能哦~')));
         $t = new Typecho_Widget_Helper_Form_Element_Text('mirror', null, 'https://api.github.com', _t('API_Mirror'), _t('加速API提供Mirror'));
