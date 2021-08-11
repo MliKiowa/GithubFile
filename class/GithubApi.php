@@ -51,8 +51,8 @@ class GithubApi {
         $http->setData($param);
         $result = $http->send($this->_api . $main_url);
         if (defined('_Cache_PATH') && _Get_config('debug_log',false)){        
-        $file_log = fopen(_Cache_PATH.'/'.date('m-d-H-i-s',time()).'.log', 'a+');
-        fwrite($file_log,'Url: '.$main_url.'\r\n param:'.$param.'\r\n Result:'.$result.'\r\n');
+        $file_log = fopen(_Cache_PATH.'/'.date('m-d-H-i',time()).'.log', 'a+');
+        fwrite($file_log,"Url: ".$main_url."\r\n param:".$param."\r\n Result:".$result."\r\n");
         fclose($file_log);
          }      
         return $result;
