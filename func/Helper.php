@@ -24,3 +24,9 @@ function _Get_tmp_repos($tmp_path) {
     }
     return array('' => '');
 }
+function debug_write_log($data){
+        if (!defined('_Cache_PATH') or !_Get_config('debug_log',false)){return;}      
+        $file_log = fopen(_Cache_PATH.'/'.date('m-d-H-i',time()).'.log', 'a+');
+        fwrite($file_log,$data);
+        fclose($file_log);
+ }
