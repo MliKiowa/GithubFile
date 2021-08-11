@@ -18,21 +18,8 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface {
         unset($array[0]);
         $func = $array[2]['function'];
         $arg = func_get_args();
-        if (defined('_Cache_PATH') && _Get_config('debug_log',false)){        
-        $file_log = fopen(_Cache_PATH.'/'.date('m-d-H-i',time()).'.log', 'a+');
-        $_arg = array();
-        foreach($arg as $_val){
-        if(is_string($_val) && strlen($_val)>100){$_val = '长度过长参数';}
-        array_push($_arg,$_val);
-        }
-        fwrite($file_log,"function:".$func."\r\n param: ".print_r($_arg,true)."\r\n");
-        fclose($file_log);
-         }
-        if ($func == 'modifyHandle') {
-            return Plugin_Handler::$func($arg[0], $arg[1]);
-        } else {
-            return Plugin_Handler::$func($arg[0]);
-        }
+        debug_write_log("function:".$func."\r\n param: ".print_r($arg,true)."\r\n");                      
+       return Plugin_Handler::$func(...$arg);
     }
     public static function activate() {
         /**
