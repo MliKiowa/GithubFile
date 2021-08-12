@@ -55,10 +55,23 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface {
         return _t('可以使用啦~');
     }
     public static function deactivate() {
+    if(Typecho_Widget::widget('Widget_Options')->plugin('GithubFile')->debug_log)
+    { Helper::removePanel(1, 'GithubFile/LogList.php');}        
         Helper::removeAction('GithubFile');
         return _t('已经关闭啦~');
     }
     public static function personalConfig(Typecho_Widget_Helper_Form $form) {
+    }
+    public static function configHandle($config, $isInit)
+    {
+    if (!$isInit) {
+    if(($config['debug_log']) !== (Typecho_Widget::widget('Widget_Options')->plugin('GithubFile')->debug_log)){
+         if ($config['debug_log']) {
+         Helper::addPanel(1, 'GithubFile/LogList.php', '插件日志', '日志内容', 'administrator');         
+        }else{Helper::removePanel(1, 'GithubFile/LogList.php');}
+        }
+}
+        Helper::configPlugin('GithubFile', $config);
     }
     public static function config(Typecho_Widget_Helper_Form $form) {
         $_Server = _Get_config('server', 'http://gitauth.moennar.cn');
