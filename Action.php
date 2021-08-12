@@ -14,9 +14,19 @@ class GithubFile_Action extends Typecho_Widget implements Widget_Interface_Do {
     public function action() {
         $this->on($this->request->is("do=Recache"))->Recache();
         $this->on($this->request->is("do=GithubAuth"))->GithubAuth();
+        $this->on($this->request->is("do=del_log"))->del_log();
      // $this->on($this->request->is("do=ConfigCheck"))->ConfigCheck(); //二次验证
         
     }
+    public function del_log() {
+        $this->is_pass();
+        $filename = $this->request->from("filename") ["filename"];
+        @unlink( __DIR__."/cache/".  $filename);
+       /** 提示信息 */
+        $this->widget('Widget_Notice')->set(_t("文件已经删除"), 'success');
+        /** 转向原页 */
+        $this->response->goBack();
+        }
     public function Recache() {
         $this->is_pass();
         $_options = Helper::options()->plugin("GithubFile");
