@@ -1,14 +1,10 @@
 # GithubFile
 一款基于github仓库实现附件储存的typecho插件
 
-最近更新:更新错误定位
-
-服务器我一个人维护太困难了 如果能够提供支持不甚感谢
-
 [![](https://img.shields.io/github/license/MliKiowa/GithubFile)](https://github.com/MliKiowa/GithubFile/blob/master/LICENSE)
 [![Test](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml/badge.svg)](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml)
 # 推荐运行环境
-PHP Version：7.4
+PHP Version：8.0
 
 PHP Http Support：Curl or Socket
 
@@ -42,18 +38,9 @@ System: Linux
 # 查找错误
 1.开启调试模式
 
-2.操作引发错误的过程
+2.执行错误操作
 
-3.打开插件下Cache目录,找到对应时间的log文件
-
-4.发给开发者
-# Todo
-## Ver 1.0.3
-1.二次验证配置
-
-2.优化插件配置获取函数，提高速度
-
-3.日志快速发送开发者 (并且提供专用log目录)
+3.打开日志记录面板下载日志
 # 例图
 ![](https://ftp.bmp.ovh/imgs/2021/07/60dcee304550cc59.jpg)
 # 反馈
@@ -64,7 +51,7 @@ By Mail : 946735494@qq.com
 
 By QQ : 946735494
 
-# 提示
+# 安全性提示
 本插件通过第三方Oauth如果你对此方法介意 
 1. 可以获取官方personsal key填入token
 2. 搭建自己的授权服务器
