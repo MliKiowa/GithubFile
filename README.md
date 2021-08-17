@@ -55,3 +55,7 @@ By QQ : 946735494
 本插件通过第三方Oauth如果你对此方法介意 
 1. 可以获取官方personsal key填入token
 2. 搭建自己的授权服务器
+# 项目基于
+[Mlikiowa/Http](https://github.com/MliKiowa/Http)
+
+[Mlikiowa/GithubApi](https://github.com/MliKiowa/GithubApi)
