@@ -35,6 +35,8 @@ System: Linux
 4.打开Auth.php修改相应参数 (https_open 在https可开启)
 
 5.到插件设置修改插件的授权服务器
+# 不可用访问GithubApi
+切换GithubAPI为 https://v2.kkpp.cc/
 # 查找错误
 1.开启调试模式
 
