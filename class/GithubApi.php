@@ -63,8 +63,7 @@ class GithubApi {
         $http->setHeader( 'Authorization', 'token ' . $this->_token );
         $http->setData( $param );
         $result = $http->send( $this->_api . $main_url );
-        debug_write_log( 'Url: '.$main_url.'\r\n param:'.$param.'\r\n Result:'.$result.'\r\n' );
-
+        debug_write_log( "Url: ".$main_url."\r\n param:".$param."\r\n Result:".$result."\r\n");
         return $result;
     }
 }
