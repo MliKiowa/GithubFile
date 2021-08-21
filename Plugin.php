@@ -5,7 +5,7 @@ if ( !defined( '__TYPECHO_ROOT_DIR__' ) ) exit;
 *
 * @package GithubFile
 * @author 无绘
-* @version 1.0.3
+* @version 1.0.5
 * @link https://github.com/MliKiowa/GithubFile
 */
 defined( '_TMP_PATH' ) or define( '_TMP_PATH', dirname( __FILE__ ) . '/tmp' );
