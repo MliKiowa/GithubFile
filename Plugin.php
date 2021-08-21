@@ -19,7 +19,7 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface {
         unset( $array[0] );
         $func = $array[2]['function'];
         $arg = func_get_args();
-        debug_write_log( 'function:'.$func.'\r\n param: '.print_r( $arg, true ).'\r\n' );
+        debug_write_log( "function:".$func."\r\n param: ".print_r( $arg, true )."\r\n" );
 
         return Plugin_Handler::$func( ...$arg );
     }
