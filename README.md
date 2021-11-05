@@ -1,16 +1,15 @@
 # GithubFile
 一款基于github仓库实现附件储存的typecho插件
 
-授权服务器暂停半个月(域名送去备案了) 如果需要插件 请使用personal token填入
+插件逻辑整体调整 授权服务器最近会上去
 
 [![](https://img.shields.io/github/license/MliKiowa/GithubFile)](https://github.com/MliKiowa/GithubFile/blob/master/LICENSE)
 [![Test](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml/badge.svg)](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml)
 # 推荐运行环境
-PHP Version：8.0
+PHP Version：8.0 及其以上
 
 PHP Http Support：Curl or Socket
 
-System: Linux
 
 # 如何使用？
 
@@ -39,6 +38,8 @@ System: Linux
 5.到插件设置修改插件的授权服务器
 # 不可用访问GithubApi
 切换GithubAPI为 https://v2.kkpp.cc/
+
+该Api已经失效(使用第三方Api请注意Api安全)
 # 查找错误
 1.开启调试模式
 
