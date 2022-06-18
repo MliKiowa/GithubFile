@@ -1,7 +1,6 @@
 # GithubFile
 一款基于github仓库实现附件储存的typecho插件
-
-插件逻辑整体调整 授权服务器最近会上去
+DEV版本更新中 无需第三方认证
 
 [![](https://img.shields.io/github/license/MliKiowa/GithubFile)](https://github.com/MliKiowa/GithubFile/blob/master/LICENSE)
 [![Test](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml/badge.svg)](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml)
@@ -17,7 +16,7 @@ PHP Http Support：Curl or Socket
 
 2.解压到插件目录，将插件文件夹更名GithubFile
 
-3.启用插件，到设置面板获取Token
+3.修改中
 
 4.填入其它插件设置
 
@@ -25,17 +24,6 @@ PHP Http Support：Curl or Socket
 
 6.上传附件即可使用插件
 
-# 如何搭建授权服务器?
-
-1.下载Auth.php
-
-2.放置到网站主目录
-
-3.申请github oauth 获取client_id client_secret
-
-4.打开Auth.php修改相应参数 (https_open 在https可开启)
-
-5.到插件设置修改插件的授权服务器
 # 不可用访问GithubApi
 切换GithubAPI为 https://v2.kkpp.cc/
 
@@ -56,11 +44,3 @@ By Mail : 946735494@qq.com
 
 By QQ : 946735494
 
-# 安全性提示
-本插件通过第三方Oauth如果你对此方法介意 
-1. 可以获取官方personsal key填入token
-2. 搭建自己的授权服务器
-# 项目基于
-[Mlikiowa/Http](https://github.com/MliKiowa/Http)
-
-[Mlikiowa/GithubApi](https://github.com/MliKiowa/GithubApi)
