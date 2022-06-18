@@ -42,7 +42,8 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface {
         //文件内容数据
         Typecho_Plugin::factory( 'Widget_Upload' )->attachmentDataHandle = ['GithubFile_Handler', 'Router'];
 		  return _t( '可以使用啦~' );
-        }
+	}
+	}
 		public static function deactivate() {
         if ( Typecho_Widget::widget( 'Widget_Options' )->plugin( 'GithubFile' )->debug_log )
  {
