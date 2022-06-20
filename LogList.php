@@ -1,4 +1,11 @@
 <?php
+/**
+*插件调试面板
+* @package GithubFile
+* @author Mlikiowa<nineto0@163.com>
+* @version 1.1.0
+* @since 1.0.0
+*/
 function table_get( $id, $filename ) {
     return  '<tr id="log-'.$id.'"><td >'.$filename.'</td><td><a href="/usr/plugins/GithubFile/cache/log/'.$filename.'">下载</a>&bull;<a lang="你确认要删除吗?" href="/action/GithubFile?do=del_log&filename='.$filename.'">删除</a></td></tr>';
 }
