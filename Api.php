@@ -66,3 +66,4 @@ class GithubFile_Api implements Typecho_Plugin_Interface {
         $json = (array)self::ReposPath($Username, $Repos, $Path);
         return $json['sha'];
     }
+}
