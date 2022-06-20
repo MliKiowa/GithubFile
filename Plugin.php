@@ -5,6 +5,7 @@
 * @package GithubFile
 * @author Mlikiowa<nineto0@163.com>
 * @version 1.1.0
+* @license MIT License
 * @link https://github.com/MliKiowa/GithubFile
 */
 if ( !defined( '__TYPECHO_ROOT_DIR__' ) ) exit;
