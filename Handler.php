@@ -1,7 +1,7 @@
 <?php
 if ( !defined( '__TYPECHO_ROOT_DIR__' ) ) exit;
 class GithubFile_Handler implements Typecho_Plugin_Interface {
-	public static Router(){
+	public static function Router(){
 	$array = debug_backtrace();
     unset($array[0]);
     $func = $array[2]['function'];
