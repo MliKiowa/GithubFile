@@ -1,6 +1,6 @@
 Language: 
 **`English`** 
-[`简体中文`](https://github.com/Mlikiowa/GithubFile/blob/dev/README_EN.md)
+[`简体中文`](https://github.com/Mlikiowa/GithubFile/blob/dev/README.md)
 
 
 [![](https://img.shields.io/github/license/MliKiowa/GithubFile?style=flat-square)](https://github.com/MliKiowa/GithubFile/blob/master/LICENSE)
