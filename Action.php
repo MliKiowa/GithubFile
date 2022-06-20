@@ -26,7 +26,7 @@ class GithubFile_Action extends Typecho_Widget implements Widget_Interface_Do {
         }
         $file_repos = fopen( $file_repos, 'w+' );
         GithubFile_Api::set_api( GithubFile_Helper::GetConfig( 'Mirror', 'https://api.github.com' ) );
-GithubFile_Api::SetUser( GithubFile_Helper::GetConfig( 'Username', '' ),GithubFile_Helper::GetConfig( 'Password', '' ) );
+        GithubFile_Api::SetUser( GithubFile_Helper::GetConfig( 'Username', '' ),GithubFile_Helper::GetConfig( 'Password', '' ) );
         fwrite( $file_repos, GithubFile_Api::ReposAll( $_options->Username ) );
         fclose( $file_repos );
         header( 'HTTP/1.1 301 Moved Permanently' );
