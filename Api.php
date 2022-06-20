@@ -1,4 +1,12 @@
 <?php
+/**
+*插件封装api部分
+* Class类名称(GithubFile_Api)
+* @package GithubFile
+* @author Mlikiowa<nineto0@163.com>
+* @version 1.1.0
+* @since 1.0.0
+*/
 if (!defined('__TYPECHO_ROOT_DIR__')) {
     exit;
 }
