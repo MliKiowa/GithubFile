@@ -1,7 +1,7 @@
 <?php
 defined('_TMP_PATH') or define('_TMP_PATH', dirname(__FILE__) . '/cache/tmp');
-defined('_Cache_PATH') or define('_Cache_PATH', dirname(__FILE__) . '/cache');
-defined('_Log_Path') or define('_Log_Path', dirname(__FILE__) . '/cache/need');
+defined('_CACHE_PATH') or define('_CACHE_PATH', dirname(__FILE__) . '/cache');
+defined('_LOG_Path') or define('_LOG_Path', dirname(__FILE__) . '/cache/need');
 class GithubFile_Action extends Typecho_Widget implements Widget_Interface_Do {
     public function action() {
         $this->on( $this->request->is( 'do=Recache' ) )->Recache();
