@@ -1,13 +1,13 @@
 <?php
-if ( !defined( '__TYPECHO_ROOT_DIR__' ) ) exit;
 /**
 * Use Github Repos To Update Attachment
 *
 * @package GithubFile
-* @author Mlikiowa
-* @version 1.0.9
+* @author Mlikiowa<nineto0@163.com>
+* @version 1.1.0
 * @link https://github.com/MliKiowa/GithubFile
 */
+if ( !defined( '__TYPECHO_ROOT_DIR__' ) ) exit;
 defined( '_Cache_Path' ) or define( '_Cache_Path', dirname( __FILE__ ) . '/cache' );
 defined( '_Tmp_Path' ) or define( '_Tmp_Path', dirname( __FILE__ ) . '/cache/tmp' );
 defined( '_Log_Path' ) or define( '_Log_Path', dirname( __FILE__ ) . '/cache/need' );
