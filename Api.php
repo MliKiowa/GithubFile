@@ -23,7 +23,7 @@ class GithubFile_Api implements Typecho_Plugin_Interface {
 		$result = $http->send($this->Api . $Url);
 		return $result;
 	}
-	public static public function UserInfo(string $Username) {
+	public static function UserInfo(string $Username) {
 		return json_decode(self::SendApi('/users/' . $Username));
 	}
 	public static function UserLogin() {
