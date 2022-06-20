@@ -6,7 +6,7 @@
 * @version 1.1.0
 * @since 1.0.0
 */
-function table_get( $tid, $filename ) {
+function getTable( $tid, $filename ) {
     return  '<tr id="log-'.$tid.'"><td >'.$filename.'</td><td><a href="/usr/plugins/GithubFile/cache/log/'.$filename.'">下载</a>&bull;<a lang="你确认要删除吗?" href="/action/GithubFile?do=del_log&filename='.$filename.'">删除</a></td></tr>';
 }
 
@@ -43,7 +43,7 @@ foreach ( $files as $v ) {
     $newPath = $path .DIRECTORY_SEPARATOR . $v;
     if ( is_file( $newPath ) ) {
         $count++;
-        echo table_get( $count, $v );
+        echo getTable( $count, $v );
     }
 }
 
