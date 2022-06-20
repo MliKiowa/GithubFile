@@ -1,4 +1,12 @@
 <?php
+/**
+*插件处理上传等实际逻辑部分
+* Class类名称(GithubFile_Handler)
+* @package GithubFile
+* @author Mlikiowa<nineto0@163.com>
+* @version 1.1.0
+* @since 1.0.0
+*/
 if ( !defined( '__TYPECHO_ROOT_DIR__' ) ) exit;
 class GithubFile_Handler implements Typecho_Plugin_Interface {
 	public static function Router(){
