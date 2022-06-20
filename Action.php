@@ -1,4 +1,12 @@
 <?php
+/**
+*插件Action处理部分
+* Class类名称(GithubFile_Action)
+* @package GithubFile
+* @author Mlikiowa<nineto0@163.com>
+* @version 1.1.0
+* @since 1.0.0
+*/
 defined('_TMP_PATH') or define('_TMP_PATH', dirname(__FILE__) . '/cache/tmp');
 defined('_CACHE_PATH') or define('_CACHE_PATH', dirname(__FILE__) . '/cache');
 defined('_LOG_Path') or define('_LOG_Path', dirname(__FILE__) . '/cache/need');
