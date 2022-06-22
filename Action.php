@@ -11,14 +11,6 @@ defined('_CACHE_PATH') or define('_CACHE_PATH', dirname(__FILE__) . '/cache');
 defined('_TMP_PATH') or define('_TMP_PATH', dirname(__FILE__) . '/cache/tmp');
 defined('_LOG_PATH') or define('_LOG_PATH', dirname(__FILE__) . '/cache/log');
 
-/**
- *
- * Class类名称(GithubFile_Action)
- * @package GithubFile
- * @author Mlikiowa<nineto0@163.com>
- * @version 1.1.0
- * @since 1.0.0
- */
 class GithubFile_Action extends Typecho_Widget implements Widget_Interface_Do
 {
     /**
