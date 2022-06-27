@@ -1,7 +1,7 @@
 # GithubFile
 一款基于github仓库实现附件储存的typecho插件
 
-插件逻辑整体调整 授权服务器最近会上去
+插件逻辑整体调整 授权服务器没了 建议各位使用personal token填入
 
 [![](https://img.shields.io/github/license/MliKiowa/GithubFile)](https://github.com/MliKiowa/GithubFile/blob/master/LICENSE)
 [![Test](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml/badge.svg)](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml)
