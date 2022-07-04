@@ -10,7 +10,14 @@ PHP Version：8.0 及其以上
 
 PHP Http Support：Curl or Socket
 
+# 关于jsdelivr凉了的问题
+目前可以使用 替代方案 修改配置使用
 
+https://cdn.statically.io/gh/
+
+https://cdn.statically.io/gh/
+
+github中数据一般无论如何都不会丢失 所以放心使用
 # 如何使用？
 
 1.下载插件
