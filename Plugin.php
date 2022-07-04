@@ -91,7 +91,7 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface
         //镜像设置
         $t = new Typecho_Widget_Helper_Form_Element_Text('Mirror', null, 'https://api.github.com', _t('API_Mirror'), _t('加速API提供Mirror'));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
-        $t = new Typecho_Widget_Helper_Form_Element_Text('Cdn', null, 'https://cdn.jsdelivr.net/gh/', _t('File_Mirror'), _t('加速提供文件'));
+        $t = new Typecho_Widget_Helper_Form_Element_Text('Cdn', null, 'https://fastly.jsdelivr.net/gh/', _t('File_Mirror'), _t('加速提供文件'));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
     }
 }
