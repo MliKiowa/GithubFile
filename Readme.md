@@ -51,9 +51,9 @@ PHP Version：8.0 及其以上
 PHP Need Support：Curl or Socket
 
 # 安全性须知
-插件代码为公开开源，Github账号保存于typecho数据库中
+插件代码为公开开源
 
-认证过程基于Basic方式，personal token在后续支持 oauth永久移除
+认证过程基于token
 
 Typecho<->Plugin<->Github
 
