@@ -121,8 +121,8 @@ class GithubFile_Handler implements Typecho_Plugin_Interface
         $options = Typecho_Widget::widget('Widget_Options')->plugin('GithubFile');
         $Api = new GithubFile_Api();
         $Api->setApi(GithubFile_Helper::GetConfig('Mirror', 'https://api.github.com'));
-        $Api->SetUser(GithubFile_Helper::GetConfig('Username', ''), GithubFile_Helper::GetConfig('Password', ''));
-        return $Api->delFiles($options->Username, $options->Repo, $options->Path . $content['attachment']->path, $Api->getSha($options->Username, $options->Repo, $options->Path . $content['attachment']->path));
+        $Api->SetUser(GithubFile_Helper::GetConfig('token', ''));
+       return $Api->delFiles($options->Username, $options->Repo, $options->Path . $content['attachment']->path, $Api->getSha($options->Username, $options->Repo, $options->Path . $content['attachment']->path));
     }
 
     /**
@@ -176,7 +176,7 @@ class GithubFile_Handler implements Typecho_Plugin_Interface
         //$contents 获取二进制数据流
         $Api = new GithubFile_Api();
         $Api->setApi(GithubFile_Helper::GetConfig('Mirror', 'https://api.github.com'));
-        $Api->SetUser(GithubFile_Helper::GetConfig('Username', ''), GithubFile_Helper::GetConfig('Password', ''));
+        $Api->SetUser(GithubFile_Helper::GetConfig('token', ''));
         if (!$Api->updateFiles($options->Username, $options->Repo, $path, $contents, $Api->getSha($options->Username, $options->Repo, $path))) {
             $Api->uploadFiles($options->Username, $options->Repo, $path, $contents);
         }
