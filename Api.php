@@ -10,8 +10,7 @@
  */
 class GithubFile_Api implements Typecho_Plugin_Interface
 {
-    private string $mUsername;
-    private string $mPassword;
+    private string $mtoken;
     private string $mApi;
 
     /**
@@ -19,13 +18,11 @@ class GithubFile_Api implements Typecho_Plugin_Interface
      * User: Mlikiowa<nineto0@163.com>
      * Date: 2022-06-22
      * Time:17:05
-     * @param string $Username
-     * @param string $Password
+     * @param string $token
      */
-    public function setUser(string $Username, string $Password): void
+    public function setUser(string $token): void
     {
-        $this->mUsername = $Username;
-        $this->mPassword = $Password;
+        $this->mtoken = $token;
     }
 
     /**
@@ -68,7 +65,7 @@ class GithubFile_Api implements Typecho_Plugin_Interface
         $http = Typecho_Http_Client::get();
         $http->setMethod($Method);
         $http->setHeader('User-Agent', 'GithubFile PluginApi2 ');
-        $http->setHeader('Authorization', 'Basic ' . base64_encode($this->mUsername . ':' . $this->mPassword));
+        $http->setHeader('Authorization', 'token '  . $this->mtoken);
         $http->setData($Data);
         return $http->send($this->mApi . $Url);
     }
