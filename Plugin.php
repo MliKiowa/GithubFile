@@ -75,10 +75,8 @@ class GithubFile_Plugin implements Typecho_Plugin_Interface
 
     public static function config(Typecho_Widget_Helper_Form $form)
     {
-        //账号密码储存
-        $t = new Typecho_Widget_Helper_Form_Element_Text('Username', null, null, _t('Username'), _t(''));
-        $form->addInput($t->addRule('required', _t('不能为空哦~')));
-        $t = new Typecho_Widget_Helper_Form_Element_Text('Password', null, null, _t('Password'), _t(''));
+        //账号储存
+        $t = new Typecho_Widget_Helper_Form_Element_Text('token', null, null, _t('Username'), _t(''));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
         //储存路径设置
         $t = new Typecho_Widget_Helper_Form_Element_Radio('Repo', GithubFile_Helper::Get_Repos(_Tmp_Path), 'None', _t('仓库名'), _t(''));
