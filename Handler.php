@@ -67,7 +67,7 @@ class GithubFile_Handler implements Typecho_Plugin_Interface
         }
         $Api = new GithubFile_Api();
         $Api->setApi(GithubFile_Helper::GetConfig('Mirror', 'https://api.github.com'));
-        $Api->SetUser(GithubFile_Helper::GetConfig('Username', ''), GithubFile_Helper::GetConfig('Password', ''));
+        $Api->SetUser(GithubFile_Helper::GetConfig('token', ''));
         if (!$Api->uploadFiles($options->Username, $options->Repo, $options->Path . $newPath, $contents)) {
             $Api->updateFiles($options->Username, $options->Repo, $options->Path . $newPath, $contents, $Api->getSha($options->Username, $options->Repo, $options->Path . $newPath));
         }
