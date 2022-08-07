@@ -105,7 +105,7 @@ class GithubFile_Handler implements Typecho_Plugin_Interface
     {
         $options = Typecho_Widget::widget('Widget_Options')->plugin('GithubFile');
         //获取设置参数
-        return Typecho_Common::url($content['attachment']->path, GithubFile_Helper::GetConfig('Cdn', 'https://cdn.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);
+        return Typecho_Common::url($content['attachment']->path, GithubFile_Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);
     }
 
     /**
@@ -136,7 +136,7 @@ class GithubFile_Handler implements Typecho_Plugin_Interface
     public static function attachmentHandle(array $content)
     {
         $options = Typecho_Widget::widget('Widget_Options')->plugin('GithubFile');
-        return Typecho_Common::url($content['attachment']->path, GithubFile_Helper::GetConfig('Cdn', 'https://cdn.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);
+        return Typecho_Common::url($content['attachment']->path, GithubFile_Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);
     }
 
     /**
