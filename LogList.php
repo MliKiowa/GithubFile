@@ -8,7 +8,7 @@
  */
 function getTable($tid, $filename): string
 {
-    return '<tr id="log-' . $tid . '"><td >' . $filename . '</td><td><a href="/usr/plugins/GithubFile/cache/log/' . $filename . '">下载</a>&bull;<a lang="你确认要删除吗?" href="/action/GithubFile?do=del_log&filename=' . $filename . '">删除</a></td></tr>';
+    return '<tr id="log-' . $tid . '"><td >' . $filename . '</td><td><a href="/usr/plugins/GithubFile/cache/need/' . $filename . '">下载</a>&bull;<a lang="你确认要删除吗?" href="/action/GithubFile?do=del_log&filename=' . $filename . '">删除</a></td></tr>';
 }
 
 include 'header.php';
@@ -37,7 +37,7 @@ include 'menu.php';
                         <tbody>
                         <?php
                         $count = 0;
-                        $path = __DIR__ . '/cache/log';
+                        $path = __DIR__ . '/cache/need';
                         $files = scandir($path);
                         $fileItem = [];
                         foreach ($files as $v) {
