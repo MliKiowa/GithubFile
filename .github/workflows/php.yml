@@ -2,9 +2,9 @@ name: PHP Worker
 
 on:
   push:
-    branches: [ master,dev ]
+    branches: [ main ]
   pull_request:
-    branches: [ master,dev ]
+    branches: [ main ]
 
 jobs:
     php:
