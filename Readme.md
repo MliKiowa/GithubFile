@@ -59,9 +59,3 @@ Typecho<->Plugin<->Github
 
 # 对于Github 加速的CDN问题
 目前cdn.jsdelivr.net的回源github了 基本凉了
-
-目前推荐使用以下cdn替代
-
-https://fastly.jsdelivr.net/gh
-
-https://cdn.statically.io/gh
