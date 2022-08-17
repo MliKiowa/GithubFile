@@ -71,3 +71,5 @@ By QQ : 946735494
 [Mlikiowa/Http](https://github.com/MliKiowa/Http)
 
 [Mlikiowa/GithubApi](https://github.com/MliKiowa/GithubApi)
+# 插件状态
+END OF FILE
