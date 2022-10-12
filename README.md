@@ -59,9 +59,9 @@ github中数据一般无论如何都不会丢失 所以放心使用
 快进来玩
 QGroup 加入群聊[【雪风的茶楼】](https://jq.qq.com/?_wv=1027&k=rua8g2lN)
 
-By Mail : 946735494@qq.com
+By Mail : 1627126029@qq.com
 
-By QQ : 946735494
+By QQ : 1627126029
 
 # 安全性提示
 本插件通过第三方Oauth如果你对此方法介意 
