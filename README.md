@@ -5,6 +5,7 @@
 
 [![](https://img.shields.io/github/license/MliKiowa/GithubFile)](https://github.com/MliKiowa/GithubFile/blob/master/LICENSE)
 [![Test](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml/badge.svg)](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMliKiowa%2FGithubFile.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FMliKiowa%2FGithubFile?ref=badge_shield)
 # 推荐运行环境
 PHP Version：8.0 及其以上
 
@@ -59,3 +60,7 @@ By QQ : 1627126029
 2. 搭建自己的授权服务器
 # 插件状态
 (Main) END OF FILE
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMliKiowa%2FGithubFile.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FMliKiowa%2FGithubFile?ref=badge_large)
