@@ -12,4 +12,6 @@ Language:
 
 # Recommend env.
 
-PHP ver: 8
+PHP Version: 8.0
+
+
