@@ -1,7 +1,7 @@
 # GithubFile
 一款基于github仓库实现附件储存的typecho插件
 
-插件逻辑整体调整 授权服务器没了 建议各位使用personal token填入
+插件逻辑整体调整 *授权服务器没了* 建议各位使用personal token填入
 
 [![](https://img.shields.io/github/license/MliKiowa/GithubFile)](https://github.com/MliKiowa/GithubFile/blob/master/LICENSE)
 [![Test](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml/badge.svg)](https://github.com/MliKiowa/GithubFile/actions/workflows/php.yml)
@@ -11,12 +11,7 @@ PHP Version：8.0 及其以上
 PHP Http Support：Curl or Socket
 
 # 关于jsdelivr凉了的问题
-目前可以使用 替代方案 修改配置使用
-
-https://cdn.statically.io/gh/
-
-https://cdn.statically.io/gh/
-
+使用镜像
 github中数据一般无论如何都不会丢失 所以放心使用
 # 如何使用？
 
@@ -53,12 +48,7 @@ github中数据一般无论如何都不会丢失 所以放心使用
 2.执行错误操作
 
 3.打开日志记录面板下载日志
-# 例图
-![](https://ftp.bmp.ovh/imgs/2021/07/60dcee304550cc59.jpg)
-# 反馈
-快进来玩
-QGroup 加入群聊[【雪风的茶楼】](https://jq.qq.com/?_wv=1027&k=rua8g2lN)
-
+# 联系
 By Mail : 1627126029@qq.com
 
 By QQ : 1627126029
@@ -67,9 +57,5 @@ By QQ : 1627126029
 本插件通过第三方Oauth如果你对此方法介意 
 1. 可以获取官方personsal key填入token
 2. 搭建自己的授权服务器
-# 项目基于
-[Mlikiowa/Http](https://github.com/MliKiowa/Http)
-
-[Mlikiowa/GithubApi](https://github.com/MliKiowa/GithubApi)
 # 插件状态
-END OF FILE
+(Main) END OF FILE
