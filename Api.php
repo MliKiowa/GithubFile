@@ -8,7 +8,7 @@
  * @version 1.1.0
  * @since 1.0.0
  */
-class GithubFile_Api implements Typecho_Plugin_Interface
+class GithubFile_Api
 {
     private string $mtoken;
     private string $mApi;
