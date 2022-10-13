@@ -15,6 +15,8 @@ defined('_Log_Path') or define('_Log_Path', dirname(__FILE__) . '/cache/need');
 
 class GithubFile_Plugin implements Typecho_Plugin_Interface
 {
+public static function personalConfig( Typecho_Widget_Helper_Form $form ) {
+    }
     public static function activate()
     {
         /**
