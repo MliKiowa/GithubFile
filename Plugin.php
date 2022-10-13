@@ -14,7 +14,7 @@ require_once 'func/Helper.php';
 require_once 'class/Plugin_Handler.php';
 
 class GithubFile_Plugin implements Typecho_Plugin_Interface {
-    public function _handler() {
+    public static function _handler() {
         $array = debug_backtrace();
         unset( $array[0] );
         $func = $array[2]['function'];
