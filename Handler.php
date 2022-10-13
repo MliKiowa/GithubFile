@@ -9,7 +9,7 @@
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
-class GithubFile_Handler implements Typecho_Plugin_Interface
+class GithubFile_Handler
 {
     /**
      * Notes:
