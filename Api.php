@@ -62,11 +62,11 @@ class GithubFile_Api
      */
     public function sendApi(string $Url = '', string $Data = '', string $Method = 'GET')
     {
-        $http = Typecho_Http_Client::get();
-        $http->setMethod($Method);
+        $http = Typecho_Http_Client::get();       
         $http->setHeader('User-Agent', 'GithubFile PluginApi2 ');
         $http->setHeader('Authorization', 'token '  . $this->mtoken);
         $http->setData($Data);
+        $http->setMethod($Method);
         return $http->send($this->mApi . $Url);
     }
 
