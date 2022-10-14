@@ -83,11 +83,11 @@ class GithubFile_Handler
      * @param $name
      * @return string
      */
-    private static function getSafeName(&$name)
+    private static function getSafeName(string &$name)
     {
-        $name = str_replace(array('"', '<', '>'), '', $name);
+        $name = str_replace(['"', '<', '>'], '', $name);
         $name = str_replace('\\', '/', $name);
-        $name = !str_contains($name, '/') ? ('a' . $name) : str_replace('/', '/a', $name);
+        $name = false === strpos($name, '/') ? ('a' . $name) : str_replace('/', '/a', $name);
         $info = pathinfo($name);
         $name = substr($info['basename'], 1);
         return isset($info['extension']) ? strtolower($info['extension']) : '';
