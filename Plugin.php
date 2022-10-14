@@ -56,7 +56,6 @@ public static function personalConfig( Typecho_Widget_Helper_Form $form ) {
         if (Typecho_Widget::widget('Widget_Options')->plugin('GithubFile')->debug_log) {
             Helper::removePanel(1, 'GithubFile/LogList.php');
         }
-
         Helper::removeAction('GithubFile');
         return _t('Disabled~');
     }
@@ -67,7 +66,6 @@ public static function personalConfig( Typecho_Widget_Helper_Form $form ) {
             if (($config['DebugLog']) !== (Typecho_Widget::widget('Widget_Options')->plugin('GithubFile')->DebugLog)) {
                 if ($config['DebugLog']) {
                     Helper::addPanel(1, 'GithubFile/LogList.php', '插件日志', '日志内容', 'administrator');
-
                 } else {
                     Helper::removePanel(1, 'GithubFile/LogList.php');
                 }
