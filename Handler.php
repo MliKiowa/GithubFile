@@ -35,7 +35,7 @@ class GithubFile_Handler
      * @param $file
      * @return array|bool
      */
-    public static function uploadHandle($file): array|bool
+    public static function uploadHandle($file): mixed
     {
         $options = Typecho_Widget::widget('Widget_Options')->plugin('GithubFile');
         if (empty($file['name'])) return false;
