@@ -39,15 +39,15 @@ public static function personalConfig( Typecho_Widget_Helper_Form $form ) {
         //挂接钩子
         Helper::addAction( 'GithubFile', 'GithubFile_Action' );
         //上传
-        Typecho_Plugin::factory('Widget_Upload')->uploadHandle = ['GithubFile_Handler', 'Router'];
+        Typecho_Plugin::factory('Widget_Upload')->uploadHandle = ['GithubFile_Handler', 'uploadHandle'];
         //修改
-        Typecho_Plugin::factory('Widget_Upload')->modifyHandle = ['GithubFile_Handler', 'Router'];
+        Typecho_Plugin::factory('Widget_Upload')->modifyHandle = ['GithubFile_Handler', 'modifyHandle'];
         //删除
-        Typecho_Plugin::factory('Widget_Upload')->deleteHandle = ['GithubFile_Handler', 'Router'];
+        Typecho_Plugin::factory('Widget_Upload')->deleteHandle = ['GithubFile_Handler', 'deleteHandle'];
         //路径参数处理
-        Typecho_Plugin::factory('Widget_Upload')->attachmentHandle = ['GithubFile_Handler', 'Router'];
+        Typecho_Plugin::factory('Widget_Upload')->attachmentHandle = ['GithubFile_Handler', 'attachmentHandle'];
         //文件内容数据
-        Typecho_Plugin::factory('Widget_Upload')->attachmentDataHandle = ['GithubFile_Handler', 'Router'];
+        Typecho_Plugin::factory('Widget_Upload')->attachmentDataHandle = ['GithubFile_Handler', 'attachmentDataHandle'];
         return _t('可以使用啦~');
     }
 
