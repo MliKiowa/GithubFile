@@ -18,7 +18,7 @@ class GithubFile_Handler
      * Time:17:51
      * @return mixed
      */
-    public static function Router(): mixed
+    public static function Router()
     {
         $array = debug_backtrace();
         unset($array[0]);
@@ -35,7 +35,7 @@ class GithubFile_Handler
      * @param $file
      * @return array|bool
      */
-    public static function uploadHandle($file): mixed
+    public static function uploadHandle($file)
     {
         $options = Typecho_Widget::widget('Widget_Options')->plugin('GithubFile');
         if (empty($file['name'])) return false;
@@ -83,7 +83,7 @@ class GithubFile_Handler
      * @param $name
      * @return string
      */
-    private static function getSafeName(&$name): string
+    private static function getSafeName(&$name)
     {
         $name = str_replace(array('"', '<', '>'), '', $name);
         $name = str_replace('\\', '/', $name);
@@ -148,7 +148,7 @@ class GithubFile_Handler
      * @param $file
      * @return array|false
      */
-    public static function modifyHandle($content, $file): mixed
+    public static function modifyHandle($content, $file)
     {
         $options = Typecho_Widget::widget('Widget_Options')->plugin('GithubFile');
         if (empty($file['name'])) return false;
