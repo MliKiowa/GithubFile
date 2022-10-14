@@ -60,7 +60,7 @@ class GithubFile_Api
      * @param string $Method
      * @return mixed
      */
-    public function sendApi(string $Url = '', string $Data = '', string $Method = 'GET'): string
+    public function sendApi(string $Url = '', string $Data = '', string $Method = 'GET')
     {
         $http = Typecho_Http_Client::get();
         $http->setMethod($Method);
