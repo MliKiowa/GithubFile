@@ -37,6 +37,7 @@ public static function personalConfig( Typecho_Widget_Helper_Form $form ) {
             mkdir(dirname(__FILE__) . '/cache/log/');
         }
         //挂接钩子
+        Helper::addAction( 'GithubFile', 'GithubFile_Action' );
         //上传
         Typecho_Plugin::factory('Widget_Upload')->uploadHandle = ['GithubFile_Handler', 'Router'];
         //修改
