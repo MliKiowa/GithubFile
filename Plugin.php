@@ -77,9 +77,11 @@ public static function personalConfig( Typecho_Widget_Helper_Form $form ) {
     public static function config(Typecho_Widget_Helper_Form $form)
     {
         //账号储存
-        $t = new Typecho_Widget_Helper_Form_Element_Text('token', null, null, _t('Username'), _t(''));
+        $t = new Typecho_Widget_Helper_Form_Element_Text('Username', null, null, _t('Username'), _t(''));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
-        //储存路径设置
+        $t = new Typecho_Widget_Helper_Form_Element_Text('token', null, null, _t('token'), _t(''));
+        $form->addInput($t->addRule('required', _t('不能为空哦~')));     
+      //储存路径设置
         $t = new Typecho_Widget_Helper_Form_Element_Text('Repo',null, null, _t('仓库名'), _t(''));
         $form->addInput($t);
         $t = new Typecho_Widget_Helper_Form_Element_Text('Path', null, '/GithubFile/', _t('储存路径'), _t('需要以/结束 否则触发错误'));
