@@ -148,7 +148,7 @@ class GithubFile_Handler
      * @param $file
      * @return array|false
      */
-    public static function modifyHandle($content, $file): bool|array
+    public static function modifyHandle($content, $file): mixed
     {
         $options = Typecho_Widget::widget('Widget_Options')->plugin('GithubFile');
         if (empty($file['name'])) return false;
