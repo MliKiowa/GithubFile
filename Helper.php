@@ -11,7 +11,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
 class GithubFile_Helper
 {
-    public static function GetConfig($name, $default):mixed
+    public static function GetConfig($name, $default)
     {
         static $result = true;
         if ($result === true) {
