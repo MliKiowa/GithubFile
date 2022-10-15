@@ -23,8 +23,10 @@ Language:
 4.上传文件 查看相应github的库中是否提交文件 如果能够看见安装完成
 # 版本日志
 ## Ver 1.2
-1.更新为Token认证(支持personal token 或者 oauth token)
+1.兼容最新版typecho
+## Ver 1.2
 
+1.更新为Token认证(支持personal token 或者 oauth token)
 ## Ver 1.1
 ### 已更新
 1.支持了basic认证方式
