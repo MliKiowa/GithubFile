@@ -48,7 +48,7 @@ Language:
 1.支持PHP 8.1 8.0 环境
 
 # 推荐运行环境
-PHP Version：8.0 及其以上
+PHP Version：7.2 及其以上
 
 PHP Need Support：Curl or Socket
 
@@ -59,5 +59,6 @@ PHP Need Support：Curl or Socket
 
 Typecho<->Plugin<->Github
 
-# 对于Github 加速的CDN问题
-目前cdn.jsdelivr.net的回源github了 基本凉了
+# 镜像选项
+目前cdn.jsdelivr.net的回源github
+使用其它镜像可以解决该情况
