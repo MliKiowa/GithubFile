@@ -10,8 +10,8 @@
  */
 class GithubFile_Api
 {
-    private string $mtoken;
-    private string $mApi;
+    private  $mtoken;
+    private  $mApi;
 
     /**
      * Notes:
