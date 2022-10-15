@@ -108,7 +108,9 @@ class GithubFile_Handler
         return Typecho_Common::url($content['attachment']->path, GithubFile_Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);
     }
    public static function get_mime_type($filename){
-        $ext = pathinfo($filename)['extension'];
+        $pext = pathinfo($filename)['extension'];
+        if(!in_array('extension',$pext)){return 'application/octet-stream'; }
+        $ext = $pext['extension'];
         static $mime_types = array (
         'apk' => 'application/vnd.android.package-archive',
         '3gp' => 'video/3gpp',
