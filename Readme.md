@@ -22,8 +22,8 @@ Language:
 
 4.上传文件 查看相应github的库中是否提交文件 如果能够看见安装完成
 # 版本日志
-## Ver 1.2
-1.兼容最新版typecho
+## Ver 1.3.2
+1.兼容最新版Typecho 1.2 和 PHP7
 ## Ver 1.2
 
 1.更新为Token认证(支持personal token 或者 oauth token)
