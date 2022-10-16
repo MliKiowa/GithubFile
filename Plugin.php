@@ -22,7 +22,7 @@ defined('_CACHE_PATH') or define('_CACHE_PATH', dirname(__FILE__) . '/cache/');
 defined('_TMP_PATH') or define('_TMP_PATH', dirname(__FILE__) . '/cache/tmp/');
 defined('_LOG_PATH') or define('_LOG_PATH', dirname(__FILE__) . '/cache/log/');
 
-class Plugin implements Interface
+class Plugin implements PluginInterface
 {
 public static function personalConfig( Form $form ) {
     }
