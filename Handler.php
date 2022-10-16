@@ -1,4 +1,5 @@
-﻿<?php
+<?php
+namespace TypechoPlugin\GithubFile;
 /**
  *插件处理上传等实际逻辑部分
  * Class类名称(GithubFile_Handler)
@@ -8,7 +9,7 @@
  * @since 1.0.0
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class GithubFile_Handler {
+class Handler {
     /**
      * Notes:
      * User: Mlikiowa<nineto0@163.com>
@@ -18,12 +19,12 @@ class GithubFile_Handler {
      * @return array|bool
      */
     public static function uploadHandle($file) {
-        $options = Typecho_Widget::widget('Widget_Options')->plugin('GithubFile');
+        $options = \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');
         if (empty($file['name'])) return false;
         //获取扩展名
         $ext = self::getSafeName($file['name']);
         //判定是否是允许的文件类型
-        if (!Widget_Upload::checkFileType($ext)) return false;
+        if (!\Widget\Upload::checkFileType($ext)) return false;
         //获取文件名 如果需要可修改规则
         //注意流
         $filePath = date('Y') . '/' . date('m') . '/' . date('d') . '/';
@@ -46,9 +47,9 @@ class GithubFile_Handler {
         if (!isset($file['size'])) {
             $file['size'] = filesize($file['tmp_name']);
         }
-        $Api = new GithubFile_Api();
-        $Api->setApi(GithubFile_Helper::GetConfig('Mirror', 'https://api.github.com'));
-        $Api->SetUser(GithubFile_Helper::GetConfig('token', ''));
+        $Api = new Api();
+        $Api->setApi(Helper::GetConfig('Mirror', 'https://api.github.com'));
+        $Api->SetUser(Helper::GetConfig('token', ''));
         if (!$Api->uploadFiles($options->Username, $options->Repo, $options->Path . $newPath, $contents)) {
             $Api->updateFiles($options->Username, $options->Repo, $options->Path . $newPath, $contents, $Api->getSha($options->Username, $options->Repo, $options->Path . $newPath));
         }
@@ -80,7 +81,7 @@ class GithubFile_Handler {
      * @return mixed
      */
     public static function attachmentDataHandle($content) {
-        $options = Typecho_Widget::widget('Widget_Options')->plugin('GithubFile');
+        $options = \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');
         //获取设置参数
         return Typecho_Common::url($content['attachment']->path, GithubFile_Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);
     }
@@ -102,10 +103,10 @@ class GithubFile_Handler {
      * @return bool
      */
     public static function deleteHandle(array $content) {
-        $options = Typecho_Widget::widget('Widget_Options')->plugin('GithubFile');
-        $Api = new GithubFile_Api();
-        $Api->setApi(GithubFile_Helper::GetConfig('Mirror', 'https://api.github.com'));
-        $Api->SetUser(GithubFile_Helper::GetConfig('token', ''));
+        $options = \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');
+        $Api = new Api();
+        $Api->setApi(Helper::GetConfig('Mirror', 'https://api.github.com'));
+        $Api->SetUser(Helper::GetConfig('token', ''));
         return $Api->delFiles($options->Username, $options->Repo, $options->Path . $content['attachment']->path, $Api->getSha($options->Username, $options->Repo, $options->Path . $content['attachment']->path));
     }
     /**
@@ -117,8 +118,8 @@ class GithubFile_Handler {
      * @return mixed
      */
     public static function attachmentHandle(array $content) {
-        $options = Typecho_Widget::widget('Widget_Options')->plugin('GithubFile');
-        return Typecho_Common::url($content['attachment']->path, GithubFile_Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);
+        $options =  \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');
+        return \Typecho\Common::url($content['attachment']->path, Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);
     }
     /**
      * Notes:
@@ -130,7 +131,7 @@ class GithubFile_Handler {
      * @return array|false
      */
     public static function modifyHandle($content, $file) {
-        $options = Typecho_Widget::widget('Widget_Options')->plugin('GithubFile');
+        $options =  \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');
         if (empty($file['name'])) return false;
         //获取扩展名
         $ext = self::getSafeName($file['name']);
@@ -154,9 +155,9 @@ class GithubFile_Handler {
             $file['size'] = filesize($file['tmp_name']);
         }
         //$contents 获取二进制数据流
-        $Api = new GithubFile_Api();
-        $Api->setApi(GithubFile_Helper::GetConfig('Mirror', 'https://api.github.com'));
-        $Api->SetUser(GithubFile_Helper::GetConfig('token', ''));
+        $Api = new Api();
+        $Api->setApi(Helper::GetConfig('Mirror', 'https://api.github.com'));
+        $Api->SetUser(Helper::GetConfig('token', ''));
         if (!$Api->updateFiles($options->Username, $options->Repo, $path, $contents, $Api->getSha($options->Username, $options->Repo, $path))) {
             $Api->uploadFiles($options->Username, $options->Repo, $path, $contents);
         }

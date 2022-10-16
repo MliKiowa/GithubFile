@@ -1,5 +1,5 @@
 <?php
-
+namespace TypechoPlugin\GithubFile;
 /**
  *插件封装api部分
  * Class类名称(GithubFile_Api)
@@ -8,7 +8,7 @@
  * @version 1.3.2
  * @since 1.0.0
  */
-class GithubFile_Api
+class Api
 {
     private  $mtoken;
     private  $mApi;
@@ -62,7 +62,7 @@ class GithubFile_Api
      */
     public function sendApi(string $Url = '', string $Data = '', string $Method = 'GET')
     {
-        $http = Typecho_Http_Client::get();       
+        $http = \Typecho\Http\Client::get();       
         $http->setHeader('User-Agent', 'GithubFile PluginApi2 ');
         $http->setHeader('Authorization', 'token '  . $this->mtoken);
         $http->setData($Data);

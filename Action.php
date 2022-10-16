@@ -1,4 +1,6 @@
 <?php
+namespace TypechoPlugin\GithubFile;
+
 /**
  *插件Action处理部分
  * Class类名称(GithubFile_Action)
@@ -10,8 +12,7 @@
 defined('_CACHE_PATH') or define('_CACHE_PATH', dirname(__FILE__) . '/cache/');
 defined('_TMP_PATH') or define('_TMP_PATH', dirname(__FILE__) . '/cache/tmp/');
 defined('_LOG_PATH') or define('_LOG_PATH', dirname(__FILE__) . '/cache/log/');
-
-class GithubFile_Action extends Typecho_Widget implements Widget_Interface_Do
+class Action extends Typecho_Widget implements Widget_Interface_Do
 {
     /**
      * Notes:接收处理动作
@@ -47,7 +48,7 @@ class GithubFile_Action extends Typecho_Widget implements Widget_Interface_Do
      */
     public function isPass()
     {
-        $user = Typecho_Widget::widget('Widget_User');
+        $user = \Typecho\Widget::widget('Widget_User');
         if (!$user->pass('administrator')) {
             die('未登录用户!');
         }
