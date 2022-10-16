@@ -9,9 +9,9 @@
  * @link https://github.com/MliKiowa/GithubFile
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-defined('_Cache_Path') or define('_Cache_Path', dirname(__FILE__) . '/cache');
-defined('_Tmp_Path') or define('_Tmp_Path', dirname(__FILE__) . '/cache/tmp');
-defined('_Log_Path') or define('_Log_Path', dirname(__FILE__) . '/cache/need');
+defined('_CACHE_PATH') or define('_CACHE_PATH', dirname(__FILE__) . '/cache/');
+defined('_TMP_PATH') or define('_TMP_PATH', dirname(__FILE__) . '/cache/tmp/');
+defined('_LOG_PATH') or define('_LOG_PATH', dirname(__FILE__) . '/cache/log/');
 
 class GithubFile_Plugin implements Typecho_Plugin_Interface
 {
@@ -27,14 +27,10 @@ public static function personalConfig( Typecho_Widget_Helper_Form $form ) {
             throw new Typecho_Plugin_Exception(_t('The plugin name must be GithubFile'));
         }
         //生成相关目录
-        if (!file_exists(dirname(__FILE__) . '/cache/')) {
-            mkdir(dirname(__FILE__) . '/cache/');
-        }
-        if (!file_exists(dirname(__FILE__) . '/cache/tmp/')) {
-            mkdir(dirname(__FILE__) . '/cache/tmp/');
-        }
-        if (!file_exists(dirname(__FILE__) . '/cache/log/')) {
-            mkdir(dirname(__FILE__) . '/cache/log/');
+        if (!file_exists(_CACHE_PATH)) {
+            @mkdir(_CACHE_PATH);  
+            @mkdir(_TMP_PATH);
+            @mkdir(_LOG_PATH);
         }
         //挂接钩子
         Helper::addAction( 'GithubFile', 'GithubFile_Action' );
@@ -81,7 +77,7 @@ public static function personalConfig( Typecho_Widget_Helper_Form $form ) {
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
         $t = new Typecho_Widget_Helper_Form_Element_Text('token', null, null, _t('token'), _t(''));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));     
-      //储存路径设置
+       //储存路径设置
         $t = new Typecho_Widget_Helper_Form_Element_Text('Repo',null, null, _t('仓库名'), _t(''));
         $form->addInput($t);
         $t = new Typecho_Widget_Helper_Form_Element_Text('Path', null, '/GithubFile/', _t('储存路径'), _t('需要以/结束 否则触发错误'));
