@@ -5,7 +5,7 @@
  * Class类名称(GithubFile_Api)
  * @package GithubFile
  * @author Mlikiowa<nineto0@163.com>
- * @version 1.1.0
+ * @version 1.3.2
  * @since 1.0.0
  */
 class GithubFile_Api
