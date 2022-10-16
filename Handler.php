@@ -1,4 +1,5 @@
 ﻿<?php
+namespace TypechoPlugin\GithubFile;
 /**
  *插件处理上传等实际逻辑部分
  * Class类名称(GithubFile_Handler)
@@ -8,7 +9,7 @@
  * @since 1.0.0
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class GithubFile_Handler {
+class Handler {
     /**
      * Notes:
      * User: Mlikiowa<nineto0@163.com>
