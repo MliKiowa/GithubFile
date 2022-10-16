@@ -21,7 +21,6 @@ class GithubFile_Action extends Typecho_Widget implements Widget_Interface_Do
      */
     public function action()
     {
-        $this->on($this->request->is('do=reCache'))->reCache();
         $this->on($this->request->is('do=delLog'))->delLog();
     }
 
