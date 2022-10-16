@@ -3,6 +3,7 @@ namespace TypechoPlugin\GithubFile;
 
 use Typecho\Plugin\PluginInterface;
 use Typecho\Widget\Helper\Form;
+use Utils\Helper;
 use Typecho\Widget\Helper\Form\Element\Radio;
 use Typecho\Widget\Helper\Form\Element\Text;
 use Widget\Options;
@@ -42,7 +43,7 @@ public static function personalConfig( Form $form ) {
             @mkdir(_LOG_PATH);
         }
         //挂接钩子
-        \Typecho\Widget\Helper::addAction( 'GithubFile', 'GithubFile_Action' );
+        Helper::addAction( 'GithubFile', 'GithubFile_Action' );
         //上传
         \Typecho\Plugin::factory('Widget_Upload')->uploadHandle = ['GithubFile_Handler', 'uploadHandle'];
         //修改
@@ -59,24 +60,24 @@ public static function personalConfig( Form $form ) {
     public static function deactivate()
     {
         if (\Typecho\Widget::widget('Widget_Options')->plugin('GithubFile')->debug_log) {
-            \Typecho\Widget\Helper::removePanel(1, 'GithubFile/LogList.php');
+            Helper::removePanel(1, 'GithubFile/LogList.php');
         }
-        \Typecho\Widget\Helper::removeAction('GithubFile');
+        Helper::removeAction('GithubFile');
         return _t('Disabled~');
     }
 
     public static function configHandle($config, $isInit)
     {
         if (!$isInit) {
-            if (($config['DebugLog']) !== (Typecho_Widget::widget('Widget_Options')->plugin('GithubFile')->DebugLog)) {
+            if (($config['DebugLog']) !== (\Typecho\Widget::widget('Widget_Options')->plugin('GithubFile')->DebugLog)) {
                 if ($config['DebugLog']) {
-                    \Typecho\Widget\Helper::addPanel(1, 'GithubFile/LogList.php', '插件日志', '日志内容', 'administrator');
+                    Helper::addPanel(1, 'GithubFile/LogList.php', '插件日志', '日志内容', 'administrator');
                 } else {
-                    \Typecho\Widget\Helper::removePanel(1, 'GithubFile/LogList.php');
+                    Helper::removePanel(1, 'GithubFile/LogList.php');
                 }
             }
         }
-        \Typecho\Widget\Helper::configPlugin('GithubFile', $config);
+        Helper::configPlugin('GithubFile', $config);
     }
 
     public static function config(Form $form)
