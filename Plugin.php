@@ -14,7 +14,7 @@ use Typecho\Plugin\Exception as PluginException;
  *
  * @package GithubFile
  * @author Mlikiowa<nineto0@163.com>
- * @version 1.3.2
+ * @version 1.3.3
  * @license MIT License
  * @link https://github.com/MliKiowa/GithubFile
  */
