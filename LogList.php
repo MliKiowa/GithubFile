@@ -1,5 +1,5 @@
 <?php
-
+namespace TypechoPlugin\GithubFile;
 /**
  *插件调试面板
  * @package GithubFile
