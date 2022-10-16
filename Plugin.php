@@ -42,7 +42,7 @@ public static function personalConfig( Form $form ) {
             @mkdir(_LOG_PATH);
         }
         //挂接钩子
-        Helper::addAction( 'GithubFile', 'GithubFile_Action' );
+        \Typecho\Widget\Helper::addAction( 'GithubFile', 'GithubFile_Action' );
         //上传
         \Typecho\Plugin::factory('Widget_Upload')->uploadHandle = ['GithubFile_Handler', 'uploadHandle'];
         //修改
