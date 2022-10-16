@@ -53,7 +53,7 @@ class GithubFile_Handler {
             $Api->updateFiles($options->Username, $options->Repo, $options->Path . $newPath, $contents, $Api->getSha($options->Username, $options->Repo, $options->Path . $newPath));
         }
         //使用newPath并不连接$options->path URL连接时拼接
-        return array('name' => $file['name'], 'path' => $newPath, 'size' => $file['size'], 'type' => $ext, 'mime' => $file['mime'] ? ? self::get_mime_type($newPath),);
+        return array('name' => $file['name'], 'path' => $newPath, 'size' => $file['size'], 'type' => $ext, 'mime' => $file['mime'] ?? self::get_mime_type($newPath),);
     }
     /**
      * Notes:
@@ -161,6 +161,6 @@ class GithubFile_Handler {
             $Api->uploadFiles($options->Username, $options->Repo, $path, $contents);
         }
         //使用newPath并不连接$options->path URL连接时拼接
-        return array('name' => $file['name'], 'path' => $path, 'size' => $file['size'], 'type' => $ext, 'mime' => $file['mime']  ? ?  self::get_mime_type($path),);
+        return array('name' => $file['name'], 'path' => $path, 'size' => $file['size'], 'type' => $ext, 'mime' => $file['mime']  ??  self::get_mime_type($path),);
     }
 }
