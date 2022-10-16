@@ -1,4 +1,5 @@
 <?php
+namespace TypechoPlugin\GithubFile;
 /**
  *插件辅助功能实现部分
  * Class类名称(GithubFile_Helper)
@@ -8,14 +9,13 @@
  * @since 1.0.0
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-
-class GithubFile_Helper
+class Helper
 {
     public static function GetConfig($name, $default)
     {
         static $result = true;
         if ($result === true) {
-            $_db = Typecho_Db::get();
+            $_db = \Typecho\Db::get();
             $result = $_db->fetchAll($_db->select('value')->from('table.options')->where('name = ?', 'plugin:GithubFile'));
         }
         if (!isset($result[0]['value'])) {
