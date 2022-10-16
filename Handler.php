@@ -1,5 +1,7 @@
 ﻿<?php
+
 namespace TypechoPlugin\GithubFile;
+
 /**
  *插件处理上传等实际逻辑部分
  * Class类名称(GithubFile_Handler)
