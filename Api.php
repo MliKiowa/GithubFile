@@ -1,5 +1,5 @@
 <?php
-
+namespace TypechoPlugin\GithubFile;
 /**
  *插件封装api部分
  * Class类名称(GithubFile_Api)
@@ -8,7 +8,7 @@
  * @version 1.3.2
  * @since 1.0.0
  */
-class GithubFile_Api
+class Api
 {
     private  $mtoken;
     private  $mApi;
