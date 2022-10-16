@@ -1,6 +1,5 @@
 <?php
 namespace TypechoPlugin\GithubFile;
-use Typecho\Widget;
 
 /**
  *插件Action处理部分
