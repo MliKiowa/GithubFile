@@ -98,7 +98,7 @@ public static function personalConfig( Form $form ) {
         //镜像设置
         $t = new Text('Mirror', null, 'https://api.github.com', _t('API_Mirror'), _t('加速API提供Mirror'));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
-        $t = new Text('Cdn', null, 'https://fastly.jsdelivr.net/gh/', _t('File_Mirror'), _t('加速提供文件'));
+        $t = new Text('Cdn', null, 'https://cdn.zenless.top/gh/', _t('File_Mirror'), _t('加速提供文件'));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
     }
 }
