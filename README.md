@@ -11,17 +11,19 @@ Language:
 [![GitHub stars](https://img.shields.io/github/stars/MliKiowa/GithubFile?style=flat-square)](https://github.com/MliKiowa/GithubFile/stargazers)
 
 # 介绍
-基于Github与cdn进行加速图片
+依托Github进行储存使用第三方代理服务提供图片访问的Typecho插件
 
 # 使用方法
 1.下载插件 在 Typecho/usr/plugin 目录解压
 
-2.解压出的目录更名GithubFile
+2.解压出的目录更名*GithubFile*
 
 3.启用插件 并按规则填写配置
 
 4.上传文件 查看相应github的库中是否提交文件 如果能够看见安装完成
 # 版本日志
+## Ver 1.3.4
+- [x] 修改默认图片加速源
 ## Ver 1.3.3
 1.重构插件
 ## Ver 1.3.2
@@ -54,6 +56,6 @@ PHP Need Support：Curl or Socket
 
 Typecho<->Plugin<->Github
 
-# 镜像选项
-目前cdn.jsdelivr.net的回源github
-使用其它镜像可以解决该情况
+# 图片代理源(图片镜像)
+1.自建代理
+2.第三方代理
