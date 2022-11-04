@@ -25,7 +25,9 @@ defined('_LOG_PATH') or define('_LOG_PATH', dirname(__FILE__) . '/cache/log/');
 
 class Plugin implements PluginInterface
 {
-public static function personalConfig( Form $form ) {
+    public static function personalConfig( Form $form )
+    {
+    unset ($form);
     }
     public static function activate()
     {
