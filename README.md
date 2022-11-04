@@ -9,7 +9,8 @@ Language:
 [![GitHub issues](https://img.shields.io/github/issues/MliKiowa/GithubFile?style=flat-square)](https://github.com/MliKiowa/GithubFile/issues)
 [![GitHub forks](https://img.shields.io/github/forks/MliKiowa/GithubFile?style=flat-square)](https://github.com/MliKiowa/GithubFile/network)
 [![GitHub stars](https://img.shields.io/github/stars/MliKiowa/GithubFile?style=flat-square)](https://github.com/MliKiowa/GithubFile/stargazers)
-
+# 重构警告
+插件正在进行大规模重写 如果出现错误 请提出issue 以便维护
 # 介绍
 依托Github进行储存使用第三方代理服务提供图片访问的Typecho插件
 
