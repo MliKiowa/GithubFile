@@ -1,6 +1,6 @@
 <?php
 namespace TypechoPlugin\GithubFile;
-
+use Typecho\Plugin;
 /**
  *插件Action处理部分
  * Class类名称(GithubFile_Action)
@@ -50,7 +50,7 @@ class Action extends Typecho_Widget implements Widget_Interface_Do
     {
         $user = \Typecho\Widget::widget('Widget_User');
         if (!$user->pass('administrator')) {
-            die('未登录用户!');
+            throw new Exception("Error");
         }
     }
 } 
