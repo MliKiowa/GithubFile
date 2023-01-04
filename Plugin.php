@@ -14,7 +14,7 @@ use Typecho\Plugin\Exception as PluginException;
  *
  * @package GithubFile
  * @author Mlikiowa<nineto0@163.com>
- * @version 1.3.3
+ * @version 1.3.4
  * @license MIT License
  * @link https://github.com/MliKiowa/GithubFile
  */
@@ -27,7 +27,6 @@ class Plugin implements PluginInterface
 {
     public static function personalConfig( Form $form )
     {
-    unset ($form);
     }
     public static function activate()
     {
