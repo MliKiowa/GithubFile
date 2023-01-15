@@ -24,7 +24,7 @@ class Helper
         $_options = unserialize($result[0]['value']);
         return ($_options[$name] ?? $default);
     }
-   public function replaceCode($string,$replace)
+   public static function replaceCode($string,$replace)
    {
        $regex = "/\[(.*?)\]/";
        preg_match_all($regex, $string, $matches);
