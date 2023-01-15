@@ -112,7 +112,7 @@ class Handler {
         $Api = new Api();
         $Api->setApi(Helper::GetConfig('Mirror', 'https://api.github.com'));
         $Api->SetUser(Helper::GetConfig('token', ''));
-        return $Api->delFiles($options->Username, $options->Repo, $options->Path . $content['attachment']->path, $Api->getSha($options->Username, $options->Repo, $options->Path . $content['attachment']->path));
+        return $Api->delFiles($options->Username, $options->Repo,"/".$content['attachment']->path, $Api->getSha($options->Username, $options->Repo, "/".$content['attachment']->path));
     }
     /**
      * Notes:
@@ -123,9 +123,8 @@ class Handler {
      * @return mixed
      */
     public static function attachmentHandle(array $content) {
-        $options =  \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');
-        
-       $codearr = array("file"=>$content['attachment']->path,"cdn"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
+        $options =  \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');        
+        $codearr = array("file"=>$content['attachment']->path,"cdn"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
         $url = Helper::replaceCode($options->MirroPath,$codearr)
         return $url;
 //废弃代码 return \Typecho\Common::url($content['attachment']->path, Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);
