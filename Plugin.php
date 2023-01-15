@@ -101,7 +101,7 @@ class Plugin implements PluginInterface
         $t = new Text('Cdn', null, 'https://cdn.zenless.top/gh', _t('File_Mirror'), _t('加速提供文件 结尾不能带有/'));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
         //短代码目录生成
-        $t = new Text('MirroPath', null, '[cdn]/[user]/[repo][file]', _t('镜像加速目录规则'), _t('生成的链接设置 提示:[file]前面自带/ 可选[user][repo][file][cdn]'));
+        $t = new Text('MirroPath', null, '[cdn]/[user]/[repo]/[file]', _t('镜像加速目录规则'), _t('生成的链接设置 提示: 可选[user][repo][file][cdn]'));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
         $t = new Text('RealPath', null, '/[file]', _t('实际上传目录规则'), _t('上传到github时的目录设置 设置可为/你的目录/[file] 必须包括/[file]'));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
