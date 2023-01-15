@@ -89,11 +89,9 @@ class Plugin implements PluginInterface
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
         $t = new Text('token', null, null, _t('token'), _t(''));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));     
-       //储存路径设置
+        //储存路径设置
         $t = new Text('Repo',null, null, _t('仓库名'), _t(''));
         $form->addInput($t);
-        $t = new Text('Path', null, '/GithubFile/', _t('储存路径'), _t('需要以/结束 否则触发错误'));
-        $form->addInput($t->addRule('required', _t('不能为空哦~')));
         //调试设置
         $t = new Radio('DebugLog', array(true => '开启', false => '关闭'), false, _t('调试设置'), _t('启用后记录调试日志'));
         $form->addInput($t);
