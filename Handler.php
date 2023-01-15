@@ -50,7 +50,7 @@ class Handler {
         $Api = new Api();
         $Api->setApi(Helper::GetConfig('Mirror', 'https://api.github.com'));
         $Api->SetUser(Helper::GetConfig('token', ''));
-        $codearr = array("file"=>$newPath,"mirror"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
+        $codearr = array("file"=>$newPath,"cdn"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
         $realpath = Helper::replaceCode($options->RealPath,$codearr)      
         if (!$Api->uploadFiles($options->Username, $options->Repo, $realpath, $contents)) {
             $Api->updateFiles($options->Username, $options->Repo, $realpath, $contents, $Api->getSha($options->Username, $options->Repo, $realpath));
@@ -125,7 +125,7 @@ class Handler {
     public static function attachmentHandle(array $content) {
         $options =  \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');
         
-       $codearr = array("file"=>$content['attachment']->path,"mirror"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
+       $codearr = array("file"=>$content['attachment']->path,"cdn"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
         $url = Helper::replaceCode($options->MirroPath,$codearr)
         return $url;
 //废弃代码 return \Typecho\Common::url($content['attachment']->path, Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);
@@ -167,7 +167,7 @@ class Handler {
         $Api = new Api();
         $Api->setApi(Helper::GetConfig('Mirror', 'https://api.github.com'));
         $Api->SetUser(Helper::GetConfig('token', ''));
-        $codearr = array("file"=>$newPath,"mirror"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
+        $codearr = array("file"=>$newPath,"cdn"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
         $realpath = Helper::replaceCode($options->RealPath,$codearr)      
         if (!$Api->updateFiles($options->Username, $options->Repo, $realpath, $contents,$Api->getSha($options->Username, $options->Repo, $realpath))) {
             $Api->uploadFiles($options->Username, $options->Repo, $realpath, $contents);
