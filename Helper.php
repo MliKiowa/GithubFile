@@ -24,5 +24,18 @@ class Helper
         $_options = unserialize($result[0]['value']);
         return ($_options[$name] ?? $default);
     }
+   public function replaceCode($string,$replace)
+   {
+       $regex = "/\[(.*?)\]/";
+       preg_match_all($regex, $string, $matches);
+       for($i = 0; $i < count($matches[1]); $i++)
+       {
+           $match = $matches[1][$i];
+           $array = explode('~', $match);
+           $newValue = $replace[$match];
+           $string = str_replace($matches[0][$i], $newValue, $string);
+       }
+       return $string;
+   }
 
 }
