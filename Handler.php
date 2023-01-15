@@ -50,11 +50,13 @@ class Handler {
         $Api = new Api();
         $Api->setApi(Helper::GetConfig('Mirror', 'https://api.github.com'));
         $Api->SetUser(Helper::GetConfig('token', ''));
-        if (!$Api->uploadFiles($options->Username, $options->Repo, $options->Path . $newPath, $contents)) {
-            $Api->updateFiles($options->Username, $options->Repo, $options->Path . $newPath, $contents, $Api->getSha($options->Username, $options->Repo, $options->Path . $newPath));
+        $codearr = array("file"=>$newPath,"mirror"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
+        $realpath = Helper::replaceCode($options->RealPath,$codearr)      
+        if (!$Api->uploadFiles($options->Username, $options->Repo, $realpath, $contents)) {
+            $Api->updateFiles($options->Username, $options->Repo, $realpath, $contents, $Api->getSha($options->Username, $options->Repo, $realpath));
         }
         //使用newPath并不连接$options->path URL连接时拼接
-        return array('name' => $file['name'], 'path' => $newPath, 'size' => $file['size'], 'type' => $ext, 'mime' => $file['mime'] ?? self::get_mime_type($newPath),);
+        return array('name' => $file['name'], 'path' => $realpath, 'size' => $file['size'], 'type' => $ext, 'mime' => $file['mime'] ?? self::get_mime_type($newPath),);
     }
     /**
      * Notes:
@@ -165,8 +167,10 @@ class Handler {
         $Api = new Api();
         $Api->setApi(Helper::GetConfig('Mirror', 'https://api.github.com'));
         $Api->SetUser(Helper::GetConfig('token', ''));
-        if (!$Api->updateFiles($options->Username, $options->Repo, $path, $contents, $Api->getSha($options->Username, $options->Repo, $path))) {
-            $Api->uploadFiles($options->Username, $options->Repo, $path, $contents);
+        $codearr = array("file"=>$newPath,"mirror"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
+        $realpath = Helper::replaceCode($options->RealPath,$codearr)      
+        if (!$Api->updateFiles($options->Username, $options->Repo, $realpath, $contents,$Api->getSha($options->Username, $options->Repo, $realpath))) {
+            $Api->uploadFiles($options->Username, $options->Repo, $realpath, $contents);
         }
         //使用newPath并不连接$options->path URL连接时拼接
         return array('name' => $file['name'], 'path' => $path, 'size' => $file['size'], 'type' => $ext, 'mime' => $file['mime']  ??  self::get_mime_type($path),);
