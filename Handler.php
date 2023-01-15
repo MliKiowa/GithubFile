@@ -112,7 +112,7 @@ class Handler {
         $Api = new Api();
         $Api->setApi(Helper::GetConfig('Mirror', 'https://api.github.com'));
         $Api->SetUser(Helper::GetConfig('token', ''));
-        return $Api->delFiles($options->Username, $options->Repo,"/".$content['attachment']->path, $Api->getSha($options->Username, $options->Repo, "/".$content['attachment']->path));
+        return $Api->delFiles($options->Username, $options->Repo,$content['attachment']->path, $Api->getSha($options->Username, $options->Repo, $content['attachment']->path));
     }
     /**
      * Notes:
