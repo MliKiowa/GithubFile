@@ -31,7 +31,6 @@ class Helper
        for($i = 0; $i < count($matches[1]); $i++)
        {
            $match = $matches[1][$i];
-           $array = explode('~', $match);
            $newValue = $replace[$match];
            $string = str_replace($matches[0][$i], $newValue, $string);
        }
