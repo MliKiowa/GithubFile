@@ -83,8 +83,11 @@ class Handler {
     public static function attachmentDataHandle($content) {
         $options = \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');
         //获取设置参数
-        return Typecho_Common::url($content['attachment']->path, GithubFile_Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);
-    }
+        $codearr = array("file"=>$content['attachment']->path,"mirror"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
+        $url = Helper::replaceCode($options->MirroPath,$codearr)
+        return $url;
+//废弃代码 Typecho_Common::url($content['attachment']->path, Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);    
+      }
     public static function get_mime_type($filename) {
         $pext = pathinfo($filename);
         if (!in_array('extension', $pext)) {
@@ -119,7 +122,11 @@ class Handler {
      */
     public static function attachmentHandle(array $content) {
         $options =  \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');
-        return \Typecho\Common::url($content['attachment']->path, Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);
+        
+       $codearr = array("file"=>$content['attachment']->path,"mirror"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
+        $url = Helper::replaceCode($options->MirroPath,$codearr)
+        return $url;
+//废弃代码 return \Typecho\Common::url($content['attachment']->path, Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/') . $options->Username . '/' . $options->Repo . $options->Path);
     }
     /**
      * Notes:
