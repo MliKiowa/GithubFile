@@ -165,11 +165,9 @@ class Handler {
         //$contents 获取二进制数据流
         $Api = new Api();
         $Api->setApi(Helper::GetConfig('Mirror', 'https://api.github.com'));
-        $Api->SetUser(Helper::GetConfig('token', ''));
-        $codearr = array("file"=>$newPath,"cdn"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
-        $realpath = Helper::replaceCode($options->RealPath,$codearr);     
-        if (!$Api->updateFiles($options->Username, $options->Repo, $realpath, $contents,$Api->getSha($options->Username, $options->Repo, $realpath))) {
-            $Api->uploadFiles($options->Username, $options->Repo, $realpath, $contents);
+        $Api->SetUser(Helper::GetConfig('token', ''));       
+        if (!$Api->updateFiles($options->Username, $options->Repo, $path, $contents,$Api->getSha($options->Username, $options->Repo, $path))) {
+            $Api->uploadFiles($options->Username, $options->Repo, $path, $contents);
         }
         //使用newPath并不连接$options->path URL连接时拼接
         return array('name' => $file['name'], 'path' => $path, 'size' => $file['size'], 'type' => $ext, 'mime' => $file['mime']  ??  self::get_mime_type($path),);
