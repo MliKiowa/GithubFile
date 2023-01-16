@@ -60,14 +60,14 @@ class Api
      * @param string $Method
      * @return mixed
      */
-    public function sendApi(string $Url = '', string $Data = '', string $Method = 'GET')
+    public function sendApi(string $url = '', string $data = '', string $method = 'GET')
     {
         $http = \Typecho\Http\Client::get();       
         $http->setHeader('User-Agent', 'GithubFile PluginApi2 ');
         $http->setHeader('Authorization', 'token '  . $this->mtoken);
-        $http->setData($Data);
-        $http->setMethod($Method);
-        return $http->send($this->mApi . $Url);
+        $http->setData($data);
+        $http->setMethod($method);
+        return $http->send($this->mApi . $url);
     }
 
     /**
