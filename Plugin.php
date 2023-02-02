@@ -27,7 +27,6 @@ class Plugin implements PluginInterface
 {
     public static function personalConfig( Form $form )
     {
-    unset ($form);
     }
     public static function activate()
     {
