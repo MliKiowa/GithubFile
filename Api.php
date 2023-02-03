@@ -65,6 +65,7 @@ class Api
         $http = \Typecho\Http\Client::get();       
         $http->setHeader('User-Agent', 'GithubFile PluginApi2 ');
         $http->setHeader('Authorization', 'token '  . $this->mtoken);
+        $http->setTimeout(40);
         $http->setData($data);
         $http->setMethod($method);
         return $http->send($this->mApi . $url);
