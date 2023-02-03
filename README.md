@@ -11,7 +11,7 @@ Language:
 [![GitHub stars](https://img.shields.io/github/stars/MliKiowa/GithubFile?style=flat-square)](https://github.com/MliKiowa/GithubFile/stargazers)
 # 重构警告
 插件正在进行大规模重写 如果出现错误 请提出issue 以便维护
-
+Typecho怎么三天五头的更新 还是不向下兼容更新
 目前仍处于维护状态 如果你使用出现了问题请发生mail到nineto0@163.com 反馈
 # 介绍
 依托Github进行储存使用第三方代理服务提供图片访问的Typecho插件
@@ -25,6 +25,10 @@ Language:
 
 4.上传文件 查看相应github的库中是否提交文件 如果能够看见安装完成
 # 版本日志
+## Ver 1.3.9
+- [x] 兼容最新版Typecho
+
+- [x] 修复少量问题
 ## Ver 1.3.8
 - [x] 自定义上传路径
 ## Ver 1.3.4
