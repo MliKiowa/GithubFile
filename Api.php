@@ -68,7 +68,8 @@ class Api
         $http->setTimeout(40);
         $http->setData($data);
         $http->setMethod($method);
-        return $http->send($this->mApi . $url);
+        $http->send($this->mApi . $url);
+        return $http->getResponseBody();
     }
 
     /**
