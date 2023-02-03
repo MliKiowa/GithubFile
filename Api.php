@@ -202,11 +202,11 @@ class Api
      * @param string $Path
      * @return mixed
      */
-    public function getReposPath(string $Username, string $ReposName, string $Path): string
+    public function getReposPath(string $Username, string $ReposName, string $Path)
     {
-        var_dump(func_get_args());
+        //var_dump(func_get_args());
         $temp = self::SendApi('/repos/' . $Username . '/' . $ReposName . '/contents' . $Path);
-        var_dump($temp);
+        //var_dump($temp);
         return json_decode($temp);
     }
 }
