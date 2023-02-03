@@ -69,7 +69,7 @@ class Api
         $http->setData($data);
         $http->setMethod($method);
         $http->send($this->mApi . $url);
-        return $http->getResponseBody();
+        return (string)$http->getResponseBody();
     }
 
     /**
