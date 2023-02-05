@@ -14,35 +14,18 @@ use Typecho\Plugin\Exception as PluginException;
  *
  * @package GithubFile
  * @author Mlikiowa<nineto0@163.com>
- * @version 1.3.9
+ * @version 1.4.0
  * @license MIT License
  * @link https://github.com/MliKiowa/GithubFile
  */
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-defined('_CACHE_PATH') or define('_CACHE_PATH', dirname(__FILE__) . '/cache/');
-defined('_TMP_PATH') or define('_TMP_PATH', dirname(__FILE__) . '/cache/tmp/');
-defined('_LOG_PATH') or define('_LOG_PATH', dirname(__FILE__) . '/cache/log/');
-
 class Plugin implements PluginInterface
 {
-    public static function personalConfig( Form $form )
-    {
-    }
+    public static function personalConfig( Form $form ){}
     public static function activate()
-    {
-        /**
-         * 判断是否可用HTTP库 CURL库
-         * 此处说明，并非使用Typecho_Http_Client，由于并未提供PUT等操作弃用 使用从Typecho抽离修改的库提供支持
-         */
+    {       
         if (basename(dirname(__FILE__)) !== 'GithubFile') {
             throw new PluginException(_t('The plugin name must be GithubFile'));
-        }
-        //生成相关目录
-        if (!file_exists(_CACHE_PATH)) {
-            @mkdir(_CACHE_PATH);  
-            @mkdir(_TMP_PATH);
-            @mkdir(_LOG_PATH);
-        }
+        }        
         //挂接钩子
         Helper::addAction( 'GithubFile', 'GithubFile_Action' );
         //上传
