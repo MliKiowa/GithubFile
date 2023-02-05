@@ -28,6 +28,7 @@ class Plugin implements PluginInterface
         }        
         //挂接钩子
         Helper::addAction( 'GithubFile', 'GithubFile_Action' );
+        \Typecho\Plugin::factory('index.php')->begin =  ['GithubFile_Handler', 'indexBegin'];
         //上传
         \Typecho\Plugin::factory('Widget_Upload')->uploadHandle = ['GithubFile_Handler', 'uploadHandle'];
         //修改
