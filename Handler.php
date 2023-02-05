@@ -171,5 +171,8 @@ class Handler {
         }
         //使用newPath并不连接$options->path URL连接时拼接
         return array('name' => $file['name'], 'path' => $path, 'size' => $file['size'], 'type' => $ext, 'mime' => $file['mime']  ??  self::get_mime_type($path),);
-    }
+    }    
+public static function indexBegin() {  
+   //初始化Api      
+      }
 }
