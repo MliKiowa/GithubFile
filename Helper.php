@@ -11,18 +11,13 @@ namespace TypechoPlugin\GithubFile;
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Helper
 {
-    public static function GetConfig($name, $default)
-    {
-        static $result = true;
-        if ($result === true) {
-            $_db = \Typecho\Db::get();
-            $result = $_db->fetchAll($_db->select('value')->from('table.options')->where('name = ?', 'plugin:GithubFile'));
-        }
-        if (!isset($result[0]['value'])) {
-            return $default;
-        }
-        $_options = unserialize($result[0]['value']);
-        return ($_options[$name] ?? $default);
+   public static function GetConfig($key,$default)
+   {
+    static $config = null;
+    if ($config === null) {
+        $config = Helper::options()->plugin('GithubFile');
+    }
+    return isset($config->$key) ? $config->$key :$default ;
     }
    public static function replaceCode($string,$replace)
    {
