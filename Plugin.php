@@ -67,13 +67,17 @@ class Plugin implements PluginInterface
         return _t('Disabled~');
     }
 
-    public function configHandle($settings, $isInit)
+    public static function configHandle($config, $isInit)
     {
-      $settings = array_merge($this->getDefaultConfig(), $settings); // 合并配置信息
-      Helper::configPlugin('GithubFile', $settings); // 更新配置信息
-      $this->widget('Widget_Notice')->set(_t('设置已经保存'), 'success'); // 设置提示信息
-    }
-        Helper::configPlugin('GithubFile', $config);
+    // 获取插件配置
+    $pluginConfig = \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');
+    // 判断是否需要更新日志面板
+    if (!$isInit && $config['DebugLog'] != $pluginConfig->DebugLog) {
+        // 根据日志开关添加或移除面板
+        $config['DebugLog'] ? 
+            Helper::addPanel(1, 'GithubFile/LogList.php', '插件日志', '日志内容', 'administrator') :
+            Helper::removePanel(1, 'GithubFile/LogList.php');
+      }
     }
 
     public static function config(Form $form)
