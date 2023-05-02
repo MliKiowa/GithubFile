@@ -19,17 +19,13 @@ class Helper
     }
     return isset($config->$key) ? $config->$key :$default ;
     }
-   public static function replaceCode($string,$replace)
-   {
-       $regex = "/\[(.*?)\]/";
-       preg_match_all($regex, $string, $matches);
-       for($i = 0; $i < count($matches[1]); $i++)
-       {
-           $match = $matches[1][$i];
-           $newValue = $replace[$match];
-           $string = str_replace($matches[0][$i], $newValue, $string);
-       }
-       return $string;
-   }
-
+   public static function replaceCode($content, $array)
+{
+    extract($array); // 将数组中的键值对转换为变量和值
+    $keys = array_keys($array); // 获取数组中的键名
+    $keys = array_map(function ($key) {
+        return '[' . $key . ']'; // 给键名加上花括号
+    }, $keys);
+    return str_replace($keys, $array, $content); // 替换文本中的变量名
+}
 }
