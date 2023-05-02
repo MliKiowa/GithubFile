@@ -13,7 +13,7 @@ use Typecho\Plugin\Exception as PluginException;
  * Use GitHub Repos To Update Attachment
  *
  * @package GithubFile
- * @author Mlikiowa<nineto0@163.com>
+ * @author Mlikiowa,Bing
  * @version 1.3.9
  * @license MIT License
  * @link https://github.com/MliKiowa/GithubFile
@@ -67,17 +67,12 @@ class Plugin implements PluginInterface
         return _t('Disabled~');
     }
 
-    public static function configHandle($config, $isInit)
+    public function configHandle($settings, $isInit)
     {
-        if (!$isInit) {
-            if (($config['DebugLog']) !== (\Typecho\Widget::widget('Widget_Options')->plugin('GithubFile')->DebugLog)) {
-                if ($config['DebugLog']) {
-                    Helper::addPanel(1, 'GithubFile/LogList.php', '插件日志', '日志内容', 'administrator');
-                } else {
-                    Helper::removePanel(1, 'GithubFile/LogList.php');
-                }
-            }
-        }
+      $settings = array_merge($this->getDefaultConfig(), $settings); // 合并配置信息
+      Helper::configPlugin('GithubFile', $settings); // 更新配置信息
+      $this->widget('Widget_Notice')->set(_t('设置已经保存'), 'success'); // 设置提示信息
+    }
         Helper::configPlugin('GithubFile', $config);
     }
 
