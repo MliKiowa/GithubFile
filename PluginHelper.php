@@ -2,7 +2,7 @@
 namespace TypechoPlugin\GithubFile;
 
 /**
- * 插件辅助功能类 Helper
+ * 插件辅助功能类 PluginHelper
  *
  * @package GithubFile
  * @version 1.4.0
