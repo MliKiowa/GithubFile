@@ -10,7 +10,7 @@ namespace TypechoPlugin\GithubFile;
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
-class Helper
+class PluginHelper
 {
     /**
      * 获取指定键对应的配置值
