@@ -50,7 +50,7 @@ class Handler {
         $Api = new Api();
         $Api->setApi(Helper::GetConfig('Mirror', 'https://api.github.com'));
         $Api->SetUser(Helper::GetConfig('token', ''));
-        $codearr = array("file"=>$newPath,"cdn"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
+        $codearr = array("file"=>$newPath,"cdn"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo,"originname"=>$file["name"]);
         $realpath = Helper::replaceCode($options->RealPath,$codearr);  
         if (!$Api->uploadFiles($options->Username, $options->Repo, $realpath, $contents)) {
             $Api->updateFiles($options->Username, $options->Repo, $realpath, $contents, $Api->getSha($options->Username, $options->Repo, $realpath));
