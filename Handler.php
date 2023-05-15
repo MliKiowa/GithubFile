@@ -33,8 +33,7 @@ class Handler {
 
         if (!self::checkFileType($ext)) {
             return false;
-        }
-
+        }     
         $date = new Date();
         $path = Common::url(
             defined('__TYPECHO_UPLOAD_DIR__') ? __TYPECHO_UPLOAD_DIR__ : self::UPLOAD_DIR,
@@ -48,8 +47,7 @@ class Handler {
 
         //获取文件名
         //未来添加规则生成
-        //原始文件名 时间戳 等
-        PluginHelper::replace
+        //原始文件名 时间戳 等       
         $fileName = sprintf('%u', crc32(uniqid())) . '.' . $ext;
         $path = $path . '/' . $fileName;
 
@@ -76,7 +74,14 @@ class Handler {
         if (!self::$gapi->uploadFiles($options->Username, $options->Repo, $gpath, $contents)) {
             self::$gapi->updateFiles($options->Username, $options->Repo, $gpath, $contents, $Api->getSha($options->Username, $options->Repo, $gpath));
         }
-
+        PluginHelper::replaceCode(
+            PluginHelper::getConfig("FileRule",""),
+            array( "TimeStamp"=>sprintf("%010d", time()),           
+                   "FileMd5"=>md5_file($path),
+                   "FileOrginalName"=>$file["name"],
+                   "FileName"=>$fileName
+                 )
+                 );
         //随后删除本地文件
         //返回相对存储路径
         return [
