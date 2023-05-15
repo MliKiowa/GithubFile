@@ -88,8 +88,8 @@ class Handler {
         //随后删除本地文件
         $Username = PluginHelper::getConfig('Username', '');
       $   Repo = PluginHelper::getConfig('Repo', '');
-        if (!self::$gapi->uploadFiles($Username, $Repo, $gpath, $upfile)) {
-            self::$gapi->updateFiles($Username, $Repo, $gpath, $upfile, $Api->getSha($Username, $Repo, $gpath));
+        if (!self::$gapi->uploadFiles($Username, $Repo, $Gpath, $upfile)) {
+            self::$gapi->updateFiles($Username, $Repo, $Gpath, $upfile, $Api->getSha($Username, $Repo, $gpath));
         }
      
         //返回相对存储路径
