@@ -89,7 +89,7 @@ class Handler {
         $Username = PluginHelper::getConfig('Username', '');
         $Repo = PluginHelper::getConfig('Repo', '');
         if (!self::$gapi->uploadFiles($Username, $Repo, $Gpath, $upfile)) {
-            self::$gapi->updateFiles($Username, $Repo, $Gpath, $upfile, $Api->getSha($Username, $Repo, $gpath));
+            self::$gapi->updateFiles($Username, $Repo, $Gpath, $upfile, self::$gapi->getSha($Username, $Repo, $gpath));
         }
      
         //返回相对存储路径
@@ -112,8 +112,9 @@ class Handler {
     }
 
     public static function deleteHandle(array $content) {
-        $options = \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');
-        return $gapi->delFiles($options->Username, $options->Repo,substr ($content['attachment']->path, 1), $Api->getSha($options->Username, $options->Repo, $content['attachment']->path));
+        $Username = PluginHelper::getConfig('Username', '');
+        $Repo = PluginHelper::getConfig('Repo', '');   
+        return $gapi->delFiles($Username, $Repo,$content['attachment']->path, self::$gapi->getSha($Username, $Repo, $content['attachment']->path));
     }
 
     public static function attachmentHandle(array $content) {
@@ -171,7 +172,7 @@ class Handler {
         $Username = PluginHelper::getConfig('Username', '');
         $Repo = PluginHelper::getConfig('Repo', '');
        
-        if(!self::$gapi->updateFiles($Username, $Repo, $content['attachment']->path, $upfile, $Api->getSha($Username, $Repo, $gpath)))
+        if(!self::$gapi->updateFiles($Username, $Repo, $content['attachment']->path, $upfile, self::$gapi->getSha($Username, $Repo, $gpath)))
         {
         self::$gapi->uploadFiles($Username, $Repo, $content['attachment']->path, $upfile);
          }
@@ -210,7 +211,7 @@ class Handler {
           $url = PluginHelper::replaceCode(
             PluginHelper::getConfig("UrlRule",""),
             array(
-            "FilePath"=>content['attachment']->path,
+            "FilePath"=>$content['attachment']->path,
             "FileMirror"=>PluginHelper::getConfig("FileMirror","")
             ));
         return file_get_contents($url);
