@@ -118,13 +118,12 @@ class Handler {
 
     public static function attachmentHandle(array $content) {
         $options = \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');        
-        $codearr = array(
-            "file"=>substr ($content['attachment']->path, 1),
-            "cdn"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),
-            "user"=>$options->Username,
-            "repo"=>$options->Repo
-        );
-        $url = Helper::replaceCode($options->MirroPath,$codearr);
+        $url = PluginHelper::replaceCode(
+            PluginHelper::getConfig("UrlRule",""),
+            array(
+            "FilePath"=>content['attachment']->path,
+            "FileMirror"=>PluginHelper::getConfig("FileMirror","")
+            ));
         return $url;
     }
 
@@ -162,7 +161,20 @@ class Handler {
         if (!isset($file['size'])) {
             $file['size'] = filesize($path);
         }
-
+        if (file_exists($path)) {
+        // 读取文件内容，并进行 Base64 编码
+        $upfile = file_get_contents($path); 
+        // 删除文件
+        @unlink($path);
+        } else {return false;}
+        //随后删除本地文件
+        $Username = PluginHelper::getConfig('Username', '');
+        $Repo = PluginHelper::getConfig('Repo', '');
+       
+        if(!self::$gapi->updateFiles($Username, $Repo, $content['attachment']->path, $upfile, $Api->getSha($Username, $Repo, $gpath)))
+        {
+        self::$gapi->uploadFiles($Username, $Repo, $content['attachment']->path, $upfile);
+         }
         //返回相对存储路径
         return [
             'name' => $content['attachment']->name,
@@ -195,11 +207,12 @@ class Handler {
     
     public static function attachmentDataHandle(array $content): string
     {    
-        return file_get_contents(
-            Common::url(
-                $content['attachment']->path,
-                defined('__TYPECHO_UPLOAD_ROOT_DIR__') ? __TYPECHO_UPLOAD_ROOT_DIR__ : __TYPECHO_ROOT_DIR__
-            )
-        );
+          $url = PluginHelper::replaceCode(
+            PluginHelper::getConfig("UrlRule",""),
+            array(
+            "FilePath"=>content['attachment']->path,
+            "FileMirror"=>PluginHelper::getConfig("FileMirror","")
+            ));
+        return file_get_contents($url);
     }
 }
