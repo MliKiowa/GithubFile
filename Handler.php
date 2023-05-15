@@ -11,8 +11,8 @@ class Handler {
         static $initialized = false;
         if (!$initialized) {
             self::$gapi = Api::getInstance(); // 获取单例实例
-            self::$gapi->setApi(PluginHelper::GetConfig('ApiMirror', ''));
-            self::$gapi->setToken(PluginHelper::GetConfig('ApiMirror', ''));
+            self::$gapi->setApi(PluginHelper::getConfig('ApiMirror', ''));
+            self::$gapi->setToken(PluginHelper::getConfig('ApiMirror', ''));
             $initialized = true;
         }
 
@@ -70,19 +70,28 @@ class Handler {
         }
      
         $mime = Common::mimeContentType($path);
-
-        if (!self::$gapi->uploadFiles($options->Username, $options->Repo, $gpath, $contents)) {
-            self::$gapi->updateFiles($options->Username, $options->Repo, $gpath, $contents, $Api->getSha($options->Username, $options->Repo, $gpath));
-        }
-        PluginHelper::replaceCode(
+        $Gpath = PluginHelper::replaceCode(
             PluginHelper::getConfig("FileRule",""),
             array( "TimeStamp"=>sprintf("%010d", time()),           
                    "FileMd5"=>md5_file($path),
                    "FileOrginalName"=>$file["name"],
+                   "ext"=>$ext,
                    "FileName"=>$fileName
                  )
                  );
+        if (file_exists($path)) {
+        // 读取文件内容，并进行 Base64 编码
+        $upfile = file_get_contents($path); 
+        // 删除文件
+        @unlink($path);
+        } else {return false;}
         //随后删除本地文件
+        $Username = PluginHelper::getConfig('Username', '');
+      $   Repo = PluginHelper::getConfig('Repo', '');
+        if (!self::$gapi->uploadFiles($Username, $Repo, $gpath, $upfile)) {
+            self::$gapi->updateFiles($Username, $Repo, $gpath, $upfile, $Api->getSha($Username, $Repo, $gpath));
+        }
+     
         //返回相对存储路径
         return [
             'name' => $file['name'],
