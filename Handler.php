@@ -87,7 +87,7 @@ class Handler {
         } else {return false;}
         //随后删除本地文件
         $Username = PluginHelper::getConfig('Username', '');
-      $   Repo = PluginHelper::getConfig('Repo', '');
+        $Repo = PluginHelper::getConfig('Repo', '');
         if (!self::$gapi->uploadFiles($Username, $Repo, $Gpath, $upfile)) {
             self::$gapi->updateFiles($Username, $Repo, $Gpath, $upfile, $Api->getSha($Username, $Repo, $gpath));
         }
@@ -95,8 +95,7 @@ class Handler {
         //返回相对存储路径
         return [
             'name' => $file['name'],
-            'path' => (defined('__TYPECHO_UPLOAD_DIR__') ? __TYPECHO_UPLOAD_DIR__ : self::UPLOAD_DIR)
-                . '/' . $date->year . '/' . $date->month . '/' . $fileName,
+            'path' => $Gpath,
             'size' => $file['size'],
             'type' => $ext,
             'mime' => $mime
