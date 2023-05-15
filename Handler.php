@@ -10,6 +10,22 @@ namespace TypechoPlugin\GithubFile;
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 class Handler {
+    public $gapi; 
+    public static function __callStatic($method, $args) 
+    {
+        static $initialized = false;
+        if (!$initialized) {
+            $gapi = Api::getInstance(); //获取单例实例
+            $gapi->setApi(PluginHelper::GetConfig('ApiMirror', '');
+            $gapi->setToken(PluginHelper::GetConfig('ApiMirror', '');
+            $initialized = true;
+        }
+        // 在执行任何静态方法之前执行这里的代码   
+        // 执行我们要调用的静态方法
+        if (method_exists(__CLASS__, $method)) {
+            call_user_func_array([__CLASS__, $method], $args);
+        }
+    }
     /**
      * Notes:
      * User: Mlikiowa<nineto0@163.com>
@@ -47,9 +63,6 @@ class Handler {
         if (!isset($file['size'])) {
             $file['size'] = filesize($file['tmp_name']);
         }
-        $Api = new Api();
-        $Api->setApi(Helper::GetConfig('Mirror', 'https://api.github.com'));
-        $Api->SetUser(Helper::GetConfig('token', ''));
         $codearr = array("file"=>$newPath,"cdn"=> Helper::GetConfig('Cdn', 'https://fastly.jsdelivr.net/gh/'),"user"=>$options->Username,"repo"=>$options->Repo);
         $realpath = Helper::replaceCode($options->RealPath,$codearr);  
         if (!$Api->uploadFiles($options->Username, $options->Repo, $realpath, $contents)) {
