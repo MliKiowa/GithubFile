@@ -100,9 +100,9 @@ class Plugin implements PluginInterface
         $t = new Text('FileMirror', null, 'https://cdn.zenless.top/gh', _t('File_Mirror'), _t('文件加速镜像地址 结尾不能带有/'));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
         //短代码目录生成
-        $t = new Text('UrlRule', null, '[cdn]/[user]/[repo]/[file]', _t('文件链接生成规则'), _t('生成的链接规则 提示: 可选[user][repo][file][cdn]'));
+        $t = new Text('UrlRule', null, '[FileMirror]/[user]/[repo]/[file]', _t('文件链接生成规则'), _t('生成的链接规则 '));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
-        $t = new Text('FileRule', null, '/[file]', _t('文件地址生成规则'), _t('上传到github时的目录规则 设置可为/你的目录/[file] 必须包括/[file]'));
+        $t = new Text('FileRule', null, '/[FileName]', _t('文件地址生成规则'), _t('上传到github时的目录规则 可选'));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
         //图片压缩设置 未实装
         $t = new Radio('ImgCompress', array(true => '开启', false => '关闭'), false, _t('图片压缩'), _t('未实装 敬请期待'));
