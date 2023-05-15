@@ -68,13 +68,16 @@ class Handler {
         if (!isset($file['size'])) {
             $file['size'] = filesize($path);
         }
-     
+        $Username = PluginHelper::getConfig('Username', '');
+        $Repo = PluginHelper::getConfig('Repo', '');
         $mime = Common::mimeContentType($path);
         $Gpath = PluginHelper::replaceCode(
             PluginHelper::getConfig("FileRule",""),
             array( "TimeStamp"=>sprintf("%010d", time()),           
                    "FileMd5"=>md5_file($path),
                    "FileOrginalName"=>$file["name"],
+                   "RepoName"=>$Repo,
+                   "UserName"=>$Username,
                    "ext"=>$ext,
                    "FileName"=>$fileName
                  )
@@ -86,9 +89,7 @@ class Handler {
         @unlink($path);
         } else {return false;}
         //随后删除本地文件
-        $Username = PluginHelper::getConfig('Username', '');
-        $Repo = PluginHelper::getConfig('Repo', '');
-        if (!self::$gapi->uploadFiles($Username, $Repo, $Gpath, $upfile)) {
+         if (!self::$gapi->uploadFiles($Username, $Repo, $Gpath, $upfile)) {
             self::$gapi->updateFiles($Username, $Repo, $Gpath, $upfile, self::$gapi->getSha($Username, $Repo, $gpath));
         }
      
@@ -118,10 +119,13 @@ class Handler {
     }
 
     public static function attachmentHandle(array $content) {
-        $options = \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');        
-        $url = PluginHelper::replaceCode(
-            PluginHelper::getConfig("UrlRule",""),
-            array(
+        $options = \Typecho\Widget::widget('Widget_Options')->plugin('GithubFile');              
+        $Username = PluginHelper::getConfig('Username', '');
+        $Repo = PluginHelper::getConfig('Repo', '');
+        $url = PluginHelper::replaceCode(PluginHelper::getConfig("UrlRule",""),
+           array(
+            "RepoName"=>$Repo,
+            "UserName"=>$Username,            
             "FilePath"=>content['attachment']->path,
             "FileMirror"=>PluginHelper::getConfig("FileMirror","")
             ));
@@ -208,9 +212,13 @@ class Handler {
     
     public static function attachmentDataHandle(array $content): string
     {    
+         $Username = PluginHelper::getConfig('Username', '');
+         $Repo = PluginHelper::getConfig('Repo', '');        
           $url = PluginHelper::replaceCode(
             PluginHelper::getConfig("UrlRule",""),
             array(
+            "RepoName"=>$Repo,
+            "UserName"=>$Username,         
             "FilePath"=>$content['attachment']->path,
             "FileMirror"=>PluginHelper::getConfig("FileMirror","")
             ));
