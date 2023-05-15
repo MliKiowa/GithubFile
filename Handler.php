@@ -171,7 +171,7 @@ class Handler {
         if ($last == $current) {
             return true;
         }
-。       if (!@mkdir($last, 0755)) {
+        if (!@mkdir($last, 0755)) {
             return false;
         }
 
