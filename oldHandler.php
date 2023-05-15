@@ -9,7 +9,7 @@ class Handler {
         if (!$initialized) {
             $gapi = Api::getInstance(); //获取单例实例
             $gapi->setApi(PluginHelper::GetConfig('ApiMirror', ''));
-            $gapi->setToken(PluginHelper::GetConfig('ApiMirror', '');
+            $gapi->setToken(PluginHelper::GetConfig('ApiMirror', ''));
             $initialized = true;
         }
         // 在执行任何静态方法之前执行这里的代码   
