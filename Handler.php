@@ -38,7 +38,7 @@ class Handler {
         $path = Common::url(
             defined('__TYPECHO_UPLOAD_DIR__') ? __TYPECHO_UPLOAD_DIR__ : self::UPLOAD_DIR,
             defined('__TYPECHO_UPLOAD_ROOT_DIR__') ? __TYPECHO_UPLOAD_ROOT_DIR__ : __TYPECHO_ROOT_DIR__
-        ) . '/' . $date->year . '/' . $date->month;
+        ) ;
 
         //创建上传目录
         if (!is_dir($path) && !self::makeUploadDir($path)) { // 合理使用参数默认值和三目运算符
