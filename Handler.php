@@ -157,7 +157,27 @@ class Handler {
             'mime' => $content['attachment']->mime
         ];
     }
+     private static function makeUploadDir(string $path): bool
+    {
+        $path = preg_replace("/\\\+/", '/', $path);
+        $current = rtrim($path, '/');
+        $last = $current;
 
+        while (!is_dir($current) && false !== strpos($path, '/')) {
+            $last = $current;
+            $current = dirname($current);
+        }
+
+        if ($last == $current) {
+            return true;
+        }
+。       if (!@mkdir($last, 0755)) {
+            return false;
+        }
+
+        return self::makeUploadDir($path);
+    }
+    
     public static function attachmentDataHandle(array $content): string
     {    
         return file_get_contents(
