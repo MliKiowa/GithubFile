@@ -48,6 +48,8 @@ class Handler {
 
         //获取文件名
         //未来添加规则生成
+        //原始文件名 时间戳 等
+        PluginHelper::replace
         $fileName = sprintf('%u', crc32(uniqid())) . '.' . $ext;
         $path = $path . '/' . $fileName;
 
