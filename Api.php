@@ -34,7 +34,7 @@ class Api
      * 设置token信息
      * @param string $token
      */
-    public function setUser(string $token): void {
+    public function setToken(string $token): void {
         $this->mtoken = $token;
     }
 
