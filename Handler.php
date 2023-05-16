@@ -75,7 +75,7 @@ class Handler {
             PluginHelper::getConfig("FileRule",""),
             array( "TimeStamp"=>sprintf("%010d", time()),           
                    "FileMd5"=>md5_file($path),
-                   "FileOrginalName"=>$file["name"],
+                   "FileOriginalName"=>$file["name"],
                    "RepoName"=>$Repo,
                    "UserName"=>$Username,
                    "ext"=>$ext,
