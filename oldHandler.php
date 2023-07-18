@@ -172,11 +172,6 @@ public static function uploadHandle(array $file)
     }
          public static function attachmentDataHandle(array $content): string
     {
-        $result = Plugin::factory(Upload::class)->trigger($hasPlugged)->attachmentDataHandle($content);
-        if ($hasPlugged) {
-            return $result;
-        }
-
         return file_get_contents(
             Common::url(
                 $content['attachment']->path,
