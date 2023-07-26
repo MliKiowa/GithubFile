@@ -9,12 +9,11 @@ Language:
 [![GitHub issues](https://img.shields.io/github/issues/MliKiowa/GithubFile?style=flat-square)](https://github.com/MliKiowa/GithubFile/issues)
 [![GitHub forks](https://img.shields.io/github/forks/MliKiowa/GithubFile?style=flat-square)](https://github.com/MliKiowa/GithubFile/network)
 [![GitHub stars](https://img.shields.io/github/stars/MliKiowa/GithubFile?style=flat-square)](https://github.com/MliKiowa/GithubFile/stargazers)
-# 重构警告
-插件正在进行大规模重写 如果出现错误 请提出issue 以便维护
-Typecho怎么三天五头的更新 还是不向下兼容更新
-目前仍处于维护状态 如果你使用出现了问题请发生mail到nineto0@163.com 反馈
+# 警告
+
+Hi I am Mlikiowa,this project is about to be unmanned for maintenance.So you can contact me by mail <nanaeonn@outlook.com>
 # 介绍
-依托Github进行储存使用第三方代理服务提供图片访问的Typecho插件
+利用Github进行储存使用第三方代理服务提供图片访问的Typecho插件
 
 # 使用方法
 1.下载插件 在 Typecho/usr/plugin 目录解压
