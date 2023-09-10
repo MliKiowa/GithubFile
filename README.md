@@ -10,6 +10,7 @@ Language:
 [![GitHub forks](https://img.shields.io/github/forks/MliKiowa/GithubFile?style=flat-square)](https://github.com/MliKiowa/GithubFile/network)
 [![GitHub stars](https://img.shields.io/github/stars/MliKiowa/GithubFile?style=flat-square)](https://github.com/MliKiowa/GithubFile/stargazers)
 # 警告
+该项目失修 可能不再维护 如果确实需要可以联系mail <nanaeonn@outlook.com>
 
 Hi I am Mlikiowa,this project is about to be unmanned for maintenance.So you can contact me by mail <nanaeonn@outlook.com>
 # 介绍
