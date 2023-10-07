@@ -30,6 +30,13 @@ Hi I am Mlikiowa,this project is about to be unmanned for maintenance.So you can
 ## 插件提示
 1. 插件推荐仅修改镜像代理和用户token与用户名 其它的改的时候需要极度注意。
 # 版本日志
+## Ver 1.4.0
+- [x] 整体性能与稳定性优化
+- [x] 代码可读性优化和注释加入
+- [ ] 支持文件图片压缩功能
+- [ ] 优化多图上传丢失问题
+- [ ] 调试系统重新设计
+- [ ] 更新功能全新上线
 ## Ver 1.3.9
 - [x] 兼容最新版Typecho
 

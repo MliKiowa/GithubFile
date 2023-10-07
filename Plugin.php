@@ -14,7 +14,7 @@ use Typecho\Plugin\Exception as PluginException;
  *
  * @package GithubFile
  * @author Mlikiowa<nineto0@163.com>
- * @version 1.3.9
+ * @version 1.4.0
  * @license MIT License
  * @link https://github.com/MliKiowa/GithubFile
  */
@@ -86,7 +86,7 @@ class Plugin implements PluginInterface
         //账号储存
         $t = new Text('Username', null, null, _t('Username'), _t(''));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
-        $t = new Text('token', null, null, _t('token'), _t(''));
+        $t = new Text('Token', null, null, _t('token'), _t(''));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));     
         //储存路径设置
         $t = new Text('Repo',null, null, _t('仓库名'), _t(''));
@@ -95,14 +95,14 @@ class Plugin implements PluginInterface
         $t = new Radio('DebugLog', array(true => '开启', false => '关闭'), false, _t('调试设置'), _t('启用后记录调试日志'));
         $form->addInput($t);
         //镜像设置
-        $t = new Text('Mirror', null, 'https://api.github.com', _t('API_Mirror'), _t('加速API提供Mirror'));
+        $t = new Text('ApiMirror', null, 'https://api.github.com', _t('API_Mirror'), _t('使用Github API镜像'));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
-        $t = new Text('Cdn', null, 'https://cdn.zenless.top/gh', _t('File_Mirror'), _t('加速提供文件 结尾不能带有/'));
+        $t = new Text('FileMirror', null, 'https://cdn.zenless.top/gh', _t('File_Mirror'), _t('文件加速镜像地址 结尾不能带有/'));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
         //短代码目录生成
-        $t = new Text('MirroPath', null, '[cdn]/[user]/[repo]/[file]', _t('镜像加速目录规则'), _t('生成的链接设置 提示: 可选[user][repo][file][cdn]'));
+        $t = new Text('UrlRule', null, '[FileMirror]/[user]/[repo]/[file]', _t('文件链接生成规则'), _t('生成的链接规则 '));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
-        $t = new Text('RealPath', null, '/[file]', _t('实际上传目录规则'), _t('上传到github时的目录设置 设置可为/你的目录/[file] 必须包括/[file]'));
+        $t = new Text('FileRule', null, '/[FileName]', _t('文件地址生成规则'), _t('上传到github时的目录规则 可选'));
         $form->addInput($t->addRule('required', _t('不能为空哦~')));
         //图片压缩设置 未实装
         $t = new Radio('ImgCompress', array(true => '开启', false => '关闭'), false, _t('图片压缩'), _t('未实装 敬请期待'));
